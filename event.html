@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elimination Chamber (EC2026)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container" data-event-id="EC2026">
+    <header class="event-header" data-event-name="Elimination Chamber">
+      <img class="event-logo" src="assets/logos/EC2026.png" alt="Elimination Chamber logo">
+      <div class="event-time"><strong>Start Time:</strong> 7:00pm EST</div>
+      <div class="event-meta">
+        <div><strong>Date:</strong> Saturday, February 28th, 2026</div>
+        <div><strong>Country:</strong> USA</div>
+        <div><strong>Location:</strong> Chicago, IL</div>
+        <div><strong>Venue:</strong> United Center</div>
+      </div>
+    </header>
+
+    <section class="controls" aria-label="Event tools">
+      <input
+        id="player-name"
+        class="player-input"
+        type="text"
+        placeholder="Player Name"
+        autocomplete="name"
+      >
+      <input
+        id="wrestler-search"
+        class="search-input"
+        type="search"
+        placeholder="Search wrestlers..."
+        autocomplete="off"
+      >
+    </section>
+
+    <section class="summary-panel" aria-live="polite">
+      <h3 class="summary-title">Your Picks Summary</h3>
+      <div class="summary-grid">
+        <div class="summary-col">
+          <div class="summary-row"><strong>Total Points Available:</strong> <span id="total-available">100</span></div>
+          <div class="summary-row"><strong>Total Wagered:</strong> <span id="total-wagered">0.0</span></div>
+          <div class="summary-row"><strong>Remaining Points:</strong> <span id="remaining-points">100.0</span></div>
+          <div class="summary-row"><strong>Matches Not Wagered On:</strong> <span id="matches-not-wagered">0</span></div>
+        </div>
+        <div class="summary-col">
+          <div class="summary-row"><strong>Avg Wager Remaining:</strong> <span id="avg-wager-remaining">N/A</span></div>
+          <div class="summary-row"><strong>Total Potential Profit:</strong> <span id="total-profit">0.0</span></div>
+          <div class="summary-row"><strong>Total Potential Return:</strong> <span id="total-return">0.0</span></div>
+        </div>
+      </div>
+      <div id="validation-message" class="validation-message" hidden></div>
+      <div id="bankroll-warning" class="bankroll-warning" hidden>Over limit: total wager exceeds 100 point bankroll.</div>
+    </section>
+
+    <section class="match-controls" aria-label="Match controls">
+      <button id="expand-all" class="copy-btn btn-secondary" type="button">Expand all</button>
+      <button id="collapse-all" class="copy-btn btn-secondary" type="button">Collapse all</button>
+    </section>
+
+    <section class="matches">
+      
+            <section class="match-card">
+                <button class="match-toggle" type="button" aria-expanded="true">
+                    <h2>Women&#x27;s Intercontinental Championship</h2>
+                    <span class="toggle-icon" aria-hidden="true">▾</span>
+                </button>
+                <div class="match-body">
+                    
+                <div class=" wrestler champion" data-match="Women&#x27;s Intercontinental Championship" data-odds="-200">
+                    <div class="wrestler-main">
+                        <span class="name">Becky Lynch<img class="belt-icon" src="assets/belts/womens_ic.png" alt="Women&#x27;s Intercontinental Championship belt"></span>
+                    </div>
+                    <div class="odds">Odds: -200</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="0">
+                    </div>
+                </div>
+                
+                <div class=" wrestler" data-match="Women&#x27;s Intercontinental Championship" data-odds="150">
+                    <div class="wrestler-main">
+                        <span class="name">AJ Lee</span>
+                    </div>
+                    <div class="odds">Odds: +150</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="0">
+                    </div>
+                </div>
+                
+                </div>
+            </section>
+            
+            <section class="match-card">
+                <button class="match-toggle" type="button" aria-expanded="true">
+                    <h2>World Heavyweight Championship</h2>
+                    <span class="toggle-icon" aria-hidden="true">▾</span>
+                </button>
+                <div class="match-body">
+                    
+                <div class=" wrestler champion" data-match="World Heavyweight Championship" data-odds="-500">
+                    <div class="wrestler-main">
+                        <span class="name">CM Punk<img class="belt-icon" src="assets/belts/world_heavyweight.png" alt="World Heavyweight Championship belt"></span>
+                    </div>
+                    <div class="odds">Odds: -500</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="0">
+                    </div>
+                </div>
+                
+                <div class=" wrestler" data-match="World Heavyweight Championship" data-odds="400">
+                    <div class="wrestler-main">
+                        <span class="name">Finn Balor</span>
+                    </div>
+                    <div class="odds">Odds: +400</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="0">
+                    </div>
+                </div>
+                
+                </div>
+            </section>
+            
+            <section class="match-card">
+                <button class="match-toggle" type="button" aria-expanded="true">
+                    <h2>Men&#x27;s Elimination Chamber</h2>
+                    <span class="toggle-icon" aria-hidden="true">▾</span>
+                </button>
+                <div class="match-body">
+                    
+                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="">
+                    <div class="wrestler-main">
+                        <span class="name">Cody Rhodes</span>
+                    </div>
+                    <div class="odds">Odds: TBD</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="TBD" disabled>
+                    </div>
+                </div>
+                
+                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="">
+                    <div class="wrestler-main">
+                        <span class="name">LA Knight</span>
+                    </div>
+                    <div class="odds">Odds: TBD</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="TBD" disabled>
+                    </div>
+                </div>
+                
+                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="">
+                    <div class="wrestler-main">
+                        <span class="name">Randy Orton</span>
+                    </div>
+                    <div class="odds">Odds: TBD</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="TBD" disabled>
+                    </div>
+                </div>
+                
+                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="">
+                    <div class="wrestler-main">
+                        <span class="name">TBD</span>
+                    </div>
+                    <div class="odds">Odds: TBD</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="TBD" disabled>
+                    </div>
+                </div>
+                
+                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="">
+                    <div class="wrestler-main">
+                        <span class="name">TBD</span>
+                    </div>
+                    <div class="odds">Odds: TBD</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="TBD" disabled>
+                    </div>
+                </div>
+                
+                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="">
+                    <div class="wrestler-main">
+                        <span class="name">TBD</span>
+                    </div>
+                    <div class="odds">Odds: TBD</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="TBD" disabled>
+                    </div>
+                </div>
+                
+                </div>
+            </section>
+            
+            <section class="match-card">
+                <button class="match-toggle" type="button" aria-expanded="true">
+                    <h2>Women&#x27;s Elimination Chamber</h2>
+                    <span class="toggle-icon" aria-hidden="true">▾</span>
+                </button>
+                <div class="match-body">
+                    
+                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="">
+                    <div class="wrestler-main">
+                        <span class="name">Alexa Bliss</span>
+                    </div>
+                    <div class="odds">Odds: TBD</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="TBD" disabled>
+                    </div>
+                </div>
+                
+                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="">
+                    <div class="wrestler-main">
+                        <span class="name">Tiffany Stratton</span>
+                    </div>
+                    <div class="odds">Odds: TBD</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="TBD" disabled>
+                    </div>
+                </div>
+                
+                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="">
+                    <div class="wrestler-main">
+                        <span class="name">Rhea Ripley</span>
+                    </div>
+                    <div class="odds">Odds: TBD</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="TBD" disabled>
+                    </div>
+                </div>
+                
+                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="">
+                    <div class="wrestler-main">
+                        <span class="name">TBD</span>
+                    </div>
+                    <div class="odds">Odds: TBD</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="TBD" disabled>
+                    </div>
+                </div>
+                
+                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="">
+                    <div class="wrestler-main">
+                        <span class="name">TBD</span>
+                    </div>
+                    <div class="odds">Odds: TBD</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="TBD" disabled>
+                    </div>
+                </div>
+                
+                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="">
+                    <div class="wrestler-main">
+                        <span class="name">TBD</span>
+                    </div>
+                    <div class="odds">Odds: TBD</div>
+                    <div class="wager-row">
+                        <label class="wager-label">Wager (pts)</label>
+                        <input class="wager-input" type="number" min="0" step="1" value="0" placeholder="TBD" disabled>
+                    </div>
+                </div>
+                
+                </div>
+            </section>
+            
+    </section>
+
+    <section class="bottom-actions" aria-label="Submission actions">
+      <div class="commit-meta">Total Wagered: <strong><span id="commit-total-wagered">0.0</span> / <span id="commit-bankroll">100</span></strong></div>
+      <button id="submit-picks" class="copy-btn btn-primary" type="button">Submit Picks</button>
+      <button id="download-picks" class="copy-btn btn-secondary" type="button" hidden>Download Picks</button>
+      <button id="copy-picks-summary" class="copy-btn btn-secondary" type="button" hidden>Copy Picks Summary</button>
+      <div id="submit-feedback" class="submit-feedback" hidden></div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
