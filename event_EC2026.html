@@ -19,6 +19,11 @@
       </div>
     </header>
 
+    <nav class="page-nav" aria-label="Page navigation">
+      <a class="copy-btn btn-primary" href="event_EC2026.html">Make Picks</a>
+      <a class="copy-btn btn-secondary" href="live_EC2026.html">Live Tracker</a>
+    </nav>
+
     <section class="controls" aria-label="Event tools">
       <input
         id="player-name"
@@ -55,6 +60,22 @@
       <div id="bankroll-warning" class="bankroll-warning" hidden>Over limit: total wager exceeds 100 point bankroll.</div>
     </section>
 
+    <section class="summary-panel results-panel" aria-live="polite">
+      <h3 class="summary-title">Results Summary</h3>
+      <div class="summary-grid">
+        <div class="summary-col">
+          <div class="summary-row"><strong>Net Profit/Loss:</strong> <span id="results-net">0.0</span></div>
+          <div class="summary-row"><strong>Wins:</strong> <span id="results-wins">0</span></div>
+        </div>
+        <div class="summary-col">
+          <div class="summary-row"><strong>Losses:</strong> <span id="results-losses">0</span></div>
+          <div class="summary-row"><strong>Pending:</strong> <span id="results-pending">0</span></div>
+        </div>
+      </div>
+      <div id="results-admin-warning" class="validation-message" hidden></div>
+      <div id="admin-note" class="validation-message" hidden>Update results by editing the CSV Result column (W/L) and regenerating the page.</div>
+    </section>
+
     <section class="match-controls" aria-label="Match controls">
       <button id="expand-all" class="copy-btn btn-secondary" type="button">Expand all</button>
       <button id="collapse-all" class="copy-btn btn-secondary" type="button">Collapse all</button>
@@ -69,7 +90,7 @@
                 </button>
                 <div class="match-body">
                     
-                <div class=" wrestler champion" data-match="Women&#x27;s Intercontinental Championship" data-odds="-200">
+                <div class=" wrestler champion" data-match="Women&#x27;s Intercontinental Championship" data-odds="-200" data-result="">
                     <div class="wrestler-main">
                         <span class="name">Becky Lynch<img class="belt-icon" src="assets/belts/womens_ic.png" alt="Women&#x27;s Intercontinental Championship belt"></span>
                     </div>
@@ -80,7 +101,7 @@
                     </div>
                 </div>
                 
-                <div class=" wrestler" data-match="Women&#x27;s Intercontinental Championship" data-odds="150">
+                <div class=" wrestler" data-match="Women&#x27;s Intercontinental Championship" data-odds="150" data-result="">
                     <div class="wrestler-main">
                         <span class="name">AJ Lee</span>
                     </div>
@@ -101,7 +122,7 @@
                 </button>
                 <div class="match-body">
                     
-                <div class=" wrestler champion" data-match="World Heavyweight Championship" data-odds="-500">
+                <div class=" wrestler champion" data-match="World Heavyweight Championship" data-odds="-500" data-result="">
                     <div class="wrestler-main">
                         <span class="name">CM Punk<img class="belt-icon" src="assets/belts/world_heavyweight.png" alt="World Heavyweight Championship belt"></span>
                     </div>
@@ -112,7 +133,7 @@
                     </div>
                 </div>
                 
-                <div class=" wrestler" data-match="World Heavyweight Championship" data-odds="400">
+                <div class=" wrestler" data-match="World Heavyweight Championship" data-odds="400" data-result="">
                     <div class="wrestler-main">
                         <span class="name">Finn Balor</span>
                     </div>
@@ -133,7 +154,7 @@
                 </button>
                 <div class="match-body">
                     
-                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="-150">
+                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="-150" data-result="">
                     <div class="wrestler-main">
                         <span class="name">Cody Rhodes</span>
                     </div>
@@ -144,7 +165,7 @@
                     </div>
                 </div>
                 
-                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="500">
+                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="500" data-result="">
                     <div class="wrestler-main">
                         <span class="name">LA Knight</span>
                     </div>
@@ -155,7 +176,7 @@
                     </div>
                 </div>
                 
-                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="250">
+                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="250" data-result="">
                     <div class="wrestler-main">
                         <span class="name">Randy Orton</span>
                     </div>
@@ -166,7 +187,7 @@
                     </div>
                 </div>
                 
-                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="800">
+                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="800" data-result="">
                     <div class="wrestler-main">
                         <span class="name">Trick Williams</span>
                     </div>
@@ -177,7 +198,7 @@
                     </div>
                 </div>
                 
-                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="">
+                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="" data-result="">
                     <div class="wrestler-main">
                         <span class="name">TBD</span>
                     </div>
@@ -188,7 +209,7 @@
                     </div>
                 </div>
                 
-                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="">
+                <div class=" wrestler" data-match="Men&#x27;s Elimination Chamber" data-odds="" data-result="">
                     <div class="wrestler-main">
                         <span class="name">TBD</span>
                     </div>
@@ -209,7 +230,7 @@
                 </button>
                 <div class="match-body">
                     
-                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="400">
+                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="400" data-result="">
                     <div class="wrestler-main">
                         <span class="name">Alexa Bliss</span>
                     </div>
@@ -220,7 +241,7 @@
                     </div>
                 </div>
                 
-                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="150">
+                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="150" data-result="">
                     <div class="wrestler-main">
                         <span class="name">Tiffany Stratton</span>
                     </div>
@@ -231,7 +252,7 @@
                     </div>
                 </div>
                 
-                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="-200">
+                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="-200" data-result="">
                     <div class="wrestler-main">
                         <span class="name">Rhea Ripley</span>
                     </div>
@@ -242,7 +263,7 @@
                     </div>
                 </div>
                 
-                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="300">
+                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="300" data-result="">
                     <div class="wrestler-main">
                         <span class="name">Kiana James</span>
                     </div>
@@ -253,7 +274,7 @@
                     </div>
                 </div>
                 
-                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="">
+                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="" data-result="">
                     <div class="wrestler-main">
                         <span class="name">TBD</span>
                     </div>
@@ -264,7 +285,7 @@
                     </div>
                 </div>
                 
-                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="">
+                <div class=" wrestler" data-match="Women&#x27;s Elimination Chamber" data-odds="" data-result="">
                     <div class="wrestler-main">
                         <span class="name">TBD</span>
                     </div>
@@ -289,7 +310,7 @@
     </section>
 
     <footer class="site-footer">
-      Last updated: February 22, 2026 22:04 UTC
+      Last updated: February 24, 2026 01:26 UTC
     </footer>
   </main>
   <script src="app.js" defer></script>

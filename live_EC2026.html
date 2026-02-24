@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elimination Chamber Live Tracker (EC2026)</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .scoreboard-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .score-card {
+      background: #ffffff;
+      border: 1px solid #cfe4f1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      position: relative;
+    }
+    .score-card.leader {
+      border-color: #9ec9df;
+      box-shadow: 0 0 0 1px rgba(65, 182, 230, 0.2);
+      background: #f6fbff;
+    }
+    .leader-badge {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #24516d;
+      border: 1px solid #c8e2f1;
+      background: #eef8ff;
+      border-radius: 999px;
+      padding: 2px 7px;
+    }
+    .score-player {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .score-main {
+      text-align: center;
+      font-size: 2rem;
+      line-height: 1;
+      font-weight: 800;
+      margin: 4px 0 8px;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+    .score-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+    .score-meta strong {
+      display: block;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-top: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+    .picks-mock {
+      margin-top: 10px;
+      border-top: 1px solid #deedf7;
+      padding-top: 8px;
+    }
+    .picks-title {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .picks-grid {
+      display: grid;
+      grid-template-columns: 80px 1fr 86px 80px;
+      gap: 6px 10px;
+      align-items: center;
+      font-size: 0.82rem;
+    }
+    .picks-head {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .picks-player {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .line-stack {
+      display: grid;
+      gap: 3px;
+    }
+    .line-item {
+      line-height: 1.2;
+    }
+    .line-item.wager-line {
+      font-variant-numeric: tabular-nums;
+    }
+    .picks-status {
+      color: #5b6d7f;
+      font-weight: 600;
+    }
+    .picks-status.win::before {
+      content: "✓ ";
+      color: #24516d;
+    }
+    .picks-status.loss::before {
+      content: "• ";
+      color: #7a8796;
+    }
+    @media (min-width: 768px) {
+      .scoreboard-row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="event-header" data-event-name="Elimination Chamber">
+      <img class="event-logo" src="assets/logos/EC2026.png" alt="Elimination Chamber logo">
+      <div class="event-time"><strong>Start Time:</strong> 7:00pm EST</div>
+      <div class="event-meta">
+        <div><strong>Date:</strong> Saturday, February 28th, 2026</div>
+        <div><strong>Country:</strong> USA</div>
+        <div><strong>Location:</strong> Chicago, IL</div>
+        <div><strong>Venue:</strong> United Center</div>
+      </div>
+      <div class="live-status-line"><strong>Status:</strong> Pending | <strong>Matches completed:</strong> 0 / 4</div>
+    </header>
+
+    <nav class="page-nav" aria-label="Page navigation">
+      <a class="copy-btn btn-secondary" href="event_EC2026.html">Make Picks</a>
+      <a class="copy-btn btn-primary" href="live_EC2026.html">Live Tracker</a>
+    </nav>
+
+    <section class="summary-panel leaderboard-panel">
+      <h3 class="summary-title">Scoreboard</h3>
+      <div class="scoreboard-row">
+        <article class="score-card" data-player="Mert" data-score="12" data-wins="3" data-losses="1" data-pending-wager="18" data-max-output="36">
+          <div class="leader-badge" hidden>Leader</div>
+          <div class="score-player">Mert</div>
+          <div class="score-main">12</div>
+          <div class="score-meta">
+            <div>W-L<strong>3-1</strong></div>
+            <div>Pending<strong>18</strong></div>
+            <div>Max Output<strong>36</strong></div>
+          </div>
+        </article>
+        <article class="score-card" data-player="Fert" data-score="0" data-wins="2" data-losses="3" data-pending-wager="22" data-max-output="30">
+          <div class="leader-badge" hidden>Leader</div>
+          <div class="score-player">Fert</div>
+          <div class="score-main">0</div>
+          <div class="score-meta">
+            <div>W-L<strong>2-3</strong></div>
+            <div>Pending<strong>22</strong></div>
+            <div>Max Output<strong>30</strong></div>
+          </div>
+        </article>
+        <article class="score-card" data-player="Gert" data-score="0" data-wins="1" data-losses="1" data-pending-wager="15" data-max-output="20">
+          <div class="leader-badge" hidden>Leader</div>
+          <div class="score-player">Gert</div>
+          <div class="score-main">0</div>
+          <div class="score-meta">
+            <div>W-L<strong>1-1</strong></div>
+            <div>Pending<strong>15</strong></div>
+            <div>Max Output<strong>20</strong></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="match-controls" aria-label="Match controls">
+      <button id="expand-all" class="copy-btn btn-secondary" type="button">Expand all</button>
+      <button id="collapse-all" class="copy-btn btn-secondary" type="button">Collapse all</button>
+    </section>
+
+    <section class="matches">
+      <section class="match-card">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="match-toggle-meta">
+            <h2>Women&#x27;s Intercontinental Championship</h2>
+            <span class="match-status pending">Status: Pending</span>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class=" wrestler champion">
+            <div class="wrestler-main">
+              <span class="name">Becky Lynch<img class="belt-icon" src="assets/belts/womens_ic.png" alt="Women&#x27;s Intercontinental Championship belt"></span>
+            </div>
+            <div class="odds">Odds: -200</div>
+          </div>
+          <div class=" wrestler">
+            <div class="wrestler-main">
+              <span class="name">AJ Lee</span>
+            </div>
+            <div class="odds">Odds: +150</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="match-card">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="match-toggle-meta">
+            <h2>World Heavyweight Championship</h2>
+            <span class="match-status pending">Status: Pending</span>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class=" wrestler champion">
+            <div class="wrestler-main">
+              <span class="name">CM Punk<img class="belt-icon" src="assets/belts/world_heavyweight.png" alt="World Heavyweight Championship belt"></span>
+            </div>
+            <div class="odds">Odds: -500</div>
+          </div>
+          <div class=" wrestler">
+            <div class="wrestler-main">
+              <span class="name">Finn Balor</span>
+            </div>
+            <div class="odds">Odds: +400</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="match-card">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="match-toggle-meta">
+            <h2>Men&#x27;s Elimination Chamber</h2>
+            <span class="match-status pending">Status: Pending</span>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class=" wrestler"><div class="wrestler-main"><span class="name">Cody Rhodes</span></div><div class="odds">Odds: -150</div></div>
+          <div class=" wrestler"><div class="wrestler-main"><span class="name">LA Knight</span></div><div class="odds">Odds: +500</div></div>
+          <div class=" wrestler"><div class="wrestler-main"><span class="name">Randy Orton</span></div><div class="odds">Odds: +250</div></div>
+          <div class=" wrestler"><div class="wrestler-main"><span class="name">Trick Williams</span></div><div class="odds">Odds: +800</div></div>
+          <div class=" wrestler"><div class="wrestler-main"><span class="name">TBD</span></div><div class="odds">Odds: TBD</div></div>
+          <div class=" wrestler"><div class="wrestler-main"><span class="name">TBD</span></div><div class="odds">Odds: TBD</div></div>
+        </div>
+      </section>
+
+      <section class="match-card">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="match-toggle-meta">
+            <h2>Women&#x27;s Elimination Chamber</h2>
+            <span class="match-status pending">Status: Pending</span>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class=" wrestler"><div class="wrestler-main"><span class="name">Alexa Bliss</span></div><div class="odds">Odds: +400</div></div>
+          <div class=" wrestler"><div class="wrestler-main"><span class="name">Tiffany Stratton</span></div><div class="odds">Odds: +150</div></div>
+          <div class=" wrestler"><div class="wrestler-main"><span class="name">Rhea Ripley</span></div><div class="odds">Odds: -200</div></div>
+          <div class=" wrestler"><div class="wrestler-main"><span class="name">Kiana James</span></div><div class="odds">Odds: +300</div></div>
+          <div class=" wrestler"><div class="wrestler-main"><span class="name">TBD</span></div><div class="odds">Odds: TBD</div></div>
+          <div class=" wrestler"><div class="wrestler-main"><span class="name">TBD</span></div><div class="odds">Odds: TBD</div></div>
+        </div>
+      </section>
+    </section>
+
+    <footer class="site-footer">
+      Last updated: February 24, 2026 01:26 UTC
+    </footer>
+  </main>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const SHOW_PICKS_MOCK = true;
+    const MOCK_FINAL_OVERRIDE = {
+      matchContains: [
+        "womens intercontinental championship",
+        "womens intercontinental champion"
+      ],
+      winner: "Becky Lynch",
+      loser: "AJ Lee"
+    };
+    const picksMock = {
+      "Women's Intercontinental Championship": {
+        "Mert": { selections: [{ pick: "Becky Lynch", wager: 10 }] },
+        "Fert": { selections: [{ pick: "AJ Lee", wager: 10 }] },
+        "Gert": { selections: [{ pick: "Becky Lynch", wager: 5 }] }
+      },
+      "World Heavyweight Championship": {
+        "Mert": { selections: [{ pick: "CM Punk", wager: 15 }] },
+        "Fert": { selections: [{ pick: "Finn Balor", wager: 10 }] },
+        "Gert": { selections: [{ pick: "CM Punk", wager: 5 }] }
+      },
+      "Men's Elimination Chamber": {
+        "Mert": { selections: [{ pick: "Cody Rhodes", wager: 10 }, { pick: "Randy Orton", wager: 5 }] },
+        "Fert": { selections: [{ pick: "LA Knight", wager: 10 }, { pick: "Trick Williams", wager: 5 }] },
+        "Gert": { selections: [{ pick: "Cody Rhodes", wager: 5 }, { pick: "Trick Williams", wager: 10 }] }
+      },
+      "Women's Elimination Chamber": {
+        "Mert": { selections: [{ pick: "Rhea Ripley", wager: 10 }, { pick: "Alexa Bliss", wager: 5 }] },
+        "Fert": { selections: [{ pick: "Alexa Bliss", wager: 10 }, { pick: "Tiffany Stratton", wager: 5 }] },
+        "Gert": { selections: [{ pick: "Tiffany Stratton", wager: 10 }, { pick: "Kiana James", wager: 5 }] }
+      }
+    };
+
+    function whole(value) {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return 0;
+      return Math.max(0, Math.round(n));
+    }
+
+    function normalizeMatchName(name) {
+      return (name || "")
+        .toLowerCase()
+        .replace(/[’']/g, "")
+        .replace(/[^a-z0-9 ]+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function shouldApplyWinnerOverride(matchName) {
+      const normalized = normalizeMatchName(matchName);
+      return MOCK_FINAL_OVERRIDE.matchContains.some(function (needle) {
+        return normalized.includes(normalizeMatchName(needle));
+      });
+    }
+
+    function getParticipantNames(card) {
+      const rows = Array.from(card.querySelectorAll(".wrestler"));
+      return rows
+        .map(function (row) {
+          const nameNode = row.querySelector(".name");
+          if (!nameNode) return "";
+          const cloned = nameNode.cloneNode(true);
+          cloned.querySelectorAll("img, .result-pill").forEach(function (el) { el.remove(); });
+          return (cloned.textContent || "").trim();
+        })
+        .filter(function (name) {
+          return name && name.toLowerCase() !== "tbd";
+        });
+    }
+
+    const scoreCards = Array.from(document.querySelectorAll(".score-card"));
+    if (scoreCards.length > 0) {
+      const scores = scoreCards.map(function (card) { return whole(card.dataset.score); });
+      const maxScore = Math.max.apply(null, scores);
+      scoreCards.forEach(function (card) {
+        const score = whole(card.dataset.score);
+        const scoreEl = card.querySelector(".score-main");
+        if (scoreEl) scoreEl.textContent = String(score);
+        if (score === maxScore) {
+          card.classList.add("leader");
+          const badge = card.querySelector(".leader-badge");
+          if (badge) badge.hidden = false;
+        }
+      });
+    }
+
+    const cards = Array.from(document.querySelectorAll(".match-card"));
+    function setExpanded(card, expanded) {
+      const toggle = card.querySelector(".match-toggle");
+      const body = card.querySelector(".match-body");
+      if (!toggle || !body) return;
+      toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+      body.hidden = !expanded;
+    }
+
+    function getWinnerName(card) {
+      const winnerRow = card.querySelector(".result-pill.winner");
+      if (!winnerRow) return "";
+      const row = winnerRow.closest(".wrestler");
+      if (!row) return "";
+      const nameNode = row.querySelector(".name");
+      if (!nameNode) return "";
+      const cloned = nameNode.cloneNode(true);
+      cloned.querySelectorAll("img, .result-pill").forEach(function (el) { el.remove(); });
+      return (cloned.textContent || "").trim();
+    }
+
+    function applyMockFinalOverride(card) {
+      const matchName = card.querySelector("h2")?.textContent?.trim() || "";
+      if (!shouldApplyWinnerOverride(matchName)) return;
+      const existingWinner = getWinnerName(card);
+      if (existingWinner) return; // respect CSV results if already present
+
+      const rows = Array.from(card.querySelectorAll(".wrestler"));
+      rows.forEach(function (row) {
+        const nameNode = row.querySelector(".name");
+        if (!nameNode) return;
+        const cloned = nameNode.cloneNode(true);
+        cloned.querySelectorAll("img, .result-pill").forEach(function (el) { el.remove(); });
+        const wrestlerName = (cloned.textContent || "").trim();
+
+        row.classList.remove("result-lost");
+        nameNode.querySelectorAll(".result-pill").forEach(function (el) { el.remove(); });
+
+        if (wrestlerName === MOCK_FINAL_OVERRIDE.winner) {
+          const winnerPill = document.createElement("span");
+          winnerPill.className = "result-pill winner";
+          winnerPill.textContent = "Winner";
+          nameNode.appendChild(winnerPill);
+        } else if (wrestlerName === MOCK_FINAL_OVERRIDE.loser) {
+          row.classList.add("result-lost");
+          const lostPill = document.createElement("span");
+          lostPill.className = "result-pill lost";
+          lostPill.textContent = "Lost";
+          nameNode.appendChild(lostPill);
+        }
+      });
+
+      const status = card.querySelector(".match-status");
+      if (status) {
+        status.textContent = "Status: Final";
+        status.className = "match-status final";
+      }
+    }
+
+    function normalizeSelections(rawEntry, participants, maxSelections, isChamberMatch, player) {
+      const entry = rawEntry || {};
+      let selections = [];
+      if (Array.isArray(entry.selections)) {
+        selections = entry.selections.map(function (sel) {
+          return { pick: (sel.pick || "").trim(), wager: whole(sel.wager) };
+        });
+      } else if (entry.pick) {
+        selections = [{ pick: (entry.pick || "").trim(), wager: whole(entry.wager) }];
+      }
+
+      selections = selections
+        .filter(function (sel) { return sel.pick && participants.includes(sel.pick); })
+        .map(function (sel) {
+          let w = whole(sel.wager);
+          if (w > 0 && w < 5) w = 5;
+          w = Math.floor(w / 5) * 5;
+          if (w < 5) w = 5;
+          return { pick: sel.pick, wager: w };
+        });
+
+      if (isChamberMatch && participants.length >= 4 && maxSelections > 1) {
+        while (selections.length < 2) {
+          const candidate = participants.find(function (p) {
+            return !selections.some(function (s) { return s.pick === p; });
+          });
+          if (!candidate) break;
+          selections.push({ pick: candidate, wager: 5 });
+        }
+      }
+
+      if (isChamberMatch && participants.length >= 6 && maxSelections >= 3 && player === "Mert") {
+        while (selections.length < 3) {
+          const candidate = participants.find(function (p) {
+            return !selections.some(function (s) { return s.pick === p; });
+          });
+          if (!candidate) break;
+          selections.push({ pick: candidate, wager: 5 });
+        }
+      }
+
+      if (selections.length > maxSelections) {
+        selections = selections.slice(0, maxSelections);
+      }
+
+      let total = selections.reduce(function (sum, s) { return sum + s.wager; }, 0);
+      while (total > 25 && selections.length > 0) {
+        const last = selections[selections.length - 1];
+        if (last.wager > 5) {
+          last.wager -= 5;
+        } else {
+          selections.pop();
+        }
+        total = selections.reduce(function (sum, s) { return sum + s.wager; }, 0);
+      }
+
+      return selections;
+    }
+
+    function renderPicksMock(card) {
+      const matchName = card.querySelector("h2")?.textContent?.trim();
+      if (!matchName) return;
+      const mock = picksMock[matchName];
+      if (!mock) return;
+      const existing = card.querySelector(".picks-mock");
+      if (existing) existing.remove();
+
+      const participants = getParticipantNames(card);
+      const maxSelections = Math.max(1, Math.floor(participants.length / 2));
+      const isChamberMatch = /elimination chamber/i.test(matchName) || participants.length >= 4;
+      const isFinal = (card.querySelector(".match-status")?.textContent || "").toLowerCase().includes("final");
+      const winnerName = getWinnerName(card);
+      const players = ["Mert", "Fert", "Gert"];
+      const rows = players.map(function (player) {
+        const selections = normalizeSelections(mock[player], participants, maxSelections, isChamberMatch, player);
+        const displaySelections = selections.length > 0
+          ? selections
+          : [{ pick: "-", wager: 0 }];
+        const picksHtml = displaySelections
+          .map(function (s) { return `<div class="line-item">${s.pick}</div>`; })
+          .join("");
+        const wagersHtml = displaySelections
+          .map(function (s) {
+            const value = s.pick === "-" ? "-" : String(whole(s.wager));
+            return `<div class="line-item wager-line">${value}</div>`;
+          })
+          .join("");
+        let status = "Pending";
+        let statusClass = "pending";
+        if (isFinal && winnerName) {
+          if (selections.some(function (s) { return s.pick === winnerName; })) {
+            status = "Win";
+            statusClass = "win";
+          } else {
+            status = "Loss";
+            statusClass = "loss";
+          }
+        }
+        return `
+          <div class="picks-player">${player}</div>
+          <div class="line-stack">${picksHtml}</div>
+          <div class="line-stack">${wagersHtml}</div>
+          <div class="picks-status ${statusClass}">${status}</div>
+        `;
+      }).join("");
+
+      const section = document.createElement("section");
+      section.className = "picks-mock";
+      section.innerHTML = `
+        <div class="picks-title">Picks</div>
+        <div class="picks-grid">
+          <div class="picks-head">Player</div>
+          <div class="picks-head">Pick</div>
+          <div class="picks-head">Wager (pts)</div>
+          <div class="picks-head">Status</div>
+          ${rows}
+        </div>
+      `;
+      const body = card.querySelector(".match-body");
+      if (body) body.appendChild(section);
+    }
+
+    cards.forEach(function (card) {
+      const toggle = card.querySelector(".match-toggle");
+      setExpanded(card, true);
+      if (SHOW_PICKS_MOCK) applyMockFinalOverride(card);
+      if (SHOW_PICKS_MOCK) renderPicksMock(card);
+      if (toggle) {
+        toggle.addEventListener("click", function () {
+          const expanded = toggle.getAttribute("aria-expanded") === "true";
+          setExpanded(card, !expanded);
+        });
+      }
+    });
+    const expandAll = document.getElementById("expand-all");
+    const collapseAll = document.getElementById("collapse-all");
+    if (expandAll) expandAll.addEventListener("click", function () { cards.forEach(function (c) { setExpanded(c, true); }); });
+    if (collapseAll) collapseAll.addEventListener("click", function () { cards.forEach(function (c) { setExpanded(c, false); }); });
+  });
+  </script>
+</body>
+</html>
