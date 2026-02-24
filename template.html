@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$page_title</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container" data-event-id="$event_id_plain">
+    <header class="event-header" data-event-name="$event_name_plain">
+      $event_header
+      <div class="event-time"><strong>Start Time:</strong> $start_time</div>
+      <div class="event-meta">
+        <div><strong>Date:</strong> $event_date</div>
+        <div><strong>Country:</strong> $country</div>
+        <div><strong>Location:</strong> $location</div>
+        <div><strong>Venue:</strong> $venue</div>
+      </div>
+    </header>
+
+    <nav class="page-nav" aria-label="Page navigation">
+      <a class="copy-btn btn-primary" href="event_$event_id_plain.html">Make Picks</a>
+      <a class="copy-btn btn-secondary" href="live_$event_id_plain.html">Live Tracker</a>
+    </nav>
+
+    <section class="controls" aria-label="Event tools">
+      <input
+        id="player-name"
+        class="player-input"
+        type="text"
+        placeholder="Player Name"
+        autocomplete="name"
+      >
+      <input
+        id="wrestler-search"
+        class="search-input"
+        type="search"
+        placeholder="Search wrestlers..."
+        autocomplete="off"
+      >
+    </section>
+
+    <section class="summary-panel" aria-live="polite">
+      <h3 class="summary-title">Your Picks Summary</h3>
+      <div class="summary-grid">
+        <div class="summary-col">
+          <div class="summary-row"><strong>Total Points Available:</strong> <span id="total-available">60</span></div>
+          <div class="summary-row"><strong>Total Wagered:</strong> <span id="total-wagered">0.0</span></div>
+          <div class="summary-row"><strong>Remaining Points:</strong> <span id="remaining-points">60.0</span></div>
+          <div class="summary-row"><strong>Matches Not Wagered On:</strong> <span id="matches-not-wagered">0</span></div>
+        </div>
+        <div class="summary-col">
+          <div class="summary-row"><strong>Avg Wager Remaining:</strong> <span id="avg-wager-remaining">N/A</span></div>
+          <div class="summary-row"><strong>Total Potential Profit:</strong> <span id="total-profit">0.0</span></div>
+          <div class="summary-row"><strong>Total Potential Return:</strong> <span id="total-return">0.0</span></div>
+        </div>
+      </div>
+      <div id="validation-message" class="validation-message" hidden></div>
+      <div id="bankroll-warning" class="bankroll-warning" hidden>Over limit: total wager exceeds 60 point bankroll.</div>
+    </section>
+
+    <section class="summary-panel results-panel" aria-live="polite">
+      <h3 class="summary-title">Results Summary</h3>
+      <div class="summary-grid">
+        <div class="summary-col">
+          <div class="summary-row"><strong>Net Profit/Loss:</strong> <span id="results-net">0.0</span></div>
+          <div class="summary-row"><strong>Wins:</strong> <span id="results-wins">0</span></div>
+        </div>
+        <div class="summary-col">
+          <div class="summary-row"><strong>Losses:</strong> <span id="results-losses">0</span></div>
+          <div class="summary-row"><strong>Pending:</strong> <span id="results-pending">0</span></div>
+        </div>
+      </div>
+      <div id="results-admin-warning" class="validation-message" hidden></div>
+      <div id="admin-note" class="validation-message" hidden>Update results by editing the CSV Result column (W/L) and regenerating the page.</div>
+    </section>
+
+    <section class="match-controls" aria-label="Match controls">
+      <button id="expand-all" class="copy-btn btn-secondary" type="button">Expand all</button>
+      <button id="collapse-all" class="copy-btn btn-secondary" type="button">Collapse all</button>
+    </section>
+
+    <section class="matches">
+      $match_sections
+    </section>
+
+    <section class="bottom-actions" aria-label="Submission actions">
+      <div class="commit-meta">Total Wagered: <strong><span id="commit-total-wagered">0.0</span> / <span id="commit-bankroll">60</span></strong></div>
+      <button id="submit-picks" class="copy-btn btn-primary" type="button">Submit Picks</button>
+      <button id="download-picks" class="copy-btn btn-secondary" type="button" hidden>Download Picks</button>
+      <button id="copy-picks-summary" class="copy-btn btn-secondary" type="button" hidden>Copy Picks Summary</button>
+      <div id="submit-feedback" class="submit-feedback" hidden></div>
+    </section>
+
+    <footer class="site-footer">
+      Last updated: $last_updated
+    </footer>
+  </main>
+  <script src="app.js" defer></script>
+</body>
+</html>
