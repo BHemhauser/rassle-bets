@@ -1,5 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const BANKROLL = 100;
+  const BANKROLL = 60;
+  const FORM_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeicsuX_HvDBgh8frg1EkVByEG54PXbDPYf9nS2CpzIC-DZdw/viewform?usp=pp_url";
+  const FORM_FIELD_EVENT_ID = "entry.1042361516";
+  const FORM_FIELD_PLAYER_NAME = "entry.200080893";
+  const FORM_FIELD_PICKS_SUMMARY = "entry.1911761745";
+  const ADMIN_MODE = false;
   const MIN_BET_PER_WRESTLER = 5;
   const MAX_BET_PER_MATCH = 25;
   const pageRoot = document.querySelector("main.container");
@@ -26,6 +31,36 @@ document.addEventListener("DOMContentLoaded", () => {
   const commitTotalWageredEl = document.getElementById("commit-total-wagered");
   const commitBankrollEl = document.getElementById("commit-bankroll");
   const submitFeedbackEl = document.getElementById("submit-feedback");
+  const resultsNetEl = document.getElementById("results-net");
+  const resultsWinsEl = document.getElementById("results-wins");
+  const resultsLossesEl = document.getElementById("results-losses");
+  const resultsPendingEl = document.getElementById("results-pending");
+  const resultsAdminWarningEl = document.getElementById("results-admin-warning");
+  const adminNoteEl = document.getElementById("admin-note");
+
+  const keyUiElements = [
+    ["total-available", totalAvailableEl],
+    ["total-wagered", totalWageredEl],
+    ["remaining-points", remainingPointsEl],
+    ["matches-not-wagered", matchesNotWageredEl],
+    ["avg-wager-remaining", avgWagerRemainingEl],
+    ["total-profit", totalProfitEl],
+    ["total-return", totalReturnEl],
+    ["bankroll-warning", bankrollWarningEl],
+    ["commit-total-wagered", commitTotalWageredEl],
+    ["commit-bankroll", commitBankrollEl],
+    ["validation-message", validationMessageEl],
+    ["submit-feedback", submitFeedbackEl],
+    ["results-net", resultsNetEl],
+    ["results-wins", resultsWinsEl],
+    ["results-losses", resultsLossesEl],
+    ["results-pending", resultsPendingEl],
+    ["results-admin-warning", resultsAdminWarningEl],
+    ["admin-note", adminNoteEl],
+  ];
+  const foundElements = keyUiElements.filter((entry) => entry[1]).map((entry) => entry[0]);
+  const missingElements = keyUiElements.filter((entry) => !entry[1]).map((entry) => entry[0]);
+  console.info("[app.js] UI element check", { found: foundElements, missing: missingElements });
 
   let isSubmitted = false;
   let submittedPayload = null;
@@ -42,6 +77,21 @@ document.addEventListener("DOMContentLoaded", () => {
     validationMessageEl.hidden = !text;
     validationMessageEl.textContent = text;
     validationMessageEl.style.color = isError ? "#b42318" : "#8b3f00";
+  }
+
+  function safeSetText(element, value) {
+    if (!element) return;
+    element.textContent = value;
+  }
+
+  function safeSetHidden(element, hidden) {
+    if (!element) return;
+    element.hidden = hidden;
+  }
+
+  function safeToggleClass(element, className, force) {
+    if (!element) return;
+    element.classList.toggle(className, force);
   }
 
   function parseOddsFromRow(row) {
@@ -73,6 +123,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!Number.isFinite(wager) || wager <= 0 || odds === null) return 0;
     if (odds < 0) return wager * (100 / Math.abs(odds));
     return wager * (odds / 100);
+  }
+
+  function getResultValue(row) {
+    const value = (row.getAttribute("data-result") || "").trim().toUpperCase();
+    if (value === "W" || value === "L") return value;
+    return "";
   }
 
   function setMatchExpanded(card, expanded) {
@@ -112,19 +168,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const remainingDisplay = Math.max(0, remainingRaw);
     const avgRemaining = matchesNotWagered > 0 ? remainingDisplay / matchesNotWagered : null;
 
-    totalAvailableEl.textContent = formatNumber(BANKROLL);
-    totalWageredEl.textContent = formatNumber(totalWagered);
-    remainingPointsEl.textContent = formatNumber(remainingDisplay);
-    matchesNotWageredEl.textContent = String(matchesNotWagered);
-    avgWagerRemainingEl.textContent = avgRemaining === null ? "N/A" : formatNumber(avgRemaining);
-    totalProfitEl.textContent = formatNumber(totalProfit);
-    totalReturnEl.textContent = formatNumber(totalReturn);
-    if (commitTotalWageredEl) commitTotalWageredEl.textContent = formatNumber(totalWagered);
-    if (commitBankrollEl) commitBankrollEl.textContent = formatNumber(BANKROLL);
+    safeSetText(totalAvailableEl, formatNumber(BANKROLL));
+    safeSetText(totalWageredEl, formatNumber(totalWagered));
+    safeSetText(remainingPointsEl, formatNumber(remainingDisplay));
+    safeSetText(matchesNotWageredEl, String(matchesNotWagered));
+    safeSetText(avgWagerRemainingEl, avgRemaining === null ? "N/A" : formatNumber(avgRemaining));
+    safeSetText(totalProfitEl, formatNumber(totalProfit));
+    safeSetText(totalReturnEl, formatNumber(totalReturn));
+    safeSetText(commitTotalWageredEl, formatNumber(totalWagered));
+    safeSetText(commitBankrollEl, formatNumber(BANKROLL));
 
-    bankrollWarningEl.hidden = !overLimit;
-    totalWageredEl.classList.toggle("over-limit", overLimit);
-    remainingPointsEl.classList.toggle("over-limit", overLimit);
+    safeSetHidden(bankrollWarningEl, !overLimit);
+    safeToggleClass(totalWageredEl, "over-limit", overLimit);
+    safeToggleClass(remainingPointsEl, "over-limit", overLimit);
 
     latestTotals = {
       totalWagered,
@@ -171,6 +227,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       hint.textContent = `Limits: max ${MAX_BET_PER_MATCH} pts • pick up to ${maxSelections} of ${participants}`;
 
+      let status = toggle.querySelector(".match-status");
+      if (!status) {
+        status = document.createElement("span");
+        status.className = "match-status pending";
+        meta.appendChild(status);
+      }
+      status.textContent = "Status: Pending";
+
       if (!card.querySelector(".match-rule-message")) {
         const message = document.createElement("div");
         message.className = "match-rule-message";
@@ -181,12 +245,46 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function updateResultsSummary(values) {
+    safeSetText(resultsNetEl, formatNumber(values.net));
+    safeSetText(resultsWinsEl, String(values.wins));
+    safeSetText(resultsLossesEl, String(values.losses));
+    safeSetText(resultsPendingEl, String(values.pending));
+    if (values.invalidMatchCount > 0) {
+      safeSetHidden(resultsAdminWarningEl, false);
+      safeSetText(
+        resultsAdminWarningEl,
+        `${values.invalidMatchCount} match result set(s) are invalid (multiple winners). Net ignores those matches until fixed.`
+      );
+    } else {
+      safeSetHidden(resultsAdminWarningEl, true);
+      safeSetText(resultsAdminWarningEl, "");
+    }
+  }
+
   function validateAll() {
     const results = [];
+    const resultTotals = {
+      net: 0,
+      wins: 0,
+      losses: 0,
+      pending: 0,
+      invalidMatchCount: 0,
+    };
     matchCards.forEach((card) => {
       const rows = Array.from(card.querySelectorAll(".wrestler"));
       const participants = Number(card.dataset.participants || "0");
       const maxSelections = Number(card.dataset.maxSelections || "0");
+      const winnerCount = rows.filter((row) => getResultValue(row) === "W").length;
+      let statusText = "Pending";
+      let statusClass = "pending";
+      if (winnerCount === 1) {
+        statusText = "Final";
+        statusClass = "final";
+      } else if (winnerCount > 1) {
+        statusText = "Invalid";
+        statusClass = "invalid";
+      }
 
       let matchTotal = 0;
       let selections = 0;
@@ -204,6 +302,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const messages = [];
+      const isInvalidResults = winnerCount > 1;
+      if (isInvalidResults) {
+        messages.push("Admin issue: this match has multiple winners in CSV. Only one row can have Result=W.");
+      }
       if (hasLowBet) messages.push(`Minimum bet is ${MIN_BET_PER_WRESTLER} points (or 0).`);
       if (matchTotal > MAX_BET_PER_MATCH) messages.push(`Max points per match is ${MAX_BET_PER_MATCH}.`);
       if (selections > maxSelections) {
@@ -211,11 +313,39 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const messageEl = card.querySelector(".match-rule-message");
+      const statusEl = card.querySelector(".match-status");
+      if (statusEl) {
+        statusEl.textContent = `Status: ${statusText}`;
+        statusEl.className = `match-status ${statusClass}`;
+      }
       const invalid = messages.length > 0;
-      card.classList.toggle("rule-invalid", invalid);
+      safeToggleClass(card, "rule-invalid", invalid);
       if (messageEl) {
         messageEl.hidden = !invalid;
         messageEl.textContent = messages.join(" ");
+      }
+
+      if (isInvalidResults) {
+        resultTotals.invalidMatchCount += 1;
+      }
+      if (!isInvalidResults) {
+        rows.forEach((row) => {
+          const input = row.querySelector(".wager-input");
+          if (!input || input.disabled) return;
+          const wager = getWagerValue(input);
+          if (wager <= 0) return;
+          const odds = parseOddsFromRow(row);
+          const result = getResultValue(row);
+          if (result === "W") {
+            resultTotals.net += calculateProfit(wager, odds);
+            resultTotals.wins += 1;
+          } else if (result === "L") {
+            resultTotals.net -= wager;
+            resultTotals.losses += 1;
+          } else {
+            resultTotals.pending += 1;
+          }
+        });
       }
 
       if (invalid) {
@@ -225,6 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     });
+    updateResultsSummary(resultTotals);
     return {
       valid: results.length === 0,
       errors: results,
@@ -417,12 +548,21 @@ document.addEventListener("DOMContentLoaded", () => {
     submittedPayload = buildPayload();
     isSubmitted = true;
     lockWagerInputs();
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Submitted";
-    downloadBtn.hidden = false;
-    copySummaryBtn.hidden = false;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitted";
+    }
+    safeSetHidden(downloadBtn, false);
+    safeSetHidden(copySummaryBtn, false);
     setMessage("Picks submitted locally. You can now download or copy the submission.");
-    setSubmitFeedback("");
+    const picksSummary = buildReadableSummary(submittedPayload);
+    const formUrl = `${FORM_BASE_URL}&${FORM_FIELD_EVENT_ID}=${encodeURIComponent(submittedPayload.eventId)}&${FORM_FIELD_PLAYER_NAME}=${encodeURIComponent(submittedPayload.playerName)}&${FORM_FIELD_PICKS_SUMMARY}=${encodeURIComponent(picksSummary)}`;
+    const popup = window.open(formUrl, "_blank", "noopener,noreferrer");
+    if (popup) {
+      setSubmitFeedback("A new tab opened to finalize submission.");
+    } else {
+      setSubmitFeedback("Submission tab was blocked by the browser. Please allow popups and try again.", true);
+    }
   });
 
   downloadBtn?.addEventListener("click", () => {
@@ -445,6 +585,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   setupMatchRuleUI();
+  safeSetHidden(adminNoteEl, !ADMIN_MODE);
   updateSummary();
   validateAll();
 });
