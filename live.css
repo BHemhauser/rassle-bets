@@ -1,0 +1,89 @@
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.player-card {
+  background: #ffffff;
+  border: 1px solid rgba(10, 31, 68, 0.12);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(10, 31, 68, 0.06);
+}
+
+.player-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.player-name {
+  margin: 0;
+  color: #0a1f44;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.player-score {
+  text-align: center;
+  font-size: clamp(2rem, 3.2vw, 2.5rem);
+  line-height: 1;
+  font-weight: 800;
+  color: #0a1f44;
+  margin: 6px 0 12px;
+}
+
+.player-stats {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.player-stat {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.player-stat dt {
+  margin: 0;
+  color: #445066;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.player-stat dd {
+  margin: 0;
+  color: #0a1f44;
+  font-size: 0.94rem;
+  font-weight: 700;
+}
+
+.player-card.leader {
+  border-color: rgba(0, 87, 184, 0.4);
+  background: rgba(0, 87, 184, 0.06);
+  box-shadow: 0 3px 10px rgba(0, 87, 184, 0.12);
+}
+
+.leader-badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(0, 87, 184, 0.4);
+  background: rgba(0, 87, 184, 0.12);
+  color: #0a1f44;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 900px) {
+  .scoreboard {
+    grid-template-columns: 1fr;
+  }
+}

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Elimination Chamber Live Tracker (EC2026)</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="live.css">
 </head>
 <body>
   <main class="container">
@@ -28,49 +29,46 @@
     
         <section class="summary-panel leaderboard-panel">
           <h3 class="summary-title">Leaderboard</h3>
-          <div class="table-wrap">
-            <table class="leaderboard-table">
-              <thead>
-                <tr>
-                  <th>Player</th>
-                  <th class="score-head">Score</th>
-                  <th>W-L</th>
-                  <th>Pending Wager</th>
-                  <th>Max Possible Points</th>
-                  <th>Max Output</th>
-                </tr>
-              </thead>
-              <tbody>
-                
-                <tr class="leader-row">
-                  <td>Mert</td>
-                  <td class="score-cell">12</td>
-                  <td class="stat-cell">3-1</td>
-                  <td class="num-cell">18</td>
-                  <td class="num-cell">24</td>
-                  <td class="num-cell">36</td>
-                </tr>
-                
-                <tr class="">
-                  <td>Fert</td>
-                  <td class="score-cell">0</td>
-                  <td class="stat-cell">2-3</td>
-                  <td class="num-cell">22</td>
-                  <td class="num-cell">30</td>
-                  <td class="num-cell">30</td>
-                </tr>
-                
-                <tr class="">
-                  <td>Gert</td>
-                  <td class="score-cell">0</td>
-                  <td class="stat-cell">1-1</td>
-                  <td class="num-cell">15</td>
-                  <td class="num-cell">20</td>
-                  <td class="num-cell">20</td>
-                </tr>
-                
-              </tbody>
-            </table>
+          <div class="scoreboard" role="list" aria-label="Leaderboard scoreboard">
+            <article class="player-card leader" role="listitem" aria-label="Mert leaderboard card">
+              <div class="player-card-head">
+                <h4 class="player-name">Mert</h4>
+                <span class="leader-badge">Leader</span>
+              </div>
+              <div class="player-score">12</div>
+              <dl class="player-stats">
+                <div class="player-stat"><dt>W-L</dt><dd>3-1</dd></div>
+                <div class="player-stat"><dt>Pending</dt><dd>18</dd></div>
+                <div class="player-stat"><dt>Max Possible Points</dt><dd>24</dd></div>
+                <div class="player-stat"><dt>Max Output</dt><dd>36</dd></div>
+              </dl>
+            </article>
+
+            <article class="player-card" role="listitem" aria-label="Fert leaderboard card">
+              <div class="player-card-head">
+                <h4 class="player-name">Fert</h4>
+              </div>
+              <div class="player-score">0</div>
+              <dl class="player-stats">
+                <div class="player-stat"><dt>W-L</dt><dd>2-3</dd></div>
+                <div class="player-stat"><dt>Pending</dt><dd>22</dd></div>
+                <div class="player-stat"><dt>Max Possible Points</dt><dd>30</dd></div>
+                <div class="player-stat"><dt>Max Output</dt><dd>30</dd></div>
+              </dl>
+            </article>
+
+            <article class="player-card" role="listitem" aria-label="Gert leaderboard card">
+              <div class="player-card-head">
+                <h4 class="player-name">Gert</h4>
+              </div>
+              <div class="player-score">0</div>
+              <dl class="player-stats">
+                <div class="player-stat"><dt>W-L</dt><dd>1-1</dd></div>
+                <div class="player-stat"><dt>Pending</dt><dd>15</dd></div>
+                <div class="player-stat"><dt>Max Possible Points</dt><dd>20</dd></div>
+                <div class="player-stat"><dt>Max Output</dt><dd>20</dd></div>
+              </dl>
+            </article>
           </div>
         </section>
         
