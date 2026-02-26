@@ -29,47 +29,8 @@
     
         <section class="summary-panel leaderboard-panel">
           <h3 class="summary-title">Leaderboard</h3>
-          <div class="scoreboard" role="list" aria-label="Leaderboard scoreboard">
-            <article class="player-card leader" role="listitem" aria-label="Mert leaderboard card">
-              <div class="player-card-head">
-                <h4 class="player-name">Mert</h4>
-                <span class="leader-badge">Leader</span>
-              </div>
-              <div class="player-score">12</div>
-              <dl class="player-stats">
-                <div class="player-stat"><dt>W-L</dt><dd>3-1</dd></div>
-                <div class="player-stat"><dt>Pending</dt><dd>18</dd></div>
-                <div class="player-stat"><dt>Max Possible Points</dt><dd>24</dd></div>
-                <div class="player-stat"><dt>Max Output</dt><dd>36</dd></div>
-              </dl>
-            </article>
-
-            <article class="player-card" role="listitem" aria-label="Fert leaderboard card">
-              <div class="player-card-head">
-                <h4 class="player-name">Fert</h4>
-              </div>
-              <div class="player-score">0</div>
-              <dl class="player-stats">
-                <div class="player-stat"><dt>W-L</dt><dd>2-3</dd></div>
-                <div class="player-stat"><dt>Pending</dt><dd>22</dd></div>
-                <div class="player-stat"><dt>Max Possible Points</dt><dd>30</dd></div>
-                <div class="player-stat"><dt>Max Output</dt><dd>30</dd></div>
-              </dl>
-            </article>
-
-            <article class="player-card" role="listitem" aria-label="Gert leaderboard card">
-              <div class="player-card-head">
-                <h4 class="player-name">Gert</h4>
-              </div>
-              <div class="player-score">0</div>
-              <dl class="player-stats">
-                <div class="player-stat"><dt>W-L</dt><dd>1-1</dd></div>
-                <div class="player-stat"><dt>Pending</dt><dd>15</dd></div>
-                <div class="player-stat"><dt>Max Possible Points</dt><dd>20</dd></div>
-                <div class="player-stat"><dt>Max Output</dt><dd>20</dd></div>
-              </dl>
-            </article>
-          </div>
+          <div id="leaderboard-empty" class="summary-row">No picks submitted yet.</div>
+          <div id="leaderboard-scoreboard" class="scoreboard" role="list" aria-label="Leaderboard scoreboard" hidden></div>
         </section>
         
 
@@ -253,6 +214,110 @@
   <script>
   document.addEventListener("DOMContentLoaded", function () {
     const cards = Array.from(document.querySelectorAll(".match-card"));
+    const leaderboardEmpty = document.getElementById("leaderboard-empty");
+    const leaderboardScoreboard = document.getElementById("leaderboard-scoreboard");
+
+    function toWholeNumber(value) {
+      const num = Number(value);
+      if (!Number.isFinite(num)) return 0;
+      return Math.round(num);
+    }
+
+    function parseCsvRows(text) {
+      const lines = text.split(/\r?\n/).map(function (line) { return line.trim(); }).filter(Boolean);
+      if (!lines.length) return [];
+      const headers = lines[0].split(",").map(function (h) { return h.trim(); });
+      const rows = [];
+      for (let i = 1; i < lines.length; i += 1) {
+        const cols = lines[i].split(",").map(function (c) { return c.trim(); });
+        const row = {};
+        headers.forEach(function (key, idx) {
+          row[key] = cols[idx] || "";
+        });
+        rows.push(row);
+      }
+      return rows;
+    }
+
+    function normalizePlayer(row) {
+      const player = (row.Player || "").trim();
+      if (!player) return null;
+      const scoreRaw = row.Score !== undefined ? row.Score : row.Net;
+      const score = Math.max(0, toWholeNumber(scoreRaw));
+      const wins = Math.max(0, toWholeNumber(row.Wins));
+      const losses = Math.max(0, toWholeNumber(row.Losses));
+      const pending = Math.max(0, toWholeNumber(row.PendingWager !== undefined ? row.PendingWager : row.Pending));
+      const maxPossiblePoints = Math.max(0, toWholeNumber(row.MaxPossiblePoints));
+      return {
+        player: player,
+        score: score,
+        wins: wins,
+        losses: losses,
+        pending: pending,
+        maxPossiblePoints: maxPossiblePoints
+      };
+    }
+
+    function renderLeaderboard(players) {
+      if (!leaderboardEmpty || !leaderboardScoreboard) return;
+      if (!players.length) {
+        leaderboardScoreboard.hidden = true;
+        leaderboardScoreboard.innerHTML = "";
+        leaderboardEmpty.hidden = false;
+        return;
+      }
+
+      const maxScore = players.reduce(function (max, p) { return Math.max(max, p.score); }, 0);
+      leaderboardScoreboard.innerHTML = players.map(function (p) {
+        const isLeader = p.score === maxScore;
+        return (
+          '<article class="player-card' + (isLeader ? ' leader' : '') + '" role="listitem" aria-label="' + p.player + ' leaderboard card">' +
+            '<div class="player-card-head">' +
+              '<h4 class="player-name">' + p.player + '</h4>' +
+              (isLeader ? '<span class="leader-badge">Leader</span>' : '') +
+            '</div>' +
+            '<div class="player-score">' + p.score + '</div>' +
+            '<dl class="player-stats">' +
+              '<div class="player-stat"><dt>W-L</dt><dd>' + p.wins + '-' + p.losses + '</dd></div>' +
+              '<div class="player-stat"><dt>Pending</dt><dd>' + p.pending + '</dd></div>' +
+              '<div class="player-stat"><dt>Max Possible Points</dt><dd>' + p.maxPossiblePoints + '</dd></div>' +
+            '</dl>' +
+          '</article>'
+        );
+      }).join("");
+      leaderboardEmpty.hidden = true;
+      leaderboardScoreboard.hidden = false;
+    }
+
+    function loadLeaderboard() {
+      const leaderboardPaths = [
+        "EC2026_leaderboard.csv",
+        "data/EC2026_leaderboard.csv"
+      ];
+
+      function tryPath(index) {
+        if (index >= leaderboardPaths.length) {
+          renderLeaderboard([]);
+          return;
+        }
+        fetch(leaderboardPaths[index], { cache: "no-store" })
+          .then(function (response) {
+            if (!response.ok) throw new Error("Not found");
+            return response.text();
+          })
+          .then(function (text) {
+            const rows = parseCsvRows(text);
+            const players = rows.map(normalizePlayer).filter(Boolean);
+            renderLeaderboard(players);
+          })
+          .catch(function () {
+            tryPath(index + 1);
+          });
+      }
+
+      tryPath(0);
+    }
+
     function setExpanded(card, expanded) {
       const toggle = card.querySelector(".match-toggle");
       const body = card.querySelector(".match-body");
@@ -274,6 +339,7 @@
     const collapseAll = document.getElementById("collapse-all");
     if (expandAll) expandAll.addEventListener("click", function () { cards.forEach(function (c) { setExpanded(c, true); }); });
     if (collapseAll) collapseAll.addEventListener("click", function () { cards.forEach(function (c) { setExpanded(c, false); }); });
+    loadLeaderboard();
   });
   </script>
 </body>
