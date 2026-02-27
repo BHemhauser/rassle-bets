@@ -5,8 +5,94 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Elimination Chamber (EC2026)</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .points-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      transform: translateY(-110%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 140ms ease, opacity 140ms ease;
+    }
+
+    .points-bar.is-visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .points-bar-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid #d7e7f2;
+      border-top: 0;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 3px 10px rgba(11, 38, 64, 0.08);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px 12px;
+      backdrop-filter: blur(1px);
+    }
+
+    .points-bar-metric {
+      display: grid;
+      gap: 2px;
+    }
+
+    .points-bar-label {
+      color: #4b5d70;
+      font-size: 0.74rem;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .points-bar-value {
+      color: #15202b;
+      font-size: 0.94rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    body.points-bar-visible {
+      padding-top: 58px;
+    }
+
+    @media (max-width: 768px) {
+      .points-bar-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      body.points-bar-visible {
+        padding-top: 84px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div id="points-bar" class="points-bar" aria-live="polite" aria-label="Points summary bar">
+    <div class="points-bar-inner">
+      <div class="points-bar-metric">
+        <span class="points-bar-label">Remaining Points</span>
+        <span id="bar-remaining-points" class="points-bar-value">0</span>
+      </div>
+      <div class="points-bar-metric">
+        <span class="points-bar-label">Total Wagered</span>
+        <span id="bar-total-wagered" class="points-bar-value">0</span>
+      </div>
+      <div class="points-bar-metric">
+        <span class="points-bar-label">Matches Not Wagered</span>
+        <span id="bar-matches-not-wagered" class="points-bar-value">0</span>
+      </div>
+      <div class="points-bar-metric">
+        <span class="points-bar-label">Avg Wager Remaining</span>
+        <span id="bar-avg-wager-remaining" class="points-bar-value">0</span>
+      </div>
+    </div>
+  </div>
   <main class="container" data-event-id="EC2026">
     <header class="event-header" data-event-name="Elimination Chamber">
       <img class="event-logo" src="assets/logos/EC2026.png" alt="Elimination Chamber logo">
@@ -39,6 +125,11 @@
         placeholder="Search wrestlers..."
         autocomplete="off"
       >
+    </section>
+
+    <section class="match-controls" aria-label="Match controls">
+      <button id="expand-all" class="copy-btn btn-secondary" type="button">Expand all</button>
+      <button id="collapse-all" class="copy-btn btn-secondary" type="button">Collapse all</button>
     </section>
 
     <section class="summary-panel" aria-live="polite">
@@ -74,11 +165,6 @@
       </div>
       <div id="results-admin-warning" class="validation-message" hidden></div>
       <div id="admin-note" class="validation-message" hidden>Update results by editing the CSV Result column (W/L) and regenerating the page.</div>
-    </section>
-
-    <section class="match-controls" aria-label="Match controls">
-      <button id="expand-all" class="copy-btn btn-secondary" type="button">Expand all</button>
-      <button id="collapse-all" class="copy-btn btn-secondary" type="button">Collapse all</button>
     </section>
 
     <section class="matches">
@@ -314,5 +400,61 @@
     </footer>
   </main>
   <script src="app.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const bar = document.getElementById("points-bar");
+      const summaryPanel = document.querySelector(".summary-panel");
+      const valueMap = [
+        { sourceId: "remaining-points", targetId: "bar-remaining-points" },
+        { sourceId: "total-wagered", targetId: "bar-total-wagered" },
+        { sourceId: "matches-not-wagered", targetId: "bar-matches-not-wagered" },
+        { sourceId: "avg-wager-remaining", targetId: "bar-avg-wager-remaining" }
+      ];
+
+      function formatWholeNumber(textValue) {
+        const raw = String(textValue || "").trim();
+        const parsed = Number(raw.replace(/[^0-9.-]/g, ""));
+        if (!Number.isFinite(parsed)) return raw || "0";
+        return String(Math.round(parsed));
+      }
+
+      function syncPointsBar() {
+        valueMap.forEach(function (entry) {
+          const source = document.getElementById(entry.sourceId);
+          const target = document.getElementById(entry.targetId);
+          if (!source || !target) return;
+          target.textContent = formatWholeNumber(source.textContent);
+        });
+      }
+
+      function getShowThreshold() {
+        if (!summaryPanel) return 150;
+        const rect = summaryPanel.getBoundingClientRect();
+        const topAbsolute = window.scrollY + rect.top;
+        const bottomAbsolute = topAbsolute + summaryPanel.offsetHeight;
+        return Math.max(150, bottomAbsolute - 24);
+      }
+
+      function togglePointsBar() {
+        if (!bar) return;
+        const shouldShow = window.scrollY > getShowThreshold();
+        bar.classList.toggle("is-visible", shouldShow);
+        document.body.classList.toggle("points-bar-visible", shouldShow);
+      }
+
+      const observer = new MutationObserver(syncPointsBar);
+      valueMap.forEach(function (entry) {
+        const source = document.getElementById(entry.sourceId);
+        if (source) {
+          observer.observe(source, { childList: true, characterData: true, subtree: true });
+        }
+      });
+
+      syncPointsBar();
+      togglePointsBar();
+      window.addEventListener("scroll", togglePointsBar, { passive: true });
+      window.addEventListener("resize", togglePointsBar);
+    });
+  </script>
 </body>
 </html>
