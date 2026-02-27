@@ -6,6 +6,110 @@
   <title>Elimination Chamber Live Tracker (EC2026)</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="live.css">
+  <style>
+    .picks-grid {
+      margin-top: 10px;
+      border-top: 1px solid #deedf7;
+      padding-top: 10px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .picks-grid-header {
+      display: grid;
+      grid-template-columns: 88px 1fr 84px 70px;
+      gap: 10px;
+      color: #4b5d70;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .picks-grid-row {
+      display: grid;
+      grid-template-columns: 88px 1fr 84px 70px;
+      gap: 10px;
+      align-items: start;
+      font-size: 0.86rem;
+      color: #24516d;
+      border-top: 1px solid #e8f2f8;
+      padding-top: 8px;
+    }
+
+    .picks-player {
+      font-weight: 700;
+      color: #22445a;
+    }
+
+    .picks-lines {
+      display: grid;
+      gap: 3px;
+      color: #15202b;
+    }
+
+    .picks-line.winning-pick {
+      color: #24516d;
+      font-weight: 700;
+    }
+
+    .picks-wager {
+      text-align: right;
+      color: #445066;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .picks-status {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .picks-status.win {
+      color: #24516d;
+    }
+
+    .picks-status.loss {
+      color: #5b6d7f;
+    }
+
+    .picks-status.pending {
+      color: #456178;
+    }
+
+    .player-card.over-limit {
+      border-color: rgba(122, 74, 0, 0.28);
+      background: rgba(252, 248, 241, 0.85);
+    }
+
+    .player-warning {
+      color: #7a4a00;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .match-status.issue {
+      color: #7a4a00;
+    }
+
+    .match-issue {
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #e4d2b7;
+      background: #fcf8f1;
+      color: #7a4a00;
+      font-size: 0.84rem;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 700px) {
+      .picks-grid-header,
+      .picks-grid-row {
+        grid-template-columns: 72px 1fr 70px 64px;
+        gap: 8px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <main class="container">
@@ -29,8 +133,7 @@
     
         <section class="summary-panel leaderboard-panel">
           <h3 class="summary-title">Leaderboard</h3>
-          <div id="leaderboard-empty" class="summary-row">No picks submitted yet.</div>
-          <div id="leaderboard-scoreboard" class="scoreboard" role="list" aria-label="Leaderboard scoreboard" hidden></div>
+          <div id="leaderboard-scoreboard" class="scoreboard" role="list" aria-label="Leaderboard scoreboard"></div>
         </section>
         
 
@@ -213,9 +316,29 @@
   </main>
   <script>
   document.addEventListener("DOMContentLoaded", function () {
+    const PLAYERS = ["Mert", "Fert", "Gert"];
+    const EVENT_ROWS = [
+      { match: "Men's Elimination Chamber", wrestler: "Cody Rhodes", odds: -200, result: "", totalPlayerPoints: 60, MertWager: 15, FertWager: 0, GertWager: 15 },
+      { match: "Men's Elimination Chamber", wrestler: "Randy Orton", odds: 200, result: "", totalPlayerPoints: 60, MertWager: 5, FertWager: 0, GertWager: 5 },
+      { match: "Men's Elimination Chamber", wrestler: "LA Knight", odds: 300, result: "", totalPlayerPoints: 60, MertWager: 5, FertWager: 10, GertWager: 0 },
+      { match: "Men's Elimination Chamber", wrestler: "Trick Williams", odds: 800, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 5, GertWager: 0 },
+      { match: "Men's Elimination Chamber", wrestler: "Je'Von Evans", odds: 800, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 0, GertWager: 0 },
+      { match: "Men's Elimination Chamber", wrestler: "Jey Uso", odds: 900, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 0, GertWager: 0 },
+      { match: "Women's Elimination Chamber", wrestler: "Rhea Ripley", odds: -300, result: "", totalPlayerPoints: 60, MertWager: 10, FertWager: 15, GertWager: 0 },
+      { match: "Women's Elimination Chamber", wrestler: "Raquel Rodriguez", odds: 125, result: "", totalPlayerPoints: 60, MertWager: 5, FertWager: 0, GertWager: 0 },
+      { match: "Women's Elimination Chamber", wrestler: "Tiffany Stratton", odds: 150, result: "", totalPlayerPoints: 60, MertWager: 5, FertWager: 10, GertWager: 15 },
+      { match: "Women's Elimination Chamber", wrestler: "Alexa Bliss", odds: 400, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 0, GertWager: 0 },
+      { match: "Women's Elimination Chamber", wrestler: "Asuka", odds: 400, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 0, GertWager: 0 },
+      { match: "Women's Elimination Chamber", wrestler: "Kiana James", odds: 1200, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 0, GertWager: 0 },
+      { match: "Women's Intercontinental Championship", wrestler: "AJ Lee", odds: -300, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 10, GertWager: 0 },
+      { match: "Women's Intercontinental Championship", wrestler: "Becky Lynch", odds: 200, result: "", totalPlayerPoints: 60, MertWager: 5, FertWager: 0, GertWager: 20 },
+      { match: "World Heavyweight Championship", wrestler: "CM Punk", odds: -5000, result: "", totalPlayerPoints: 60, MertWager: 10, FertWager: 10, GertWager: 5 },
+      { match: "World Heavyweight Championship", wrestler: "Finn Balor", odds: 1200, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 0, GertWager: 0 }
+    ];
+
     const cards = Array.from(document.querySelectorAll(".match-card"));
-    const leaderboardEmpty = document.getElementById("leaderboard-empty");
     const leaderboardScoreboard = document.getElementById("leaderboard-scoreboard");
+    const statusLine = document.querySelector(".live-status-line");
 
     function toWholeNumber(value) {
       const num = Number(value);
@@ -223,47 +346,22 @@
       return Math.round(num);
     }
 
-    function parseCsvRows(text) {
-      const lines = text.split(/\r?\n/).map(function (line) { return line.trim(); }).filter(Boolean);
-      if (!lines.length) return [];
-      const headers = lines[0].split(",").map(function (h) { return h.trim(); });
-      const rows = [];
-      for (let i = 1; i < lines.length; i += 1) {
-        const cols = lines[i].split(",").map(function (c) { return c.trim(); });
-        const row = {};
-        headers.forEach(function (key, idx) {
-          row[key] = cols[idx] || "";
-        });
-        rows.push(row);
-      }
-      return rows;
+    function normalizeName(value) {
+      return String(value || "").replace(/[’`]/g, "'").trim().toLowerCase();
     }
 
-    function normalizePlayer(row) {
-      const player = (row.Player || "").trim();
-      if (!player) return null;
-      const scoreRaw = row.Score !== undefined ? row.Score : row.Net;
-      const score = Math.max(0, toWholeNumber(scoreRaw));
-      const wins = Math.max(0, toWholeNumber(row.Wins));
-      const losses = Math.max(0, toWholeNumber(row.Losses));
-      const pending = Math.max(0, toWholeNumber(row.PendingWager !== undefined ? row.PendingWager : row.Pending));
-      const maxPossiblePoints = Math.max(0, toWholeNumber(row.MaxPossiblePoints));
-      return {
-        player: player,
-        score: score,
-        wins: wins,
-        losses: losses,
-        pending: pending,
-        maxPossiblePoints: maxPossiblePoints
-      };
+    function profitFromOdds(wager, odds) {
+      const wagerNum = Number(wager);
+      const oddsNum = Number(odds);
+      if (!Number.isFinite(wagerNum) || wagerNum <= 0 || !Number.isFinite(oddsNum) || oddsNum === 0) return 0;
+      if (oddsNum < 0) return wagerNum * (100 / Math.abs(oddsNum));
+      return wagerNum * (oddsNum / 100);
     }
 
     function renderLeaderboard(players) {
-      if (!leaderboardEmpty || !leaderboardScoreboard) return;
+      if (!leaderboardScoreboard) return;
       if (!players.length) {
-        leaderboardScoreboard.hidden = true;
         leaderboardScoreboard.innerHTML = "";
-        leaderboardEmpty.hidden = false;
         return;
       }
 
@@ -271,7 +369,7 @@
       leaderboardScoreboard.innerHTML = players.map(function (p) {
         const isLeader = p.score === maxScore;
         return (
-          '<article class="player-card' + (isLeader ? ' leader' : '') + '" role="listitem" aria-label="' + p.player + ' leaderboard card">' +
+          '<article class="player-card' + (isLeader ? ' leader' : '') + (p.overLimit ? ' over-limit' : '') + '" role="listitem" aria-label="' + p.player + ' leaderboard card">' +
             '<div class="player-card-head">' +
               '<h4 class="player-name">' + p.player + '</h4>' +
               (isLeader ? '<span class="leader-badge">Leader</span>' : '') +
@@ -279,43 +377,275 @@
             '<div class="player-score">' + p.score + '</div>' +
             '<dl class="player-stats">' +
               '<div class="player-stat"><dt>W-L</dt><dd>' + p.wins + '-' + p.losses + '</dd></div>' +
+              '<div class="player-stat"><dt>Total Wagered</dt><dd>' + p.totalWagered + '</dd></div>' +
               '<div class="player-stat"><dt>Pending</dt><dd>' + p.pending + '</dd></div>' +
               '<div class="player-stat"><dt>Max Possible Points</dt><dd>' + p.maxPossiblePoints + '</dd></div>' +
             '</dl>' +
+            (p.overLimit ? '<div class="player-warning">Over event point limit</div>' : '') +
           '</article>'
         );
       }).join("");
-      leaderboardEmpty.hidden = true;
-      leaderboardScoreboard.hidden = false;
     }
 
-    function loadLeaderboard() {
-      const leaderboardPaths = [
-        "EC2026_leaderboard.csv",
-        "data/EC2026_leaderboard.csv"
-      ];
+    function getCardByMatchName() {
+      const map = {};
+      cards.forEach(function (card) {
+        const titleEl = card.querySelector(".match-toggle h2");
+        if (!titleEl) return;
+        const matchName = titleEl.textContent.trim();
+        map[matchName] = card;
+      });
+      return map;
+    }
 
-      function tryPath(index) {
-        if (index >= leaderboardPaths.length) {
-          renderLeaderboard([]);
-          return;
-        }
-        fetch(leaderboardPaths[index], { cache: "no-store" })
-          .then(function (response) {
-            if (!response.ok) throw new Error("Not found");
-            return response.text();
-          })
-          .then(function (text) {
-            const rows = parseCsvRows(text);
-            const players = rows.map(normalizePlayer).filter(Boolean);
-            renderLeaderboard(players);
-          })
-          .catch(function () {
-            tryPath(index + 1);
-          });
+    function computeMatchStatus(rows) {
+      const winners = rows.filter(function (row) { return String(row.result || "").trim().toUpperCase() === "W"; });
+      if (winners.length === 1) {
+        return { status: "final", winner: winners[0].wrestler, issue: "" };
       }
+      if (winners.length > 1) {
+        return { status: "issue", winner: "", issue: "Data issue: multiple winners marked in this match." };
+      }
+      return { status: "pending", winner: "", issue: "" };
+    }
 
-      tryPath(0);
+    function buildGroups() {
+      const groups = {};
+      EVENT_ROWS.forEach(function (row) {
+        if (!groups[row.match]) groups[row.match] = [];
+        groups[row.match].push(row);
+      });
+      return groups;
+    }
+
+    function buildScoreboard(groups) {
+      const eventTotalPointsRaw = EVENT_ROWS.find(function (row) {
+        return Number.isFinite(Number(row.totalPlayerPoints));
+      });
+      const eventTotalPoints = eventTotalPointsRaw ? Number(eventTotalPointsRaw.totalPlayerPoints) : 0;
+      const playerTotals = {};
+      PLAYERS.forEach(function (player) {
+        playerTotals[player] = {
+          player: player,
+          scoreInternal: 0,
+          wins: 0,
+          losses: 0,
+          pending: 0,
+          maxPossiblePoints: 0,
+          totalWagered: 0
+        };
+      });
+
+      Object.keys(groups).forEach(function (matchName) {
+        const rows = groups[matchName];
+        const matchState = computeMatchStatus(rows);
+
+        PLAYERS.forEach(function (player) {
+          const wagerField = player + "Wager";
+          const selections = rows
+            .map(function (row) {
+              return { wrestler: row.wrestler, odds: Number(row.odds), wager: Number(row[wagerField] || 0) };
+            })
+            .filter(function (entry) { return Number.isFinite(entry.wager) && entry.wager > 0; });
+          const participated = selections.length > 0;
+          selections.forEach(function (entry) {
+            playerTotals[player].totalWagered += entry.wager;
+          });
+
+          if (matchState.status === "final") {
+            if (participated) {
+              const pickedWinner = selections.some(function (entry) {
+                return normalizeName(entry.wrestler) === normalizeName(matchState.winner);
+              });
+              if (pickedWinner) {
+                playerTotals[player].wins += 1;
+              } else {
+                playerTotals[player].losses += 1;
+              }
+            }
+
+            selections.forEach(function (entry) {
+              if (normalizeName(entry.wrestler) === normalizeName(matchState.winner)) {
+                playerTotals[player].scoreInternal += profitFromOdds(entry.wager, entry.odds);
+              } else {
+                playerTotals[player].scoreInternal -= entry.wager;
+              }
+            });
+          } else {
+            selections.forEach(function (entry) {
+              playerTotals[player].pending += entry.wager;
+              playerTotals[player].maxPossiblePoints += profitFromOdds(entry.wager, entry.odds);
+            });
+          }
+        });
+      });
+
+      return PLAYERS.map(function (player) {
+        const totals = playerTotals[player];
+        return {
+          player: totals.player,
+          score: Math.max(0, toWholeNumber(totals.scoreInternal)),
+          wins: toWholeNumber(totals.wins),
+          losses: toWholeNumber(totals.losses),
+          pending: toWholeNumber(totals.pending),
+          maxPossiblePoints: toWholeNumber(totals.maxPossiblePoints),
+          totalWagered: toWholeNumber(totals.totalWagered),
+          overLimit: totals.totalWagered > eventTotalPoints
+        };
+      });
+    }
+
+    function updatePageStatus(groups) {
+      if (!statusLine) return;
+      const names = Object.keys(groups);
+      const totalMatches = names.length;
+      let finalCount = 0;
+      let pendingCount = 0;
+      names.forEach(function (name) {
+        const matchState = computeMatchStatus(groups[name]);
+        if (matchState.status === "final") {
+          finalCount += 1;
+        } else {
+          pendingCount += 1;
+        }
+      });
+
+      let overall = "Pending";
+      if (finalCount === 0) {
+        overall = "Pending";
+      } else if (pendingCount === 0) {
+        overall = "Final";
+      } else {
+        overall = "Live";
+      }
+      statusLine.innerHTML = "<strong>Status:</strong> " + overall + " | <strong>Matches completed:</strong> " + finalCount + " / " + totalMatches;
+    }
+
+    function updateMatchCards(groups) {
+      const cardByMatch = getCardByMatchName();
+      Object.keys(groups).forEach(function (matchName) {
+        const card = cardByMatch[matchName];
+        if (!card) return;
+        const rows = groups[matchName];
+        const state = computeMatchStatus(rows);
+        const matchStatusEl = card.querySelector(".match-status");
+        if (matchStatusEl) {
+          matchStatusEl.classList.remove("pending", "final", "invalid", "issue");
+          if (state.status === "final") {
+            matchStatusEl.textContent = "Status: Final";
+            matchStatusEl.classList.add("final");
+          } else if (state.status === "issue") {
+            matchStatusEl.textContent = "Status: Data issue";
+            matchStatusEl.classList.add("issue");
+          } else {
+            matchStatusEl.textContent = "Status: Pending";
+            matchStatusEl.classList.add("pending");
+          }
+        }
+
+        const wrestlerRows = Array.from(card.querySelectorAll(".wrestler"));
+        wrestlerRows.forEach(function (wrestlerRow) {
+          wrestlerRow.classList.remove("result-lost");
+          const resultPill = wrestlerRow.querySelector(".result-pill");
+          if (resultPill) resultPill.remove();
+          const nameEl = wrestlerRow.querySelector(".name");
+          if (!nameEl) return;
+          const wrestlerName = nameEl.childNodes[0] ? nameEl.childNodes[0].nodeValue.trim() : nameEl.textContent.trim();
+          if (state.status === "final" && normalizeName(wrestlerName) === normalizeName(state.winner)) {
+            const winnerPill = document.createElement("span");
+            winnerPill.className = "result-pill";
+            winnerPill.textContent = "Winner";
+            nameEl.appendChild(winnerPill);
+          }
+        });
+
+        const oldIssue = card.querySelector(".match-issue");
+        if (oldIssue) oldIssue.remove();
+        if (state.status === "issue") {
+          const issueEl = document.createElement("div");
+          issueEl.className = "match-issue";
+          issueEl.textContent = state.issue;
+          const body = card.querySelector(".match-body");
+          if (body) body.appendChild(issueEl);
+        }
+      });
+    }
+
+    function renderPicks(groups) {
+      const cardByMatch = getCardByMatchName();
+      Object.keys(groups).forEach(function (matchName) {
+        const card = cardByMatch[matchName];
+        if (!card) return;
+        const rows = groups[matchName];
+        const state = computeMatchStatus(rows);
+        const body = card.querySelector(".match-body");
+        if (!body) return;
+
+        const existing = body.querySelector(".picks-grid");
+        if (existing) existing.remove();
+
+        const picksGrid = document.createElement("div");
+        picksGrid.className = "picks-grid";
+        picksGrid.innerHTML =
+          '<div class="picks-grid-header">' +
+            '<span>Player</span><span>Pick</span><span class="picks-wager">Wager</span><span class="picks-status">Status</span>' +
+          '</div>';
+
+        PLAYERS.forEach(function (player) {
+          const wagerField = player + "Wager";
+          const selections = rows
+            .map(function (row) {
+              return { wrestler: row.wrestler, wager: Number(row[wagerField] || 0) };
+            })
+            .filter(function (entry) { return Number.isFinite(entry.wager) && entry.wager > 0; });
+          const participated = selections.length > 0;
+          const pickedWinner = selections.some(function (entry) {
+            return normalizeName(entry.wrestler) === normalizeName(state.winner);
+          });
+
+          let statusText = "Pending";
+          let statusClass = "pending";
+          if (state.status === "final") {
+            if (pickedWinner) {
+              statusText = "Win";
+              statusClass = "win";
+            } else if (participated) {
+              statusText = "Loss";
+              statusClass = "loss";
+            } else {
+              statusText = "—";
+              statusClass = "";
+            }
+          } else if (state.status === "issue") {
+            statusText = "Issue";
+            statusClass = "loss";
+          }
+
+          const picksLines = selections.length
+            ? selections.map(function (entry) {
+                const winnerClass = state.status === "final" && normalizeName(entry.wrestler) === normalizeName(state.winner) ? " winning-pick" : "";
+                return '<div class="picks-line' + winnerClass + '">' + entry.wrestler + "</div>";
+              }).join("")
+            : '<div class="picks-line">—</div>';
+
+          const wagerLines = selections.length
+            ? selections.map(function (entry) {
+                return '<div class="picks-line">' + toWholeNumber(entry.wager) + "</div>";
+              }).join("")
+            : '<div class="picks-line">—</div>';
+
+          const row = document.createElement("div");
+          row.className = "picks-grid-row";
+          row.innerHTML =
+            '<div class="picks-player">' + player + "</div>" +
+            '<div class="picks-lines">' + picksLines + "</div>" +
+            '<div class="picks-lines picks-wager">' + wagerLines + "</div>" +
+            '<div class="picks-status ' + statusClass + '">' + statusText + "</div>";
+          picksGrid.appendChild(row);
+        });
+
+        body.appendChild(picksGrid);
+      });
     }
 
     function setExpanded(card, expanded) {
@@ -339,7 +669,17 @@
     const collapseAll = document.getElementById("collapse-all");
     if (expandAll) expandAll.addEventListener("click", function () { cards.forEach(function (c) { setExpanded(c, true); }); });
     if (collapseAll) collapseAll.addEventListener("click", function () { cards.forEach(function (c) { setExpanded(c, false); }); });
-    loadLeaderboard();
+
+    const groups = buildGroups();
+    const hasAnyWager = EVENT_ROWS.some(function (row) {
+      return PLAYERS.some(function (player) {
+        return Number(row[player + "Wager"] || 0) > 0;
+      });
+    });
+    renderLeaderboard(hasAnyWager ? buildScoreboard(groups) : []);
+    updatePageStatus(groups);
+    updateMatchCards(groups);
+    renderPicks(groups);
   });
   </script>
 </body>
