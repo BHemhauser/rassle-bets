@@ -51,6 +51,10 @@
       font-weight: 700;
     }
 
+    .picks-line.losing-pick {
+      color: #5b6d7f;
+    }
+
     .picks-wager {
       text-align: right;
       color: #445066;
@@ -72,6 +76,15 @@
 
     .picks-status.pending {
       color: #456178;
+    }
+
+    .picks-net {
+      margin-top: 2px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #4b5d70;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
     }
 
     .player-card.over-limit {
@@ -238,7 +251,7 @@
                 
                 <div class=" wrestler">
                     <div class="wrestler-main">
-                        <span class="name">Jey Uso</span>
+                        <span class="name">Logan Paul</span>
                     </div>
                     <div class="odds">Odds: +900</div>
                 </div>
@@ -323,13 +336,13 @@
       { match: "Men's Elimination Chamber", wrestler: "LA Knight", odds: 300, result: "", totalPlayerPoints: 60, MertWager: 5, FertWager: 10, GertWager: 0 },
       { match: "Men's Elimination Chamber", wrestler: "Trick Williams", odds: 800, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 5, GertWager: 0 },
       { match: "Men's Elimination Chamber", wrestler: "Je'Von Evans", odds: 800, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 0, GertWager: 0 },
-      { match: "Men's Elimination Chamber", wrestler: "Jey Uso", odds: 900, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 0, GertWager: 0 },
-      { match: "Women's Elimination Chamber", wrestler: "Rhea Ripley", odds: -300, result: "", totalPlayerPoints: 60, MertWager: 10, FertWager: 15, GertWager: 0 },
-      { match: "Women's Elimination Chamber", wrestler: "Raquel Rodriguez", odds: 125, result: "", totalPlayerPoints: 60, MertWager: 5, FertWager: 0, GertWager: 0 },
-      { match: "Women's Elimination Chamber", wrestler: "Tiffany Stratton", odds: 150, result: "", totalPlayerPoints: 60, MertWager: 5, FertWager: 10, GertWager: 15 },
-      { match: "Women's Elimination Chamber", wrestler: "Alexa Bliss", odds: 400, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 0, GertWager: 0 },
-      { match: "Women's Elimination Chamber", wrestler: "Asuka", odds: 400, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 0, GertWager: 0 },
-      { match: "Women's Elimination Chamber", wrestler: "Kiana James", odds: 1200, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 0, GertWager: 0 },
+      { match: "Men's Elimination Chamber", wrestler: "Logan Paul", odds: 900, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 0, GertWager: 0 },
+      { match: "Women's Elimination Chamber", wrestler: "Rhea Ripley", odds: -300, result: "W", totalPlayerPoints: 60, MertWager: 10, FertWager: 15, GertWager: 0 },
+      { match: "Women's Elimination Chamber", wrestler: "Raquel Rodriguez", odds: 125, result: "L", totalPlayerPoints: 60, MertWager: 5, FertWager: 0, GertWager: 0 },
+      { match: "Women's Elimination Chamber", wrestler: "Tiffany Stratton", odds: 150, result: "L", totalPlayerPoints: 60, MertWager: 5, FertWager: 10, GertWager: 15 },
+      { match: "Women's Elimination Chamber", wrestler: "Alexa Bliss", odds: 400, result: "L", totalPlayerPoints: 60, MertWager: 0, FertWager: 0, GertWager: 0 },
+      { match: "Women's Elimination Chamber", wrestler: "Asuka", odds: 400, result: "L", totalPlayerPoints: 60, MertWager: 0, FertWager: 0, GertWager: 0 },
+      { match: "Women's Elimination Chamber", wrestler: "Kiana James", odds: 1200, result: "L", totalPlayerPoints: 60, MertWager: 0, FertWager: 0, GertWager: 0 },
       { match: "Women's Intercontinental Championship", wrestler: "AJ Lee", odds: -300, result: "", totalPlayerPoints: 60, MertWager: 0, FertWager: 10, GertWager: 0 },
       { match: "Women's Intercontinental Championship", wrestler: "Becky Lynch", odds: 200, result: "", totalPlayerPoints: 60, MertWager: 5, FertWager: 0, GertWager: 20 },
       { match: "World Heavyweight Championship", wrestler: "CM Punk", odds: -5000, result: "", totalPlayerPoints: 60, MertWager: 10, FertWager: 10, GertWager: 5 },
@@ -399,12 +412,26 @@
     }
 
     function computeMatchStatus(rows) {
+      const normalized = rows.map(function (row) { return String(row.result || "").trim().toUpperCase(); });
       const winners = rows.filter(function (row) { return String(row.result || "").trim().toUpperCase() === "W"; });
-      if (winners.length === 1) {
+      const hasAnyResult = normalized.some(function (value) { return value === "W" || value === "L"; });
+      const allBlank = normalized.every(function (value) { return value === ""; });
+      const allNonWAreL = rows.every(function (row) {
+        const value = String(row.result || "").trim().toUpperCase();
+        return value === "W" || value === "L";
+      });
+
+      if (winners.length === 1 && allNonWAreL) {
         return { status: "final", winner: winners[0].wrestler, issue: "" };
+      }
+      if (allBlank) {
+        return { status: "pending", winner: "", issue: "" };
       }
       if (winners.length > 1) {
         return { status: "issue", winner: "", issue: "Data issue: multiple winners marked in this match." };
+      }
+      if (hasAnyResult) {
+        return { status: "issue", winner: "", issue: "Data issue: finalized matches must have exactly one W and all others L." };
       }
       return { status: "pending", winner: "", issue: "" };
     }
@@ -444,7 +471,12 @@
           const wagerField = player + "Wager";
           const selections = rows
             .map(function (row) {
-              return { wrestler: row.wrestler, odds: Number(row.odds), wager: Number(row[wagerField] || 0) };
+              return {
+                wrestler: row.wrestler,
+                odds: Number(row.odds),
+                result: String(row.result || "").trim().toUpperCase(),
+                wager: Number(row[wagerField] || 0)
+              };
             })
             .filter(function (entry) { return Number.isFinite(entry.wager) && entry.wager > 0; });
           const participated = selections.length > 0;
@@ -465,16 +497,14 @@
             }
 
             selections.forEach(function (entry) {
-              if (normalizeName(entry.wrestler) === normalizeName(matchState.winner)) {
-                playerTotals[player].scoreInternal += profitFromOdds(entry.wager, entry.odds);
-              } else {
-                playerTotals[player].scoreInternal -= entry.wager;
+              if (entry.result === "W" || normalizeName(entry.wrestler) === normalizeName(matchState.winner)) {
+                playerTotals[player].scoreInternal += entry.wager + profitFromOdds(entry.wager, entry.odds);
               }
             });
           } else {
             selections.forEach(function (entry) {
               playerTotals[player].pending += entry.wager;
-              playerTotals[player].maxPossiblePoints += profitFromOdds(entry.wager, entry.odds);
+              playerTotals[player].maxPossiblePoints += entry.wager + profitFromOdds(entry.wager, entry.odds);
             });
           }
         });
@@ -595,7 +625,12 @@
           const wagerField = player + "Wager";
           const selections = rows
             .map(function (row) {
-              return { wrestler: row.wrestler, wager: Number(row[wagerField] || 0) };
+              return {
+                wrestler: row.wrestler,
+                odds: Number(row.odds),
+                result: String(row.result || "").trim().toUpperCase(),
+                wager: Number(row[wagerField] || 0)
+              };
             })
             .filter(function (entry) { return Number.isFinite(entry.wager) && entry.wager > 0; });
           const participated = selections.length > 0;
@@ -621,10 +656,28 @@
             statusClass = "loss";
           }
 
+          let matchNet = 0;
+          if (state.status === "final") {
+            selections.forEach(function (entry) {
+              if (entry.result === "W" || normalizeName(entry.wrestler) === normalizeName(state.winner)) {
+                matchNet += entry.wager + profitFromOdds(entry.wager, entry.odds);
+              }
+            });
+          }
+          const matchNetWhole = toWholeNumber(matchNet);
+          const matchNetDisplay = matchNetWhole > 0 ? "+" + matchNetWhole : String(matchNetWhole);
+
           const picksLines = selections.length
             ? selections.map(function (entry) {
-                const winnerClass = state.status === "final" && normalizeName(entry.wrestler) === normalizeName(state.winner) ? " winning-pick" : "";
-                return '<div class="picks-line' + winnerClass + '">' + entry.wrestler + "</div>";
+                let lineClass = "";
+                if (state.status === "final") {
+                  if (entry.result === "W" || normalizeName(entry.wrestler) === normalizeName(state.winner)) {
+                    lineClass = " winning-pick";
+                  } else {
+                    lineClass = " losing-pick";
+                  }
+                }
+                return '<div class="picks-line' + lineClass + '">' + entry.wrestler + "</div>";
               }).join("")
             : '<div class="picks-line">—</div>';
 
@@ -640,7 +693,7 @@
             '<div class="picks-player">' + player + "</div>" +
             '<div class="picks-lines">' + picksLines + "</div>" +
             '<div class="picks-lines picks-wager">' + wagerLines + "</div>" +
-            '<div class="picks-status ' + statusClass + '">' + statusText + "</div>";
+            '<div><div class="picks-status ' + statusClass + '">' + statusText + "</div><div class=\"picks-net\">Net: " + matchNetDisplay + "</div></div>";
           picksGrid.appendChild(row);
         });
 
