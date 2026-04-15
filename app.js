@@ -358,26 +358,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    const hasAnyWager = wrestlerRows.some((row) => {
-      const input = row.querySelector(".wager-input");
-      if (!input || input.disabled) return false;
-      return getWagerValue(input) > 0;
-    });
-    let globalError = "";
-    if (latestTotals && hasAnyWager && latestTotals.totalWagered < BANKROLL) {
-      globalError = `Use all ${formatNumber(BANKROLL)} points before submitting.`;
-    }
-
-    if (!isSubmitted) {
-      setMessage(globalError, !!globalError);
-      if (submitBtn) submitBtn.disabled = results.length > 0 || !!globalError;
+    if (!isSubmitted && submitBtn) {
+      submitBtn.disabled = results.length > 0;
     }
 
     updateResultsSummary(resultTotals);
     return {
-      valid: results.length === 0 && !globalError,
+      valid: results.length === 0,
       errors: results,
-      globalError,
     };
   }
 
@@ -538,12 +526,14 @@ document.addEventListener("DOMContentLoaded", () => {
       if (isSubmitted) return;
       updateSummary();
       validateAll();
+      setMessage("");
       setSubmitFeedback("");
     });
     input.addEventListener("change", () => {
       if (isSubmitted) return;
       updateSummary();
       validateAll();
+      setMessage("");
       setSubmitFeedback("");
     });
   });
