@@ -242,13 +242,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const footer = card.querySelector(".wm-card-footer");
       if (footer) {
+        footer.querySelectorAll(".match-status:not(.match-rules-footer)").forEach((el) => el.remove());
         let footerRules = footer.querySelector(".match-rules-footer");
         if (!footerRules) {
           footerRules = document.createElement("span");
           footerRules.className = "match-status match-rules-footer";
           footer.appendChild(footerRules);
         }
-        footerRules.textContent = `Max ${MAX_BET_PER_MATCH} • Pick ${maxSelections} of ${participants}`;
+        footerRules.textContent = `Status: Max ${MAX_BET_PER_MATCH} • Pick ${maxSelections} of ${participants}`;
       }
 
       if (!card.querySelector(".match-rule-message")) {
