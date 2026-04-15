@@ -357,10 +357,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     });
+
+    const hasAnyWager = wrestlerRows.some((row) => {
+      const input = row.querySelector(".wager-input");
+      if (!input || input.disabled) return false;
+      return getWagerValue(input) > 0;
+    });
+    let globalError = "";
+    if (latestTotals && hasAnyWager && latestTotals.totalWagered < BANKROLL) {
+      globalError = `Use all ${formatNumber(BANKROLL)} points before submitting.`;
+    }
+
+    if (!isSubmitted) {
+      setMessage(globalError, !!globalError);
+      if (submitBtn) submitBtn.disabled = results.length > 0 || !!globalError;
+    }
+
     updateResultsSummary(resultTotals);
     return {
-      valid: results.length === 0,
+      valid: results.length === 0 && !globalError,
       errors: results,
+      globalError,
     };
   }
 
@@ -459,6 +476,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!playerName) return "Please enter a player name before submitting.";
     if (!latestTotals) return "Totals are not ready yet. Try again.";
     if (latestTotals.overLimit) return `Total wagered cannot exceed ${BANKROLL} points.`;
+    if (latestTotals.totalWagered < BANKROLL) return `Use all ${formatNumber(BANKROLL)} points before submitting.`;
 
     const invalidInput = wrestlerRows.some((row) => {
       const input = row.querySelector(".wager-input");
