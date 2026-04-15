@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
         message.className = "match-rule-message";
         message.hidden = true;
         const body = card.querySelector(".match-body");
-        if (body) body.insertAdjacentElement("afterend", message);
+        if (body) body.appendChild(message);
       }
     });
   }
@@ -357,6 +357,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     });
+
+    if (!isSubmitted) {
+      if (results.length > 0) {
+        const first = results[0];
+        const firstMessage = first?.messages?.[0] || "Please fix highlighted match rules.";
+        setMessage(`${first.match}: ${firstMessage}`, true);
+      } else {
+        setMessage("");
+      }
+    }
 
     if (!isSubmitted && submitBtn) {
       submitBtn.disabled = results.length > 0;
@@ -526,14 +536,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if (isSubmitted) return;
       updateSummary();
       validateAll();
-      setMessage("");
       setSubmitFeedback("");
     });
     input.addEventListener("change", () => {
       if (isSubmitted) return;
       updateSummary();
       validateAll();
-      setMessage("");
       setSubmitFeedback("");
     });
   });
@@ -545,6 +553,9 @@ document.addEventListener("DOMContentLoaded", () => {
     updateSummary();
     const ruleValidation = validateAll();
     if (!ruleValidation.valid) {
+      const first = ruleValidation.errors?.[0];
+      const firstMessage = first?.messages?.[0] || "Fix the highlighted matches before submitting.";
+      setMessage(`${first?.match || "Match"}: ${firstMessage}`, true);
       setSubmitFeedback("Fix the highlighted matches before submitting.", true);
       return;
     }
