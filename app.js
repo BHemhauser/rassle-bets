@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const BANKROLL = 60;
+  const DEFAULT_BANKROLL = 60;
   const FORM_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeicsuX_HvDBgh8frg1EkVByEG54PXbDPYf9nS2CpzIC-DZdw/viewform?usp=pp_url";
   const FORM_FIELD_EVENT_ID = "entry.1042361516";
   const FORM_FIELD_PLAYER_NAME = "entry.200080893";
@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const MIN_BET_PER_WRESTLER = 5;
   const MAX_BET_PER_MATCH = 25;
   const pageRoot = document.querySelector("main.container");
+  const bankrollFromPage = Number(pageRoot?.dataset?.bankroll);
+  const BANKROLL = Number.isFinite(bankrollFromPage) && bankrollFromPage > 0 ? bankrollFromPage : DEFAULT_BANKROLL;
   const matchCards = Array.from(document.querySelectorAll(".match-card"));
   const wrestlerRows = Array.from(document.querySelectorAll(".wrestler"));
 
