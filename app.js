@@ -108,6 +108,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return numeric;
   }
 
+  function hasInvalidWagerEntry(input) {
+    const raw = String(input.value ?? "").trim();
+    if (raw === "") return false;
+    const numeric = Number(raw);
+    return !Number.isFinite(numeric) || numeric < 0;
+  }
+
   function parseWrestlerName(row) {
     const nameEl = row.querySelector(".name");
     if (!nameEl) return "Unknown Wrestler";
@@ -291,10 +298,15 @@ document.addEventListener("DOMContentLoaded", () => {
       let matchTotal = 0;
       let selections = 0;
       let hasLowBet = false;
+      let hasInvalidValue = false;
 
       rows.forEach((row) => {
         const input = row.querySelector(".wager-input");
         if (!input || input.disabled) return;
+        if (hasInvalidWagerEntry(input)) {
+          hasInvalidValue = true;
+          return;
+        }
         const wager = getWagerValue(input);
         matchTotal += wager;
         if (wager > 0) selections += 1;
@@ -308,6 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (isInvalidResults) {
         messages.push("Admin issue: this match has multiple winners in CSV. Only one row can have Result=W.");
       }
+      if (hasInvalidValue) messages.push("Enter a valid wager value (0 or greater).");
       if (hasLowBet) messages.push(`Minimum bet is ${MIN_BET_PER_WRESTLER} points (or 0).`);
       if (matchTotal > MAX_BET_PER_MATCH) messages.push(`Max points per match is ${MAX_BET_PER_MATCH}.`);
       if (selections > maxSelections) {
@@ -358,18 +371,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    if (!isSubmitted) {
-      if (results.length > 0) {
-        const first = results[0];
-        const firstMessage = first?.messages?.[0] || "Please fix highlighted match rules.";
-        setMessage(`${first.match}: ${firstMessage}`, true);
-      } else {
-        setMessage("");
-      }
-    }
-
     if (!isSubmitted && submitBtn) {
-      submitBtn.disabled = results.length > 0;
+      const hasExactBankroll = !!latestTotals && Math.abs(latestTotals.totalWagered - BANKROLL) < 0.0001;
+      submitBtn.disabled = results.length > 0 || !hasExactBankroll;
     }
 
     updateResultsSummary(resultTotals);
@@ -532,16 +536,32 @@ document.addEventListener("DOMContentLoaded", () => {
   wrestlerRows.forEach((row) => {
     const input = row.querySelector(".wager-input");
     if (!input) return;
+    input.addEventListener(
+      "wheel",
+      (event) => {
+        if (document.activeElement === input) {
+          event.preventDefault();
+        }
+      },
+      { passive: false }
+    );
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+        event.preventDefault();
+      }
+    });
     input.addEventListener("input", () => {
       if (isSubmitted) return;
       updateSummary();
       validateAll();
+      setMessage("");
       setSubmitFeedback("");
     });
     input.addEventListener("change", () => {
       if (isSubmitted) return;
       updateSummary();
       validateAll();
+      setMessage("");
       setSubmitFeedback("");
     });
   });
