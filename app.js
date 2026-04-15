@@ -234,21 +234,22 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      let hint = toggle.querySelector(".match-limit-hint");
-      if (!hint) {
-        hint = document.createElement("span");
-        hint.className = "match-limit-hint";
-        meta.appendChild(hint);
-      }
-      hint.textContent = `Limits: max ${MAX_BET_PER_MATCH} pts • pick up to ${maxSelections} of ${participants}`;
+      const hint = toggle.querySelector(".match-limit-hint");
+      if (hint) hint.remove();
 
-      let status = toggle.querySelector(".match-status");
-      if (!status) {
-        status = document.createElement("span");
-        status.className = "match-status pending";
-        meta.appendChild(status);
+      const headerStatus = toggle.querySelector(".match-status");
+      if (headerStatus) headerStatus.remove();
+
+      const footer = card.querySelector(".wm-card-footer");
+      if (footer) {
+        let footerRules = footer.querySelector(".match-rules-footer");
+        if (!footerRules) {
+          footerRules = document.createElement("span");
+          footerRules.className = "match-status match-rules-footer";
+          footer.appendChild(footerRules);
+        }
+        footerRules.textContent = `Max ${MAX_BET_PER_MATCH} • Pick ${maxSelections} of ${participants}`;
       }
-      status.textContent = "Status: Pending";
 
       if (!card.querySelector(".match-rule-message")) {
         const message = document.createElement("div");
@@ -291,16 +292,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const participants = Number(card.dataset.participants || "0");
       const maxSelections = Number(card.dataset.maxSelections || "0");
       const winnerCount = rows.filter((row) => getResultValue(row) === "W").length;
-      let statusText = "Pending";
-      let statusClass = "pending";
-      if (winnerCount === 1) {
-        statusText = "Final";
-        statusClass = "final";
-      } else if (winnerCount > 1) {
-        statusText = "Invalid";
-        statusClass = "invalid";
-      }
-
       let matchTotal = 0;
       let selections = 0;
       let hasLowBet = false;
@@ -334,11 +325,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const messageEl = card.querySelector(".match-rule-message");
-      const statusEl = card.querySelector(".match-status");
-      if (statusEl) {
-        statusEl.textContent = `Status: ${statusText}`;
-        statusEl.className = `match-status ${statusClass}`;
-      }
       const invalid = messages.length > 0;
       safeToggleClass(card, "rule-invalid", invalid);
       if (messageEl) {
