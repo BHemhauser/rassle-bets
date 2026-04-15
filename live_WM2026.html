@@ -1,0 +1,1227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WrestleMania 42 Live Tracker (WM2026)</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="live.css">
+  <script>
+    const EVENT = {
+      id: "WM2026",
+      name: "WrestleMania 42",
+      city: "Las Vegas",
+      logo: "assets/logos/WM2026.png",
+      colors: {
+        background: "#000000",
+        text: "#FFFFFF",
+        accent: "#C0C0C0",
+        accentLight: "#E5E5E5"
+      }
+    };
+  </script>
+  <style>
+    body {
+      background: #000000;
+      color: #FFFFFF;
+    }
+
+    .container {
+      max-width: 1080px;
+    }
+
+    .event-header {
+      background: #000000;
+      border: 1px solid #C0C0C0;
+      box-shadow: none;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .event-header::before {
+      display: none;
+    }
+
+    .event-logo {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      object-fit: contain;
+      background: #000000;
+    }
+
+    .event-summary-block {
+      margin-top: 14px;
+      padding: 12px 14px;
+      display: grid;
+      gap: 6px;
+      text-align: center;
+      border-top: 1px solid #4A4A4A;
+      border-bottom: 1px solid #4A4A4A;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.00) 100%);
+    }
+
+    .event-summary-line {
+      color: #E5E5E5;
+      font-weight: 700;
+      font-size: 1.03rem;
+      letter-spacing: 0.02em;
+      line-height: 1.35;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.75), 0 0 8px rgba(229,229,229,0.10);
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 700px) {
+      .event-summary-block {
+        margin-top: 10px;
+        padding: 10px 10px;
+        gap: 5px;
+      }
+
+      .event-summary-line {
+        font-size: 0.97rem;
+      }
+    }
+
+    .event-time,
+    .event-meta,
+    .event-meta strong,
+    .summary-title,
+    .summary-row,
+    .summary-row span,
+    .site-footer,
+    .live-status-line,
+    .name,
+    .odds,
+    .player-name,
+    .player-stat dd {
+      color: #FFFFFF;
+    }
+
+    .summary-panel,
+    .match-card,
+    .wrestler {
+      background: #0A0A0A;
+      border-color: #545454;
+      box-shadow: none;
+    }
+
+    .copy-btn,
+    .btn-secondary,
+    .btn-primary {
+      background: #171717;
+      border-color: #C0C0C0;
+      color: #E5E5E5;
+    }
+
+    .copy-btn:hover,
+    .btn-primary:hover {
+      background: #262626;
+      border-color: #E5E5E5;
+    }
+
+    .page-nav .copy-btn {
+      text-decoration: none;
+    }
+
+    .match-toggle h2 {
+      color: #FFFFFF;
+    }
+
+    .match-status {
+      color: #C0C0C0;
+    }
+
+    .match-toggle:hover {
+      background: #161616;
+    }
+
+    .wrestler:hover {
+      background: #141414;
+      border-color: #666666;
+      box-shadow: none;
+    }
+
+    .wm-card-header {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #4A4A4A;
+    }
+
+    .wm-card-title-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+      grid-column: 2;
+    }
+
+    .wm-card-header h2,
+    .match-title {
+      text-align: center;
+      color: #FFFFFF;
+      font-size: 1.45rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .wm-competitors {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 0 10px;
+    }
+
+    .wm-competitors .wrestler {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      box-shadow: none;
+      text-align: center;
+    }
+
+    .wm-competitors .wrestler-main {
+      justify-content: center;
+    }
+
+    .wm-competitors .name,
+    .wrestler-name {
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .wm-competitors .champion-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .wm-competitors .belt-slot {
+      width: 38px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 38px;
+    }
+
+    .wm-competitors .belt-icon {
+      max-height: 18px;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .wm-competitors .odds {
+      margin-top: 4px;
+      color: #C0C0C0;
+    }
+
+    .wm-competitors.multi {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding-top: 10px;
+    }
+
+    .wm-competitors.multi .wrestler {
+      border: 1px solid #3C3C3C;
+      border-radius: 10px;
+      padding: 8px 10px;
+      text-align: left;
+    }
+
+    .wm-competitors.multi .wrestler-main {
+      justify-content: flex-start;
+    }
+
+    .wm-competitors.multi .name,
+    .wm-competitors.multi .wrestler-name {
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .wm-vs {
+      position: relative;
+      color: #C0C0C0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0 10px;
+    }
+
+    .wm-vs::before,
+    .wm-vs::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 1px;
+      height: 24px;
+      background: #5A5A5A;
+      transform: translateY(-50%);
+    }
+
+    .wm-vs::before {
+      left: 0;
+    }
+
+    .wm-vs::after {
+      right: 0;
+    }
+
+    .wm-card-footer {
+      border-top: 1px solid #3C3C3C;
+      padding-top: 8px;
+      margin-top: 6px;
+    }
+
+    .wm-card-footer .match-status {
+      color: #C0C0C0;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .wm-night-section {
+      margin: 18px 0 24px;
+    }
+
+    .wm-night-banner {
+      border: 1px solid #6A6A6A;
+      background: #101010;
+      border-radius: 12px;
+      padding: 14px 10px;
+      text-align: center;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    }
+
+    .wm-night-title {
+      margin: 0;
+      color: #FFFFFF;
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .wm-night-subtitle {
+      margin: 4px 0 0;
+      color: #C0C0C0;
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .scoreboard .player-card {
+      background: #0F0F0F;
+      border-color: #6A6A6A;
+      box-shadow: none;
+    }
+
+    .scoreboard .player-card.leader {
+      background: #151515;
+      border-color: #C0C0C0;
+      box-shadow: none;
+    }
+
+    .leader-badge {
+      background: #2A2A2A;
+      border-color: #C0C0C0;
+      color: #E5E5E5;
+    }
+
+    .player-score {
+      color: #E5E5E5;
+    }
+
+    .player-stat dt {
+      color: #C0C0C0;
+    }
+
+    .picks-grid {
+      margin-top: 10px;
+      border-top: 1px solid #3F3F3F;
+      padding-top: 10px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .picks-grid-header {
+      display: grid;
+      grid-template-columns: 88px 1fr 84px 70px;
+      gap: 10px;
+      color: #C0C0C0;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .picks-grid-row {
+      display: grid;
+      grid-template-columns: 88px 1fr 84px 70px;
+      gap: 10px;
+      align-items: start;
+      font-size: 0.86rem;
+      color: #E5E5E5;
+      border-top: 1px solid #303030;
+      padding-top: 8px;
+    }
+
+    .picks-player {
+      font-weight: 700;
+      color: #E5E5E5;
+    }
+
+    .picks-lines {
+      display: grid;
+      gap: 3px;
+      color: #FFFFFF;
+    }
+
+    .picks-line.winning-pick {
+      color: #E5E5E5;
+      font-weight: 700;
+    }
+
+    .picks-line.losing-pick {
+      color: #BFBFBF;
+    }
+
+    .picks-wager {
+      text-align: right;
+      color: #C0C0C0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .picks-status {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .picks-status.win,
+    .picks-status.loss,
+    .picks-status.pending {
+      color: #E5E5E5;
+    }
+
+    .picks-net {
+      margin-top: 2px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #C0C0C0;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .player-card.over-limit {
+      border-color: #8A8A8A;
+      background: #171717;
+    }
+
+    .player-warning {
+      color: #C0C0C0;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .match-status.issue {
+      color: #C0C0C0;
+    }
+
+    .match-issue {
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #666666;
+      background: #161616;
+      color: #E5E5E5;
+      font-size: 0.84rem;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 700px) {
+      .picks-grid-header,
+      .picks-grid-row {
+        grid-template-columns: 72px 1fr 70px 64px;
+        gap: 8px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="event-header" data-event-name="WrestleMania 42">
+      <img class="event-logo" src="assets/logos/WM2026.png" alt="WrestleMania logo">
+      <div class="event-summary-block" aria-label="Event summary">
+        <div class="event-summary-line">Saturday, April 18th, 2026</div>
+        <div class="event-summary-line">Sunday, April 19th, 2026</div>
+        <div class="event-summary-line">Allegiant Stadium, Las Vegas, Nevada</div>
+        <div class="event-summary-line">6pm EST</div>
+      </div>
+      <div class="live-status-line visually-hidden"><strong>Status:</strong> Pending | <strong>Matches completed:</strong> 0 / 13</div>
+    </header>
+
+    <nav class="page-nav" aria-label="Page navigation">
+      <a class="copy-btn btn-secondary" href="event_WM2026.html">Make Picks</a>
+      <a class="copy-btn btn-primary" href="live_WM2026.html">Live Tracker</a>
+    </nav>
+
+    <section class="summary-panel leaderboard-panel">
+      <h3 class="summary-title">Leaderboard</h3>
+      <div id="leaderboard-scoreboard" class="scoreboard" role="list" aria-label="Leaderboard scoreboard"></div>
+    </section>
+
+    <section class="match-controls" aria-label="Match controls">
+      <button id="expand-all" class="copy-btn btn-secondary" type="button">Expand all</button>
+      <button id="collapse-all" class="copy-btn btn-secondary" type="button">Collapse all</button>
+    </section>
+    <section class="matches">
+      <section class="wm-night-section" data-night="Night 1">
+        <div class="wm-night-banner">
+          <h3 class="wm-night-title">Night 1</h3>
+          <p class="wm-night-subtitle">Saturday, April 18, 2026</p>
+        </div>
+
+      <section class="match-card" data-night="Night 1" data-match-code="WM0101">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header">
+            <div class="wm-card-title-wrap">
+              <h2 class="match-title">6-Man Tag Match</h2>
+            </div>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class="wm-competitors">
+            <div class="wrestler" data-match-code="WM0101"><div class="wrestler-main"><span class="name wrestler-name">Logan Paul &amp; Theory &amp; Ishowspeed</span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wm-vs">vs</div>
+            <div class="wrestler" data-match-code="WM0101"><div class="wrestler-main"><span class="name wrestler-name">The Uso's &amp; LA Knight</span></div><div class="odds">Odds: TBD</div></div>
+          </div>
+          <div class="wm-card-footer"><span class="match-status pending">Status: Pending</span></div>
+        </div>
+      </section>
+
+      <section class="match-card" data-night="Night 1" data-match-code="WM0102">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header">
+            <div class="wm-card-title-wrap">
+              <h2 class="match-title">Unsanctioned Match</h2>
+            </div>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class="wm-competitors">
+            <div class="wrestler" data-match-code="WM0102"><div class="wrestler-main"><span class="name wrestler-name">Drew McIntyre</span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wm-vs">vs</div>
+            <div class="wrestler" data-match-code="WM0102"><div class="wrestler-main"><span class="name wrestler-name">Jacob Fatu</span></div><div class="odds">Odds: TBD</div></div>
+          </div>
+          <div class="wm-card-footer"><span class="match-status pending">Status: Pending</span></div>
+        </div>
+      </section>
+
+      <section class="match-card" data-night="Night 1" data-match-code="WM0103">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header">
+            <div class="wm-card-title-wrap">
+              <h2 class="match-title">Women's Tag Team Championship</h2>
+            </div>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class="wm-competitors multi">
+            <div class="wrestler champion" data-match-code="WM0103"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/womens_tag.png?v=wm42-belts-20260308" alt="Women's Tag Team Championship belt"></span><span class="wrestler-name">Nia Jax &amp; Lash Legend</span></span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wrestler" data-match-code="WM0103"><div class="wrestler-main"><span class="name wrestler-name">Alexa Bliss &amp; Charlotte Flair</span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wrestler" data-match-code="WM0103"><div class="wrestler-main"><span class="name wrestler-name">Lyra Valkyria &amp; Bayley</span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wrestler" data-match-code="WM0103"><div class="wrestler-main"><span class="name wrestler-name">Bella Twins</span></div><div class="odds">Odds: TBD</div></div>
+          </div>
+          <div class="wm-card-footer"><span class="match-status pending">Status: Pending</span></div>
+        </div>
+      </section>
+
+      <section class="match-card" data-night="Night 1" data-match-code="WM0104">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header">
+            <div class="wm-card-title-wrap">
+              <h2 class="match-title">Women's Intercontinental Championship</h2>
+            </div>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class="wm-competitors">
+            <div class="wrestler champion" data-match-code="WM0104"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/womens_ic.png?v=wm42-belts-20260308" alt="Women's Intercontinental Championship belt"></span><span class="wrestler-name">AJ Lee</span></span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wm-vs">vs</div>
+            <div class="wrestler" data-match-code="WM0104"><div class="wrestler-main"><span class="name wrestler-name">Becky Lynch</span></div><div class="odds">Odds: TBD</div></div>
+          </div>
+          <div class="wm-card-footer"><span class="match-status pending">Status: Pending</span></div>
+        </div>
+      </section>
+
+      <section class="match-card" data-night="Night 1" data-match-code="WM0105">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header">
+            <div class="wm-card-title-wrap">
+              <h2 class="match-title">Singles Match</h2>
+            </div>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class="wm-competitors">
+            <div class="wrestler" data-match-code="WM0105"><div class="wrestler-main"><span class="name wrestler-name">Seth Rollins</span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wm-vs">vs</div>
+            <div class="wrestler" data-match-code="WM0105"><div class="wrestler-main"><span class="name wrestler-name">Gunther</span></div><div class="odds">Odds: TBD</div></div>
+          </div>
+          <div class="wm-card-footer"><span class="match-status pending">Status: Pending</span></div>
+        </div>
+      </section>
+
+      <section class="match-card" data-night="Night 1" data-match-code="WM0106">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header">
+            <div class="wm-card-title-wrap">
+              <h2 class="match-title">Women's World Championship</h2>
+            </div>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class="wm-competitors">
+            <div class="wrestler champion" data-match-code="WM0106"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/womens_world.png?v=wm42-belts-20260308" alt="Women's World Championship belt"></span><span class="wrestler-name">Stephanie Vaquer</span></span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wm-vs">vs</div>
+            <div class="wrestler" data-match-code="WM0106"><div class="wrestler-main"><span class="name wrestler-name">Liv Morgan</span></div><div class="odds">Odds: TBD</div></div>
+          </div>
+          <div class="wm-card-footer"><span class="match-status pending">Status: Pending</span></div>
+        </div>
+      </section>
+
+      <section class="match-card" data-night="Night 1" data-match-code="WM0107">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header">
+            <div class="wm-card-title-wrap">
+              <h2 class="match-title">WWE Championship</h2>
+            </div>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class="wm-competitors">
+            <div class="wrestler champion" data-match-code="WM0107"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/mens_wwe.png?v=wm42-belts-20260308" alt="WWE Championship belt"></span><span class="wrestler-name">Cody Rhodes</span></span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wm-vs">vs</div>
+            <div class="wrestler" data-match-code="WM0107"><div class="wrestler-main"><span class="name wrestler-name">Randy Orton</span></div><div class="odds">Odds: TBD</div></div>
+          </div>
+          <div class="wm-card-footer"><span class="match-status pending">Status: Pending</span></div>
+        </div>
+      </section>
+      </section>
+
+      <section class="wm-night-section" data-night="Night 2">
+        <div class="wm-night-banner">
+          <h3 class="wm-night-title">Night 2</h3>
+          <p class="wm-night-subtitle">Sunday, April 19, 2026</p>
+        </div>
+
+      <section class="match-card" data-night="Night 2" data-match-code="WM0201">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header">
+            <div class="wm-card-title-wrap">
+              <h2 class="match-title">Singles Match</h2>
+            </div>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class="wm-competitors">
+            <div class="wrestler" data-match-code="WM0201"><div class="wrestler-main"><span class="name wrestler-name">Oba Femi</span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wm-vs">vs</div>
+            <div class="wrestler" data-match-code="WM0201"><div class="wrestler-main"><span class="name wrestler-name">Brock Lesnar</span></div><div class="odds">Odds: TBD</div></div>
+          </div>
+          <div class="wm-card-footer"><span class="match-status pending">Status: Pending</span></div>
+        </div>
+      </section>
+
+      <section class="match-card" data-night="Night 2" data-match-code="WM0202">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header">
+            <div class="wm-card-title-wrap">
+              <h2 class="match-title">Intercontinental Championship Ladder Match</h2>
+            </div>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class="wm-competitors multi">
+            <div class="wrestler champion" data-match-code="WM0202"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/mens_ic.png?v=wm42-belts-20260308" alt="Intercontinental Championship belt"></span><span class="wrestler-name">Penta</span></span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wrestler" data-match-code="WM0202"><div class="wrestler-main"><span class="name wrestler-name">JD McDonagh</span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wrestler" data-match-code="WM0202"><div class="wrestler-main"><span class="name wrestler-name">Dragon Lee</span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wrestler" data-match-code="WM0202"><div class="wrestler-main"><span class="name wrestler-name">Je’Von Evans</span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wrestler" data-match-code="WM0202"><div class="wrestler-main"><span class="name wrestler-name">Rey Mysterio</span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wrestler" data-match-code="WM0202"><div class="wrestler-main"><span class="name wrestler-name">Rusev</span></div><div class="odds">Odds: TBD</div></div>
+          </div>
+          <div class="wm-card-footer"><span class="match-status pending">Status: Pending</span></div>
+        </div>
+      </section>
+
+      <section class="match-card" data-night="Night 2" data-match-code="WM0203">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header">
+            <div class="wm-card-title-wrap">
+              <h2 class="match-title">Singles Match</h2>
+            </div>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class="wm-competitors">
+            <div class="wrestler" data-match-code="WM0203"><div class="wrestler-main"><span class="name wrestler-name">"Demon" Finn Balor</span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wm-vs">vs</div>
+            <div class="wrestler" data-match-code="WM0203"><div class="wrestler-main"><span class="name wrestler-name">Dominik Mysterio</span></div><div class="odds">Odds: TBD</div></div>
+          </div>
+          <div class="wm-card-footer"><span class="match-status pending">Status: Pending</span></div>
+        </div>
+      </section>
+
+      <section class="match-card" data-night="Night 2" data-match-code="WM0204">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header">
+            <div class="wm-card-title-wrap">
+              <h2 class="match-title">United States Championship</h2>
+            </div>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class="wm-competitors">
+            <div class="wrestler champion" data-match-code="WM0204"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/mens_us.png?v=wm42-belts-20260308" alt="United States Championship belt"></span><span class="wrestler-name">Sami Zayn</span></span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wm-vs">vs</div>
+            <div class="wrestler" data-match-code="WM0204"><div class="wrestler-main"><span class="name wrestler-name">Trick Williams</span></div><div class="odds">Odds: TBD</div></div>
+          </div>
+          <div class="wm-card-footer"><span class="match-status pending">Status: Pending</span></div>
+        </div>
+      </section>
+
+      <section class="match-card" data-night="Night 2" data-match-code="WM0205">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header">
+            <div class="wm-card-title-wrap">
+              <h2 class="match-title">WWE Women's Championship</h2>
+            </div>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class="wm-competitors">
+            <div class="wrestler champion" data-match-code="WM0205"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/womens_wwe.png?v=wm42-belts-20260308" alt="WWE Women's Championship belt"></span><span class="wrestler-name">Jade Cargill</span></span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wm-vs">vs</div>
+            <div class="wrestler" data-match-code="WM0205"><div class="wrestler-main"><span class="name wrestler-name">Rhea Ripley</span></div><div class="odds">Odds: TBD</div></div>
+          </div>
+          <div class="wm-card-footer"><span class="match-status pending">Status: Pending</span></div>
+        </div>
+      </section>
+
+      <section class="match-card" data-night="Night 2" data-match-code="WM0206">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header">
+            <div class="wm-card-title-wrap">
+              <h2 class="match-title">World Heavyweight Championship</h2>
+            </div>
+          </div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body">
+          <div class="wm-competitors">
+            <div class="wrestler" data-match-code="WM0206"><div class="wrestler-main"><span class="name wrestler-name">Roman Reigns</span></div><div class="odds">Odds: TBD</div></div>
+            <div class="wm-vs">vs</div>
+            <div class="wrestler champion" data-match-code="WM0206"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/world_heavyweight.png?v=wm42-belts-20260308" alt="World Heavyweight Championship belt"></span><span class="wrestler-name">CM Punk</span></span></div><div class="odds">Odds: TBD</div></div>
+          </div>
+          <div class="wm-card-footer"><span class="match-status pending">Status: Pending</span></div>
+        </div>
+      </section>
+      </section>
+
+      <!-- TODO: Add additional Match TBD cards as future WrestleMania matches are booked. -->
+    </section>
+
+    <footer class="site-footer">
+      Last updated: April 14, 2026
+    </footer>
+  </main>
+
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const BELT_ASSET_VERSION = "wm42-belts-20260308";
+    const PLAYERS = ["Mert", "Fert", "Gert"];
+    const EVENT_ROWS = [
+      { matchCode: "WM0101", match: "6-Man Tag Match", night: "Night 1", wrestler: "Logan Paul & Theory & Ishowspeed", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0101", match: "6-Man Tag Match", night: "Night 1", wrestler: "The Uso's & LA Knight", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0102", match: "Unsanctioned Match", night: "Night 1", wrestler: "Drew McIntyre", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0102", match: "Unsanctioned Match", night: "Night 1", wrestler: "Jacob Fatu", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0103", match: "Women's Tag Team Championship", night: "Night 1", wrestler: "Nia Jax & Lash Legend", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "womens_tag.png", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0103", match: "Women's Tag Team Championship", night: "Night 1", wrestler: "Alexa Bliss & Charlotte Flair", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0103", match: "Women's Tag Team Championship", night: "Night 1", wrestler: "Lyra Valkyria & Bayley", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0103", match: "Women's Tag Team Championship", night: "Night 1", wrestler: "Bella Twins", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0104", match: "Women's Intercontinental Championship", night: "Night 1", wrestler: "AJ Lee", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "womens_ic.png", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0104", match: "Women's Intercontinental Championship", night: "Night 1", wrestler: "Becky Lynch", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0105", match: "Singles Match", night: "Night 1", wrestler: "Seth Rollins", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0105", match: "Singles Match", night: "Night 1", wrestler: "Gunther", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0106", match: "Women's World Championship", night: "Night 1", wrestler: "Stephanie Vaquer", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "womens_world.png", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0106", match: "Women's World Championship", night: "Night 1", wrestler: "Liv Morgan", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0107", match: "WWE Championship", night: "Night 1", wrestler: "Cody Rhodes", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "mens_wwe.png", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0107", match: "WWE Championship", night: "Night 1", wrestler: "Randy Orton", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0201", match: "Singles Match", night: "Night 2", wrestler: "Oba Femi", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0201", match: "Singles Match", night: "Night 2", wrestler: "Brock Lesnar", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0202", match: "Intercontinental Championship Ladder Match", night: "Night 2", wrestler: "Penta", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "mens_ic.png", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0202", match: "Intercontinental Championship Ladder Match", night: "Night 2", wrestler: "JD McDonagh", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0202", match: "Intercontinental Championship Ladder Match", night: "Night 2", wrestler: "Dragon Lee", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0202", match: "Intercontinental Championship Ladder Match", night: "Night 2", wrestler: "Je’Von Evans", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0202", match: "Intercontinental Championship Ladder Match", night: "Night 2", wrestler: "Rey Mysterio", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0202", match: "Intercontinental Championship Ladder Match", night: "Night 2", wrestler: "Rusev", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0203", match: "Singles Match", night: "Night 2", wrestler: "\"Demon\" Finn Balor", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0203", match: "Singles Match", night: "Night 2", wrestler: "Dominik Mysterio", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0204", match: "United States Championship", night: "Night 2", wrestler: "Sami Zayn", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "mens_us.png", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0204", match: "United States Championship", night: "Night 2", wrestler: "Trick Williams", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0205", match: "WWE Women's Championship", night: "Night 2", wrestler: "Jade Cargill", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "womens_wwe.png", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0205", match: "WWE Women's Championship", night: "Night 2", wrestler: "Rhea Ripley", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0206", match: "World Heavyweight Championship", night: "Night 2", wrestler: "Roman Reigns", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "WM0206", match: "World Heavyweight Championship", night: "Night 2", wrestler: "CM Punk", odds: "", result: "", totalPlayerPoints: 150, titleBeltImage: "world_heavyweight.png", MertWager: 0, FertWager: 0, GertWager: 0 }
+    ];
+
+    const cards = Array.from(document.querySelectorAll(".match-card"));
+    const leaderboardScoreboard = document.getElementById("leaderboard-scoreboard");
+    const statusLine = document.querySelector(".live-status-line");
+
+    function toWholeNumber(value) {
+      const num = Number(value);
+      if (!Number.isFinite(num)) return 0;
+      return Math.round(num);
+    }
+
+    function normalizeName(value) {
+      return String(value || "")
+        .replace(/[’`]/g, "'")
+        .replace(/\(c\)/gi, "")
+        .trim()
+        .toLowerCase();
+    }
+
+    function profitFromOdds(wager, odds) {
+      const wagerNum = Number(wager);
+      const oddsNum = Number(odds);
+      if (!Number.isFinite(wagerNum) || wagerNum <= 0 || !Number.isFinite(oddsNum) || oddsNum === 0) return 0;
+      if (oddsNum < 0) return wagerNum * (100 / Math.abs(oddsNum));
+      return wagerNum * (oddsNum / 100);
+    }
+
+    function renderLeaderboard(players) {
+      if (!leaderboardScoreboard) return;
+      if (!players.length) {
+        leaderboardScoreboard.innerHTML = "";
+        return;
+      }
+
+      const maxScore = players.reduce(function (max, p) { return Math.max(max, p.score); }, 0);
+      leaderboardScoreboard.innerHTML = players.map(function (p) {
+        const isLeader = p.score === maxScore;
+        return (
+          '<article class="player-card' + (isLeader ? ' leader' : '') + (p.overLimit ? ' over-limit' : '') + '" role="listitem" aria-label="' + p.player + ' leaderboard card">' +
+            '<div class="player-card-head">' +
+              '<h4 class="player-name">' + p.player + '</h4>' +
+              (isLeader ? '<span class="leader-badge">Leader</span>' : '') +
+            '</div>' +
+            '<div class="player-score">' + p.score + '</div>' +
+            '<dl class="player-stats">' +
+              '<div class="player-stat"><dt>W-L</dt><dd>' + p.wins + '-' + p.losses + '</dd></div>' +
+              '<div class="player-stat"><dt>Total Wagered</dt><dd>' + p.totalWagered + '</dd></div>' +
+              '<div class="player-stat"><dt>Pending</dt><dd>' + p.pending + '</dd></div>' +
+              '<div class="player-stat"><dt>Max Possible Points</dt><dd>' + p.maxPossiblePoints + '</dd></div>' +
+            '</dl>' +
+            (p.overLimit ? '<div class="player-warning">Over event point limit</div>' : '') +
+          '</article>'
+        );
+      }).join("");
+    }
+
+    function getCardByMatchCode() {
+      const map = {};
+      cards.forEach(function (card) {
+        const code = String(card.getAttribute("data-match-code") || "").trim();
+        if (!code) return;
+        map[code] = card;
+      });
+      return map;
+    }
+
+    function computeMatchStatus(rows) {
+      const normalized = rows.map(function (row) { return String(row.result || "").trim().toUpperCase(); });
+      const winners = rows.filter(function (row) { return String(row.result || "").trim().toUpperCase() === "W"; });
+      const hasAnyResult = normalized.some(function (value) { return value === "W" || value === "L"; });
+      const allBlank = normalized.every(function (value) { return value === ""; });
+      const allNonWAreL = rows.every(function (row) {
+        const value = String(row.result || "").trim().toUpperCase();
+        return value === "W" || value === "L";
+      });
+
+      if (winners.length === 1 && allNonWAreL) {
+        return { status: "final", winner: winners[0].wrestler, issue: "" };
+      }
+      if (allBlank) {
+        return { status: "pending", winner: "", issue: "" };
+      }
+      if (winners.length > 1) {
+        return { status: "issue", winner: "", issue: "Data issue: multiple winners marked in this match." };
+      }
+      if (hasAnyResult) {
+        return { status: "issue", winner: "", issue: "Data issue: finalized matches must have exactly one W and all others L." };
+      }
+      return { status: "pending", winner: "", issue: "" };
+    }
+
+    function buildGroups() {
+      const groups = {};
+      EVENT_ROWS.forEach(function (row) {
+        const code = String(row.matchCode || "").trim();
+        if (!code) return;
+        if (!groups[code]) groups[code] = [];
+        groups[code].push(row);
+      });
+      return groups;
+    }
+
+    function buildScoreboard(groups) {
+      const eventTotalPointsRaw = EVENT_ROWS.find(function (row) {
+        return Number.isFinite(Number(row.totalPlayerPoints));
+      });
+      const eventTotalPoints = eventTotalPointsRaw ? Number(eventTotalPointsRaw.totalPlayerPoints) : 0;
+      const playerTotals = {};
+      PLAYERS.forEach(function (player) {
+        playerTotals[player] = {
+          player: player,
+          scoreInternal: 0,
+          wins: 0,
+          losses: 0,
+          pending: 0,
+          maxPossiblePoints: 0,
+          totalWagered: 0
+        };
+      });
+
+      Object.keys(groups).forEach(function (matchName) {
+        const rows = groups[matchName];
+        const matchState = computeMatchStatus(rows);
+
+        PLAYERS.forEach(function (player) {
+          const wagerField = player + "Wager";
+          const selections = rows
+            .map(function (row) {
+              return {
+                wrestler: row.wrestler,
+                odds: Number(row.odds),
+                result: String(row.result || "").trim().toUpperCase(),
+                wager: Number(row[wagerField] || 0)
+              };
+            })
+            .filter(function (entry) { return Number.isFinite(entry.wager) && entry.wager > 0; });
+          const participated = selections.length > 0;
+          selections.forEach(function (entry) {
+            playerTotals[player].totalWagered += entry.wager;
+          });
+
+          if (matchState.status === "final") {
+            if (participated) {
+              const pickedWinner = selections.some(function (entry) {
+                return normalizeName(entry.wrestler) === normalizeName(matchState.winner);
+              });
+              if (pickedWinner) {
+                playerTotals[player].wins += 1;
+              } else {
+                playerTotals[player].losses += 1;
+              }
+            }
+
+            selections.forEach(function (entry) {
+              if (entry.result === "W" || normalizeName(entry.wrestler) === normalizeName(matchState.winner)) {
+                playerTotals[player].scoreInternal += entry.wager + profitFromOdds(entry.wager, entry.odds);
+              }
+            });
+          } else {
+            selections.forEach(function (entry) {
+              playerTotals[player].pending += entry.wager;
+              playerTotals[player].maxPossiblePoints += entry.wager + profitFromOdds(entry.wager, entry.odds);
+            });
+          }
+        });
+      });
+
+      return PLAYERS.map(function (player) {
+        const totals = playerTotals[player];
+        return {
+          player: totals.player,
+          score: Math.max(0, toWholeNumber(totals.scoreInternal)),
+          wins: toWholeNumber(totals.wins),
+          losses: toWholeNumber(totals.losses),
+          pending: toWholeNumber(totals.pending),
+          maxPossiblePoints: toWholeNumber(totals.maxPossiblePoints),
+          totalWagered: toWholeNumber(totals.totalWagered),
+          overLimit: totals.totalWagered > eventTotalPoints
+        };
+      });
+    }
+
+    function updatePageStatus(groups) {
+      if (!statusLine) return;
+      const names = Object.keys(groups);
+      const totalMatches = names.length;
+      let finalCount = 0;
+      let pendingCount = 0;
+      names.forEach(function (name) {
+        const matchState = computeMatchStatus(groups[name]);
+        if (matchState.status === "final") {
+          finalCount += 1;
+        } else {
+          pendingCount += 1;
+        }
+      });
+
+      let overall = "Pending";
+      if (finalCount === 0) {
+        overall = "Pending";
+      } else if (pendingCount === 0) {
+        overall = "Final";
+      } else {
+        overall = "Live";
+      }
+      statusLine.innerHTML = "<strong>Status:</strong> " + overall + " | <strong>Matches completed:</strong> " + finalCount + " / " + totalMatches;
+    }
+
+    function updateMatchCards(groups) {
+      const cardByMatch = getCardByMatchCode();
+      Object.keys(groups).forEach(function (matchCode) {
+        const card = cardByMatch[matchCode];
+        if (!card) return;
+        const rows = groups[matchCode];
+        const state = computeMatchStatus(rows);
+        const matchStatusEl = card.querySelector(".match-status");
+        if (matchStatusEl) {
+          matchStatusEl.classList.remove("pending", "final", "invalid", "issue");
+          if (state.status === "final") {
+            matchStatusEl.textContent = "Status: Final";
+            matchStatusEl.classList.add("final");
+          } else if (state.status === "issue") {
+            matchStatusEl.textContent = "Status: Data issue";
+            matchStatusEl.classList.add("issue");
+          } else {
+            matchStatusEl.textContent = "Status: Pending";
+            matchStatusEl.classList.add("pending");
+          }
+        }
+
+        const wrestlerRows = Array.from(card.querySelectorAll(".wrestler"));
+        wrestlerRows.forEach(function (wrestlerRow) {
+          const nameEl = wrestlerRow.querySelector(".name");
+          if (!nameEl) return;
+          const resultPill = wrestlerRow.querySelector(".result-pill");
+          if (resultPill) resultPill.remove();
+          const existingSlot = nameEl.querySelector(".belt-slot");
+          if (existingSlot) existingSlot.remove();
+          nameEl.classList.remove("champion-name");
+          const wrestlerTextEl = nameEl.querySelector(".wrestler-name");
+          const wrestlerName = wrestlerTextEl ? wrestlerTextEl.textContent.trim() : nameEl.textContent.trim();
+          const rowData = rows.find(function (row) {
+            return normalizeName(row.wrestler) === normalizeName(wrestlerName);
+          });
+          if (rowData && String(rowData.titleBeltImage || "").trim() !== "") {
+            const beltSlot = document.createElement("span");
+            beltSlot.className = "belt-slot";
+            const beltIcon = document.createElement("img");
+            beltIcon.className = "belt-icon";
+            beltIcon.src = "assets/belts/" + rowData.titleBeltImage + "?v=" + encodeURIComponent(BELT_ASSET_VERSION);
+            beltIcon.alt = rowData.match + " belt";
+            beltSlot.appendChild(beltIcon);
+            nameEl.classList.add("champion-name");
+            nameEl.insertBefore(beltSlot, nameEl.firstChild);
+          }
+
+          if (state.status === "final" && normalizeName(wrestlerName) === normalizeName(state.winner)) {
+            const winnerPill = document.createElement("span");
+            winnerPill.className = "result-pill";
+            winnerPill.textContent = "Winner";
+            nameEl.appendChild(winnerPill);
+          }
+        });
+
+        const oldIssue = card.querySelector(".match-issue");
+        if (oldIssue) oldIssue.remove();
+        if (state.status === "issue") {
+          const issueEl = document.createElement("div");
+          issueEl.className = "match-issue";
+          issueEl.textContent = state.issue;
+          const body = card.querySelector(".match-body");
+          if (body) body.appendChild(issueEl);
+        }
+      });
+    }
+
+    function renderPicks(groups) {
+      const cardByMatch = getCardByMatchCode();
+      Object.keys(groups).forEach(function (matchCode) {
+        const card = cardByMatch[matchCode];
+        if (!card) return;
+        const rows = groups[matchCode];
+        const state = computeMatchStatus(rows);
+        const body = card.querySelector(".match-body");
+        if (!body) return;
+
+        const existing = body.querySelector(".picks-grid");
+        if (existing) existing.remove();
+
+        const picksGrid = document.createElement("div");
+        picksGrid.className = "picks-grid";
+        picksGrid.innerHTML =
+          '<div class="picks-grid-header">' +
+            '<span>Player</span><span>Pick</span><span class="picks-wager">Wager</span><span class="picks-status">Status</span>' +
+          '</div>';
+
+        PLAYERS.forEach(function (player) {
+          const wagerField = player + "Wager";
+          const selections = rows
+            .map(function (row) {
+              return {
+                wrestler: row.wrestler,
+                odds: Number(row.odds),
+                result: String(row.result || "").trim().toUpperCase(),
+                wager: Number(row[wagerField] || 0)
+              };
+            })
+            .filter(function (entry) { return Number.isFinite(entry.wager) && entry.wager > 0; });
+          const participated = selections.length > 0;
+          const pickedWinner = selections.some(function (entry) {
+            return normalizeName(entry.wrestler) === normalizeName(state.winner);
+          });
+
+          let statusText = "Pending";
+          let statusClass = "pending";
+          if (state.status === "final") {
+            if (pickedWinner) {
+              statusText = "Win";
+              statusClass = "win";
+            } else if (participated) {
+              statusText = "Loss";
+              statusClass = "loss";
+            } else {
+              statusText = "—";
+              statusClass = "";
+            }
+          } else if (state.status === "issue") {
+            statusText = "Issue";
+            statusClass = "loss";
+          }
+
+          let matchNet = 0;
+          if (state.status === "final") {
+            selections.forEach(function (entry) {
+              if (entry.result === "W" || normalizeName(entry.wrestler) === normalizeName(state.winner)) {
+                matchNet += entry.wager + profitFromOdds(entry.wager, entry.odds);
+              }
+            });
+          }
+          const matchNetWhole = toWholeNumber(matchNet);
+          const matchNetDisplay = matchNetWhole > 0 ? "+" + matchNetWhole : String(matchNetWhole);
+
+          const picksLines = selections.length
+            ? selections.map(function (entry) {
+                let lineClass = "";
+                if (state.status === "final") {
+                  if (entry.result === "W" || normalizeName(entry.wrestler) === normalizeName(state.winner)) {
+                    lineClass = " winning-pick";
+                  } else {
+                    lineClass = " losing-pick";
+                  }
+                }
+                return '<div class="picks-line' + lineClass + '">' + entry.wrestler + "</div>";
+              }).join("")
+            : '<div class="picks-line">—</div>';
+
+          const wagerLines = selections.length
+            ? selections.map(function (entry) {
+                return '<div class="picks-line">' + toWholeNumber(entry.wager) + "</div>";
+              }).join("")
+            : '<div class="picks-line">—</div>';
+
+          const row = document.createElement("div");
+          row.className = "picks-grid-row";
+          row.innerHTML =
+            '<div class="picks-player">' + player + "</div>" +
+            '<div class="picks-lines">' + picksLines + "</div>" +
+            '<div class="picks-lines picks-wager">' + wagerLines + "</div>" +
+            '<div><div class="picks-status ' + statusClass + '">' + statusText + '</div><div class="picks-net">Net: ' + matchNetDisplay + "</div></div>";
+          picksGrid.appendChild(row);
+        });
+
+        body.appendChild(picksGrid);
+      });
+    }
+
+    function setExpanded(card, expanded) {
+      const toggle = card.querySelector(".match-toggle");
+      const body = card.querySelector(".match-body");
+      if (!toggle || !body) return;
+      toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+      body.hidden = !expanded;
+    }
+
+    cards.forEach(function (card) {
+      const toggle = card.querySelector(".match-toggle");
+      setExpanded(card, true);
+      if (toggle) {
+        toggle.addEventListener("click", function () {
+          const expanded = toggle.getAttribute("aria-expanded") === "true";
+          setExpanded(card, !expanded);
+        });
+      }
+    });
+
+    const expandAll = document.getElementById("expand-all");
+    const collapseAll = document.getElementById("collapse-all");
+    if (expandAll) expandAll.addEventListener("click", function () { cards.forEach(function (c) { setExpanded(c, true); }); });
+    if (collapseAll) collapseAll.addEventListener("click", function () { cards.forEach(function (c) { setExpanded(c, false); }); });
+
+    const groups = buildGroups();
+    const hasAnyWager = EVENT_ROWS.some(function (row) {
+      return PLAYERS.some(function (player) {
+        return Number(row[player + "Wager"] || 0) > 0;
+      });
+    });
+    renderLeaderboard(hasAnyWager ? buildScoreboard(groups) : []);
+    updatePageStatus(groups);
+    updateMatchCards(groups);
+    renderPicks(groups);
+  });
+  </script>
+</body>
+</html>
