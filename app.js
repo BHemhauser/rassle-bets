@@ -224,8 +224,14 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!meta) {
         meta = document.createElement("div");
         meta.className = "match-toggle-meta";
-        toggle.insertBefore(meta, title);
-        meta.appendChild(title);
+        const titleParent = title.parentElement;
+        if (titleParent) {
+          titleParent.insertBefore(meta, title);
+          meta.appendChild(title);
+        } else {
+          toggle.prepend(meta);
+          meta.appendChild(title);
+        }
       }
 
       let hint = toggle.querySelector(".match-limit-hint");
