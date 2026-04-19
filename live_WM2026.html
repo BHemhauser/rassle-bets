@@ -928,7 +928,7 @@
           wins: 0,
           losses: 0,
           pending: 0,
-          maxPossiblePoints: 0,
+          maxPossiblePending: 0,
           totalWagered: 0
         };
       });
@@ -974,7 +974,7 @@
           } else {
             selections.forEach(function (entry) {
               playerTotals[player].pending += entry.wager;
-              playerTotals[player].maxPossiblePoints += entry.wager + profitFromOdds(entry.wager, entry.odds);
+              playerTotals[player].maxPossiblePending += entry.wager + profitFromOdds(entry.wager, entry.odds);
             });
           }
         });
@@ -982,13 +982,15 @@
 
       return PLAYERS.map(function (player) {
         const totals = playerTotals[player];
+        const scoreResolved = Math.max(0, totals.scoreInternal);
+        const maxPossibleInternal = scoreResolved + totals.maxPossiblePending;
         return {
           player: totals.player,
-          score: Math.max(0, toWholeNumber(totals.scoreInternal)),
+          score: toWholeNumber(scoreResolved),
           wins: toWholeNumber(totals.wins),
           losses: toWholeNumber(totals.losses),
           pending: toWholeNumber(totals.pending),
-          maxPossiblePoints: toWholeNumber(totals.maxPossiblePoints),
+          maxPossiblePoints: Math.max(toWholeNumber(scoreResolved), toWholeNumber(maxPossibleInternal)),
           totalWagered: toWholeNumber(totals.totalWagered),
           overLimit: totals.totalWagered > eventTotalPoints
         };
