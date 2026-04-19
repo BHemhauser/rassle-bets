@@ -279,6 +279,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function decorateSettledResults() {
+    wrestlerRows.forEach((row) => {
+      const result = getResultValue(row);
+      const nameEl = row.querySelector(".name");
+      if (!nameEl) return;
+      nameEl.querySelectorAll(".result-pill[data-source=\"event\"]").forEach((pill) => pill.remove());
+      if (result !== "W" && result !== "L") return;
+      const pill = document.createElement("span");
+      pill.className = result === "W" ? "result-pill" : "result-pill lost";
+      pill.dataset.source = "event";
+      pill.textContent = result === "W" ? "Winner" : "Lost";
+      nameEl.appendChild(pill);
+    });
+  }
+
   function validateAll() {
     const results = [];
     const resultTotals = {
@@ -619,6 +634,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   setupMatchRuleUI();
+  decorateSettledResults();
   safeSetHidden(adminNoteEl, !ADMIN_MODE);
   updateSummary();
   validateAll();
