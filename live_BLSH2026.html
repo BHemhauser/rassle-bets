@@ -555,7 +555,7 @@
           <span class="toggle-icon" aria-hidden="true">▾</span>
         </button>
         <div class="match-body"><div class="wm-competitors">
-          <div class="wrestler" data-match-code="BLSH04"><div class="wrestler-main"><span class="name wrestler-name">Danhausen &amp; "Bob the Caterer"</span></div><div class="odds">Odds: -500</div></div>
+          <div class="wrestler" data-match-code="BLSH04"><div class="wrestler-main"><span class="name wrestler-name">Danhausen &amp; Minihausen</span></div><div class="odds">Odds: -500</div></div>
           <div class="wm-vs">vs</div>
           <div class="wrestler" data-match-code="BLSH04"><div class="wrestler-main"><span class="name wrestler-name">The Miz &amp; Kit Wilson</span></div><div class="odds">Odds: +300</div></div>
         </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 0 of 0</span></div></div>
@@ -590,16 +590,16 @@
     const BELT_ASSET_VERSION = "wm42-belts-20260308";
     const PLAYERS = ["Mert", "Fert", "Gert"];
     const EVENT_ROWS = [
-      { matchCode: "BLSH01", match: "United States Championship", night: "Night 1", wrestler: "Trick Williams", odds: "-140", result: "", totalPlayerPoints: 60, titleBeltImage: "mens_us.png", MertWager: 10, FertWager: 10, GertWager: 15 },
-      { matchCode: "BLSH01", match: "United States Championship", night: "Night 1", wrestler: "Sami Zayn", odds: "110", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
-      { matchCode: "BLSH02", match: "Singles Match", night: "Night 1", wrestler: "Seth Rollins", odds: "170", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 5, FertWager: 0, GertWager: 0 },
-      { matchCode: "BLSH02", match: "Singles Match", night: "Night 1", wrestler: "Bron Breakker", odds: "-250", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 10, GertWager: 10 },
-      { matchCode: "BLSH03", match: "Singles Match", night: "Night 1", wrestler: "Iyo Sky", odds: "-180", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 5, GertWager: 5 },
-      { matchCode: "BLSH03", match: "Singles Match", night: "Night 1", wrestler: "Asuka", odds: "140", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 5, FertWager: 0, GertWager: 0 },
-      { matchCode: "BLSH04", match: "Tag Match", night: "Night 1", wrestler: "Danhausen & \"Bob the Caterer\"", odds: "-500", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 25, FertWager: 20, GertWager: 20 },
-      { matchCode: "BLSH04", match: "Tag Match", night: "Night 1", wrestler: "The Miz & Kit Wilson", odds: "300", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
-      { matchCode: "BLSH05", match: "World Heavyweight Championship", night: "Night 1", wrestler: "Roman Reigns", odds: "-300", result: "", totalPlayerPoints: 60, titleBeltImage: "world_heavyweight.png", MertWager: 15, FertWager: 15, GertWager: 10 },
-      { matchCode: "BLSH05", match: "World Heavyweight Championship", night: "Night 1", wrestler: "Jacob Fatu", odds: "200", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "BLSH01", match: "United States Championship", night: "Night 1", wrestler: "Trick Williams", odds: "-140", result: "W", totalPlayerPoints: 60, titleBeltImage: "mens_us.png", MertWager: 10, FertWager: 10, GertWager: 15 },
+      { matchCode: "BLSH01", match: "United States Championship", night: "Night 1", wrestler: "Sami Zayn", odds: "110", result: "L", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "BLSH02", match: "Singles Match", night: "Night 1", wrestler: "Seth Rollins", odds: "170", result: "L", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 5, FertWager: 0, GertWager: 0 },
+      { matchCode: "BLSH02", match: "Singles Match", night: "Night 1", wrestler: "Bron Breakker", odds: "-250", result: "W", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 10, GertWager: 10 },
+      { matchCode: "BLSH03", match: "Singles Match", night: "Night 1", wrestler: "Iyo Sky", odds: "-180", result: "W", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 5, GertWager: 5 },
+      { matchCode: "BLSH03", match: "Singles Match", night: "Night 1", wrestler: "Asuka", odds: "140", result: "L", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 5, FertWager: 0, GertWager: 0 },
+      { matchCode: "BLSH04", match: "Tag Match", night: "Night 1", wrestler: "Danhausen & Minihausen", odds: "-500", result: "W", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 25, FertWager: 20, GertWager: 20 },
+      { matchCode: "BLSH04", match: "Tag Match", night: "Night 1", wrestler: "The Miz & Kit Wilson", odds: "300", result: "L", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "BLSH05", match: "World Heavyweight Championship", night: "Night 1", wrestler: "Roman Reigns", odds: "-300", result: "W", totalPlayerPoints: 60, titleBeltImage: "world_heavyweight.png", MertWager: 15, FertWager: 15, GertWager: 10 },
+      { matchCode: "BLSH05", match: "World Heavyweight Championship", night: "Night 1", wrestler: "Jacob Fatu", odds: "200", result: "L", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
     ];
 
     const cards = Array.from(document.querySelectorAll(".match-card"));
