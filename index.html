@@ -3,50 +3,311 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Event Index</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Rassle Bets Index</title>
+  <style>
+    :root {
+      --text: #111827;
+      --muted: #4b5563;
+      --card: #ffffff;
+      --line: #d1d5db;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #ffffff;
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 20px 14px 40px;
+    }
+
+    .home-header {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .wwe-logo {
+      width: min(46vw, 230px);
+      max-width: 230px;
+      height: auto;
+      display: block;
+      margin: 0 auto 10px;
+      object-fit: contain;
+    }
+
+    .year-summary {
+      display: grid;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    .year-title {
+      margin: 0;
+      font-size: 1.02rem;
+      font-weight: 700;
+    }
+
+    .year-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .year-stat {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .player {
+      font-weight: 700;
+    }
+
+    .total {
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .record {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .matches {
+      display: grid;
+      gap: 14px;
+    }
+
+    .match-card {
+      border: 1px solid;
+      border-radius: 12px;
+      padding: 12px;
+      background: var(--card);
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .event-logo {
+      width: 76px;
+      height: 46px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .event-title {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .event-meta {
+      display: grid;
+      gap: 4px;
+      margin-bottom: 8px;
+      color: #1f2937;
+    }
+
+    .scores {
+      display: grid;
+      gap: 4px;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .scores strong { font-weight: 700; }
+
+    .links {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .links a {
+      color: #0f4c81;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .links a:hover { text-decoration: underline; }
+
+    .ec {
+      border-color: #9ecae1;
+      background: #f8fcff;
+    }
+
+    .wm {
+      border-color: #9ca3af;
+      background: #f9fafb;
+    }
+
+    .bl {
+      border-color: #2f6e9e;
+      background: #f4f9ff;
+    }
+
+    .site-footer {
+      margin-top: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 760px) {
+      .year-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
   <main class="container">
-    <header class="event-header">
-      <h1>Event Pages</h1>
-      <div class="event-meta"><div>Generated from EC2026.csv</div></div>
+    <header class="home-header">
+      <img class="wwe-logo" src="assets/logos/WWE.png" alt="WWE logo">
     </header>
-    <section class="matches">
-      
-            <section class="match-card">
-              <h2>Elimination Chamber</h2>
-              <div class="event-meta">
-                <div><strong>EventID:</strong> EC2026</div>
-                <div><strong>Date:</strong> Saturday, February 28th, 2026</div>
-                <div><strong>Location:</strong> Chicago, IL</div>
-              </div>
-              <p style="margin: 12px 0 0;"><a href="event_EC2026.html">Make Picks</a> | <a href="live_EC2026.html">Live Tracker</a></p>
-            </section>
-            
-            <section class="match-card">
-              <h2>WrestleMania</h2>
-              <div class="event-meta">
-                <div><strong>EventID:</strong> WM2026</div>
-                <div><strong>Date:</strong> Saturday & Sunday, April 11th–12th, 2026</div>
-                <div><strong>Location:</strong> Las Vegas, NV</div>
-              </div>
-              <p style="margin: 12px 0 0;"><a href="event_WM2026.html">Make Picks</a> | <a href="live_WM2026.html">Live Tracker</a></p>
-            </section>
 
-            <section class="match-card">
-              <h2>Backlash Tampa</h2>
-              <div class="event-meta">
-                <div><strong>EventID:</strong> BLSH2026</div>
-                <div><strong>Date:</strong> Saturday, May 9th, 2026</div>
-                <div><strong>Location:</strong> Tampa Bay, FL</div>
-              </div>
-              <p style="margin: 12px 0 0;"><a href="event_BLSH2026.html">Make Picks</a> | <a href="live_BLSH2026.html">Live Tracker</a></p>
-            </section>
-            
+    <section class="year-summary" aria-label="Year summary">
+      <h2 class="year-title">2026 Running Tally</h2>
+      <div class="year-grid">
+        <article class="year-stat">
+          <div class="player">Mert</div>
+          <div class="total">261</div>
+          <div class="record">W-L-D: 0-1-2</div>
+        </article>
+        <article class="year-stat">
+          <div class="player">Fert</div>
+          <div class="total">267</div>
+          <div class="record">W-L-D: 1-1-1</div>
+        </article>
+        <article class="year-stat">
+          <div class="player">Gert</div>
+          <div class="total">262</div>
+          <div class="record">W-L-D: 2-1-0</div>
+        </article>
+      </div>
     </section>
+
+    <section class="matches">
+      <section class="match-card ec">
+        <div class="card-head">
+          <img class="event-logo" src="assets/logos/EC2026.png" alt="Elimination Chamber logo">
+          <h2 class="event-title">Elimination Chamber</h2>
+        </div>
+        <div class="event-meta">
+          <div><strong>Date:</strong> Saturday, February 28th, 2026</div>
+          <div><strong>Location:</strong> Chicago, IL</div>
+        </div>
+        <div class="scores">
+          <div><strong>Mert:</strong> 39 (Draw)</div>
+          <div><strong>Fert:</strong> 44 (Win)</div>
+          <div><strong>Gert:</strong> 20 (Loss)</div>
+        </div>
+        <p class="links"><a href="event_EC2026.html">Make Picks</a> | <a href="live_EC2026.html">Live Tracker</a></p>
+      </section>
+
+      <section class="match-card wm">
+        <div class="card-head">
+          <img class="event-logo" src="assets/logos/WM2026.png" alt="WrestleMania logo">
+          <h2 class="event-title">WrestleMania</h2>
+        </div>
+        <div class="event-meta">
+          <div><strong>Date:</strong> Saturday & Sunday, April 11th–12th, 2026</div>
+          <div><strong>Location:</strong> Las Vegas, NV</div>
+        </div>
+        <div class="scores">
+          <div><strong>Mert:</strong> 155 (Draw)</div>
+          <div><strong>Fert:</strong> 140 (Loss)</div>
+          <div><strong>Gert:</strong> 157 (Win)</div>
+        </div>
+        <p class="links"><a href="event_WM2026.html">Make Picks</a> | <a href="live_WM2026.html">Live Tracker</a></p>
+      </section>
+
+      <section class="match-card bl">
+        <div class="card-head">
+          <img class="event-logo" src="assets/logos/BLSH2026.png" alt="Backlash Tampa logo">
+          <h2 class="event-title">Backlash Tampa</h2>
+        </div>
+        <div class="event-meta">
+          <div><strong>Date:</strong> Saturday, May 9th, 2026</div>
+          <div><strong>Location:</strong> Tampa Bay, FL</div>
+        </div>
+        <div class="scores">
+          <div><strong>Mert:</strong> 67 (Loss)</div>
+          <div><strong>Fert:</strong> 83 (Draw)</div>
+          <div><strong>Gert:</strong> 85 (Win)</div>
+        </div>
+        <p class="links"><a href="event_BLSH2026.html">Make Picks</a> | <a href="live_BLSH2026.html">Live Tracker</a></p>
+      </section>
+
+      <section class="match-card" style="border-color:#ce1126;background:#f3fff7;">
+        <div class="card-head">
+          <img class="event-logo" src="assets/logos/CLASH2026.png" alt="Clash in Italy logo">
+          <h2 class="event-title">Clash in Italy</h2>
+        </div>
+        <div class="event-meta">
+          <div><strong>Date:</strong> Sunday, May 31st, 2026</div>
+          <div><strong>Location:</strong> Turin, Italy</div>
+        </div>
+        <p class="links"><a href="event_CLASH2026.html">Make Picks</a> | <a href="live_CLASH2026.html">Live Tracker</a></p>
+      </section>
+
+      <section class="match-card" style="border-color:#ef4444;background:#fff7f7;">
+        <div class="card-head">
+          <img class="event-logo" src="assets/logos/SNME2026.png" alt="Saturday Night's Main Event logo">
+          <h2 class="event-title">Saturday Night's Main Event</h2>
+        </div>
+        <div class="event-meta">
+          <div><strong>Date:</strong> Saturday, July 18th, 2026</div>
+          <div><strong>Location:</strong> New York, NY</div>
+        </div>
+        <p class="links"><a href="event_SNME202601.html">Make Picks</a> | <a href="live_SNME202601.html">Live Tracker</a></p>
+      </section>
+
+      <section class="match-card" style="border-color:#d97706;background:#fffaf0;">
+        <div class="card-head">
+          <img class="event-logo" src="assets/logos/SLAM2026.png" alt="SummerSlam logo">
+          <h2 class="event-title">SummerSlam</h2>
+        </div>
+        <div class="event-meta">
+          <div><strong>Date:</strong> Saturday & Sunday, August 1st–2nd, 2026</div>
+          <div><strong>Location:</strong> Minneapolis, MN</div>
+        </div>
+        <p class="links"><a href="event_SLAM2026.html">Make Picks</a> | <a href="live_SLAM2026.html">Live Tracker</a></p>
+      </section>
+
+      <section class="match-card" style="border-color:#65a30d;background:#f7fee7;">
+        <div class="card-head">
+          <img class="event-logo" src="assets/logos/MITB2026.png" alt="Money in the Bank logo">
+          <h2 class="event-title">Money in the Bank</h2>
+        </div>
+        <div class="event-meta">
+          <div><strong>Date:</strong> Sunday, September 6th, 2026</div>
+          <div><strong>Location:</strong> New Orleans, LA</div>
+        </div>
+        <p class="links"><a href="event_MITB2026.html">Make Picks</a> | <a href="live_MITB2026.html">Live Tracker</a></p>
+      </section>
+    </section>
+
     <footer class="site-footer">
-      Last updated: May 9, 2026 15:20 UTC
+      Last updated: May 10, 2026 (upcoming events added)
     </footer>
   </main>
 </body>
