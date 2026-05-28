@@ -70,7 +70,7 @@
       font-size: 1.03rem;
       letter-spacing: 0.02em;
       line-height: 1.35;
-      text-shadow: 0 1px 0 rgba(0,0,0,0.75), 0 0 8px rgba(229,229,229,0.10);
+      text-shadow: none;
     }
 
     @media (max-width: 700px) {
@@ -101,12 +101,17 @@
       color: #ce1126;
     }
 
+    .commit-meta strong,
+    .commit-meta span {
+      color: #ce1126;
+    }
+
     .summary-panel,
     .match-card,
     .wrestler,
     .bottom-actions {
       background: #ffffff;
-      border-color: #ce1126;
+      border-color: #009246;
       box-shadow: none;
     }
 
@@ -153,6 +158,10 @@
       color: #009246;
     }
 
+    .toggle-icon {
+      color: #009246;
+    }
+
     .match-status {
       color: #ce1126;
     }
@@ -193,7 +202,7 @@
     .wm-card-header h2,
     .match-title {
       text-align: center;
-      color: #ce1126;
+      color: #009246;
       font-size: 1.45rem;
       font-weight: 700;
       line-height: 1.2;
@@ -381,7 +390,7 @@
       max-width: 1080px;
       margin: 0 auto;
       padding: 8px 14px;
-      background: rgba(10, 10, 10, 0.95);
+      background: #ffffff;
       border: 1px solid #ce1126;
       border-top: 0;
       border-radius: 0 0 10px 10px;
@@ -410,17 +419,9 @@
       line-height: 1.1;
     }
 
-    body.points-bar-visible {
-      padding-top: 58px;
-    }
-
     @media (max-width: 768px) {
       .points-bar-inner {
         grid-template-columns: 1fr 1fr;
-      }
-
-      body.points-bar-visible {
-        padding-top: 84px;
       }
     }
   </style>
@@ -495,16 +496,88 @@
       <section class="wm-night-section" data-night="Night 1">
       <section class="match-card" data-night="Night 1" data-match-code="CLASH01">
         <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Singles Match</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler" data-match="Singles Match" data-match-code="CLASH01" data-odds="" data-result="">
+              <div class="wrestler-main"><span class="name wrestler-name">Oba Femi</span></div>
+              <div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+            </div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match="Singles Match" data-match-code="CLASH01" data-odds="" data-result="">
+              <div class="wrestler-main"><span class="name wrestler-name">Brock Lesnar</span></div>
+              <div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+            </div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 0 of 0</span></div></div>
+      </section>
+
+      <section class="match-card" data-night="Night 1" data-match-code="CLASH02">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">WWE Women's Championship</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler champion" data-match="WWE Women's Championship" data-match-code="CLASH02" data-odds="" data-result="">
+              <div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/womens_wwe.png" alt="WWE Women's Championship belt"></span><span class="wrestler-name">Rhea Ripley</span></span></div>
+              <div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+            </div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match="WWE Women's Championship" data-match-code="CLASH02" data-odds="" data-result="">
+              <div class="wrestler-main"><span class="name wrestler-name">Jade Cargill</span></div>
+              <div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+            </div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 0 of 0</span></div></div>
+      </section>
+
+      <section class="match-card" data-night="Night 1" data-match-code="CLASH03">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Women's Intercontinental Championship</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler champion" data-match="Women's Intercontinental Championship" data-match-code="CLASH03" data-odds="" data-result="">
+              <div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/womens_ic.png" alt="Women's Intercontinental Championship belt"></span><span class="wrestler-name">Becky Lynch</span></span></div>
+              <div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+            </div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match="Women's Intercontinental Championship" data-match-code="CLASH03" data-odds="" data-result="">
+              <div class="wrestler-main"><span class="name wrestler-name">Sol Ruca</span></div>
+              <div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+            </div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 0 of 0</span></div></div>
+      </section>
+
+      <section class="match-card" data-night="Night 1" data-match-code="CLASH04">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">World Heavyweight Championship - Tribal Combat</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler champion" data-match="World Heavyweight Championship - Tribal Combat" data-match-code="CLASH04" data-odds="" data-result="">
+              <div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/world_heavyweight.png" alt="World Heavyweight Championship belt"></span><span class="wrestler-name">Roman Reigns</span></span></div>
+              <div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+            </div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match="World Heavyweight Championship - Tribal Combat" data-match-code="CLASH04" data-odds="" data-result="">
+              <div class="wrestler-main"><span class="name wrestler-name">Jacob Fatu</span></div>
+              <div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+            </div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 0 of 0</span></div></div>
+      </section>
+
+      <section class="match-card" data-night="Night 1" data-match-code="CLASH05">
+        <button class="match-toggle" type="button" aria-expanded="true">
           <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">WWE Championship</h2></div></div>
           <span class="toggle-icon" aria-hidden="true">▾</span>
         </button>
         <div class="match-body"><div class="wm-competitors">
-          <div class="wrestler champion" data-match="WWE Championship" data-match-code="CLASH01" data-odds="" data-result="">
+          <div class="wrestler champion" data-match="WWE Championship" data-match-code="CLASH05" data-odds="" data-result="">
               <div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/mens_wwe.png" alt="WWE Championship belt"></span><span class="wrestler-name">Cody Rhodes</span></span></div>
               <div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
             </div>
           <div class="wm-vs">vs</div>
-          <div class="wrestler" data-match="WWE Championship" data-match-code="CLASH01" data-odds="" data-result="">
+          <div class="wrestler" data-match="WWE Championship" data-match-code="CLASH05" data-odds="" data-result="">
               <div class="wrestler-main"><span class="name wrestler-name">Gunther</span></div>
               <div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
             </div>
@@ -569,7 +642,6 @@
         if (!bar) return;
         const shouldShow = window.scrollY > getShowThreshold();
         bar.classList.toggle("is-visible", shouldShow);
-        document.body.classList.toggle("points-bar-visible", shouldShow);
       }
 
       const observer = new MutationObserver(syncPointsBar);
