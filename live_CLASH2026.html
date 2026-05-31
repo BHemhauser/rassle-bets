@@ -121,6 +121,10 @@
       box-shadow: none;
     }
 
+    .match-card {
+      border-color: #009246;
+    }
+
     .copy-btn,
     .btn-secondary,
     .btn-primary {
@@ -165,7 +169,7 @@
       align-items: center;
       gap: 10px;
       padding-bottom: 10px;
-      border-bottom: 1px solid #ce1126;
+      border-bottom: 1px solid #009246;
     }
 
     .wm-card-title-wrap {
@@ -179,7 +183,7 @@
     .wm-card-header h2,
     .match-title {
       text-align: center;
-      color: #ce1126;
+      color: #009246;
       font-size: 1.45rem;
       font-weight: 700;
       line-height: 1.2;
@@ -297,7 +301,7 @@
     }
 
     .wm-card-footer {
-      border-top: 1px solid #ce1126;
+      border-top: 1px solid #009246;
       padding-top: 8px;
       margin-top: 6px;
     }
@@ -353,8 +357,8 @@
     }
 
     .scoreboard .player-card.leader {
-      background: #009246;
-      border-color: #009246;
+      background: #ffffff;
+      border-color: #ce1126;
       box-shadow: none;
     }
 
@@ -514,13 +518,61 @@
       <section class="wm-night-section" data-night="Night 1">
       <section class="match-card" data-night="Night 1" data-match-code="CLASH01">
         <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Singles Match</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler" data-match-code="CLASH01"><div class="wrestler-main"><span class="name wrestler-name">Oba Femi</span></div><div class="odds">Odds: -300</div></div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match-code="CLASH01"><div class="wrestler-main"><span class="name wrestler-name">Brock Lesnar</span></div><div class="odds">Odds: +200</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 0 of 0</span></div></div>
+      </section>
+
+      <section class="match-card" data-night="Night 1" data-match-code="CLASH02">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">WWE Women's Championship</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler champion" data-match-code="CLASH02"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/womens_wwe.png" alt="WWE Women's Championship belt"></span><span class="wrestler-name">Rhea Ripley</span></span></div><div class="odds">Odds: -900</div></div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match-code="CLASH02"><div class="wrestler-main"><span class="name wrestler-name">Jade Cargill</span></div><div class="odds">Odds: +500</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 0 of 0</span></div></div>
+      </section>
+
+      <section class="match-card" data-night="Night 1" data-match-code="CLASH03">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Women's Intercontinental Championship</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler champion" data-match-code="CLASH03"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/womens_ic.png" alt="Women's Intercontinental Championship belt"></span><span class="wrestler-name">Becky Lynch</span></span></div><div class="odds">Odds: +250</div></div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match-code="CLASH03"><div class="wrestler-main"><span class="name wrestler-name">Sol Ruca</span></div><div class="odds">Odds: -350</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 0 of 0</span></div></div>
+      </section>
+
+      <section class="match-card" data-night="Night 1" data-match-code="CLASH04">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">World Heavyweight Championship - Tribal Combat</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler champion" data-match-code="CLASH04"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/world_heavyweight.png" alt="World Heavyweight Championship - Tribal Combat belt"></span><span class="wrestler-name">Roman Reigns</span></span></div><div class="odds">Odds: -500</div></div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match-code="CLASH04"><div class="wrestler-main"><span class="name wrestler-name">Jacob Fatu</span></div><div class="odds">Odds: +300</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 0 of 0</span></div></div>
+      </section>
+
+      <section class="match-card" data-night="Night 1" data-match-code="CLASH05">
+        <button class="match-toggle" type="button" aria-expanded="true">
           <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">WWE Championship</h2></div></div>
           <span class="toggle-icon" aria-hidden="true">▾</span>
         </button>
         <div class="match-body"><div class="wm-competitors">
-          <div class="wrestler champion" data-match-code="CLASH01"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/mens_wwe.png" alt="WWE Championship belt"></span><span class="wrestler-name">Cody Rhodes</span></span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wrestler champion" data-match-code="CLASH05"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/mens_wwe.png" alt="WWE Championship belt"></span><span class="wrestler-name">Cody Rhodes</span></span></div><div class="odds">Odds: -120</div></div>
           <div class="wm-vs">vs</div>
-          <div class="wrestler" data-match-code="CLASH01"><div class="wrestler-main"><span class="name wrestler-name">Gunther</span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wrestler" data-match-code="CLASH05"><div class="wrestler-main"><span class="name wrestler-name">Gunther</span></div><div class="odds">Odds: -120</div></div>
         </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 0 of 0</span></div></div>
       </section>
       </section>
@@ -540,8 +592,16 @@
     const BELT_ASSET_VERSION = "wm42-belts-20260308";
     const PLAYERS = ["Mert", "Fert", "Gert"];
     const EVENT_ROWS = [
-      { matchCode: "CLASH01", match: "WWE Championship", night: "Night 1", wrestler: "Cody Rhodes", odds: "", result: "", totalPlayerPoints: 60, titleBeltImage: "mens_wwe.png", MertWager: 0, FertWager: 0, GertWager: 0 },
-      { matchCode: "CLASH01", match: "WWE Championship", night: "Night 1", wrestler: "Gunther", odds: "", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "CLASH01", match: "Singles Match", night: "Night 1", wrestler: "Oba Femi", odds: "-300", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "CLASH01", match: "Singles Match", night: "Night 1", wrestler: "Brock Lesnar", odds: "200", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 15, FertWager: 20, GertWager: 15 },
+      { matchCode: "CLASH02", match: "WWE Women's Championship", night: "Night 1", wrestler: "Rhea Ripley", odds: "-900", result: "", totalPlayerPoints: 60, titleBeltImage: "womens_wwe.png", MertWager: 0, FertWager: 15, GertWager: 10 },
+      { matchCode: "CLASH02", match: "WWE Women's Championship", night: "Night 1", wrestler: "Jade Cargill", odds: "500", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 10, FertWager: 0, GertWager: 0 },
+      { matchCode: "CLASH03", match: "Women's Intercontinental Championship", night: "Night 1", wrestler: "Becky Lynch", odds: "250", result: "", totalPlayerPoints: 60, titleBeltImage: "womens_ic.png", MertWager: 10, FertWager: 5, GertWager: 0 },
+      { matchCode: "CLASH03", match: "Women's Intercontinental Championship", night: "Night 1", wrestler: "Sol Ruca", odds: "-350", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 10 },
+      { matchCode: "CLASH04", match: "World Heavyweight Championship - Tribal Combat", night: "Night 1", wrestler: "Roman Reigns", odds: "-500", result: "", totalPlayerPoints: 60, titleBeltImage: "world_heavyweight.png", MertWager: 15, FertWager: 10, GertWager: 15 },
+      { matchCode: "CLASH04", match: "World Heavyweight Championship - Tribal Combat", night: "Night 1", wrestler: "Jacob Fatu", odds: "300", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "CLASH05", match: "WWE Championship", night: "Night 1", wrestler: "Cody Rhodes", odds: "-120", result: "", totalPlayerPoints: 60, titleBeltImage: "mens_wwe.png", MertWager: 10, FertWager: 0, GertWager: 10 },
+      { matchCode: "CLASH05", match: "WWE Championship", night: "Night 1", wrestler: "Gunther", odds: "-120", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 10, GertWager: 0 },
     ];
 
     const cards = Array.from(document.querySelectorAll(".match-card"));
