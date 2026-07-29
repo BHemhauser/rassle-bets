@@ -562,7 +562,7 @@
           <span class="toggle-icon" aria-hidden="true">▾</span>
         </button>
         <div class="match-body"><div class="wm-competitors">
-          <div class="wrestler champion" data-match-code="NOC04"><div class="wrestler-main"><span class="name wrestler-name">Tiffany Stratton</span></div><div class="odds">Odds: +100</div></div>
+          <div class="wrestler champion" data-match-code="NOC04"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/womens_us.png?v=wm42-belts-20260308" alt="Women's United States Championship belt"></span><span class="wrestler-name">Tiffany Stratton</span></span></div><div class="odds">Odds: +100</div></div>
           <div class="wm-vs">vs</div>
           <div class="wrestler" data-match-code="NOC04"><div class="wrestler-main"><span class="name wrestler-name">Jade Cargill</span></div><div class="odds">Odds: -140</div></div>
         </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 1 of 2</span></div></div>
@@ -596,7 +596,7 @@
 
 
     <footer class="site-footer">
-      Last updated: June 27, 2026
+      Last updated: July 28, 2026
     </footer>
   </main>
 
@@ -606,19 +606,19 @@
     const BELT_ASSET_VERSION = "wm42-belts-20260308";
     const PLAYERS = ["Mert", "Fert", "Gert"];
     const EVENT_ROWS = [
-      { matchCode: "NOC01", match: "King of the Ring Final", night: "Night 1", wrestler: "Jey Uso", odds: "-140", result: "", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
-      { matchCode: "NOC01", match: "King of the Ring Final", night: "Night 1", wrestler: "Oba Femi", odds: "100", result: "", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 15, FertWager: 11, GertWager: 15 },
-      { matchCode: "NOC02", match: "United States Championship", night: "Night 1", wrestler: "Trick Williams", odds: "-4000", result: "", totalPlayerPoints: 75, titleBeltImage: "mens_us.png", MertWager: 15, FertWager: 10, GertWager: 12.5 },
-      { matchCode: "NOC02", match: "United States Championship", night: "Night 1", wrestler: "Ricky Saints", odds: "1000", result: "", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
-      { matchCode: "NOC03", match: "Queen of the Ring Final", night: "Night 1", wrestler: "Iyo Sky", odds: "-900", result: "", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 0, FertWager: 20, GertWager: 12.5 },
-      { matchCode: "NOC03", match: "Queen of the Ring Final", night: "Night 1", wrestler: "Liv Morgan", odds: "500", result: "", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 12, FertWager: 0, GertWager: 0 },
-      { matchCode: "NOC04", match: "Women's United States Championship", night: "Night 1", wrestler: "Tiffany Stratton", odds: "100", result: "", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 10 },
-      { matchCode: "NOC04", match: "Women's United States Championship", night: "Night 1", wrestler: "Jade Cargill", odds: "-140", result: "", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 13, FertWager: 12, GertWager: 0 },
-      { matchCode: "NOC05", match: "Steel Cage Match", night: "Night 1", wrestler: "Seth Rollins", odds: "-140", result: "", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 15, FertWager: 12, GertWager: 10 },
-      { matchCode: "NOC05", match: "Steel Cage Match", night: "Night 1", wrestler: "Bron Breakker", odds: "100", result: "", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
-      { matchCode: "NOC06", match: "WWE Championship - Triple Threat", night: "Night 1", wrestler: "Cody Rhodes", odds: "-550", result: "", totalPlayerPoints: 75, titleBeltImage: "mens_wwe.png", MertWager: 0, FertWager: 10, GertWager: 15 },
-      { matchCode: "NOC06", match: "WWE Championship - Triple Threat", night: "Night 1", wrestler: "Gunther", odds: "700", result: "", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 5, FertWager: 0, GertWager: 0 },
-      { matchCode: "NOC06", match: "WWE Championship - Triple Threat", night: "Night 1", wrestler: "Sami Zayn", odds: "250", result: "", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "NOC01", match: "King of the Ring Final", night: "Night 1", wrestler: "Jey Uso", odds: "-140", result: "L", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "NOC01", match: "King of the Ring Final", night: "Night 1", wrestler: "Oba Femi", odds: "100", result: "W", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 15, FertWager: 11, GertWager: 15 },
+      { matchCode: "NOC02", match: "United States Championship", night: "Night 1", wrestler: "Trick Williams", odds: "-4000", result: "W", totalPlayerPoints: 75, titleBeltImage: "mens_us.png", MertWager: 15, FertWager: 10, GertWager: 12.5 },
+      { matchCode: "NOC02", match: "United States Championship", night: "Night 1", wrestler: "Ricky Saints", odds: "1000", result: "L", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "NOC03", match: "Queen of the Ring Final", night: "Night 1", wrestler: "Iyo Sky", odds: "-900", result: "W", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 0, FertWager: 20, GertWager: 12.5 },
+      { matchCode: "NOC03", match: "Queen of the Ring Final", night: "Night 1", wrestler: "Liv Morgan", odds: "500", result: "L", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 12, FertWager: 0, GertWager: 0 },
+      { matchCode: "NOC04", match: "Women's United States Championship", night: "Night 1", wrestler: "Tiffany Stratton", odds: "100", result: "W", totalPlayerPoints: 75, titleBeltImage: "womens_us.png", MertWager: 0, FertWager: 0, GertWager: 10 },
+      { matchCode: "NOC04", match: "Women's United States Championship", night: "Night 1", wrestler: "Jade Cargill", odds: "-140", result: "L", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 13, FertWager: 12, GertWager: 0 },
+      { matchCode: "NOC05", match: "Steel Cage Match", night: "Night 1", wrestler: "Seth Rollins", odds: "-140", result: "W", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 15, FertWager: 12, GertWager: 10 },
+      { matchCode: "NOC05", match: "Steel Cage Match", night: "Night 1", wrestler: "Bron Breakker", odds: "100", result: "L", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "NOC06", match: "WWE Championship - Triple Threat", night: "Night 1", wrestler: "Cody Rhodes", odds: "-550", result: "L", totalPlayerPoints: 75, titleBeltImage: "mens_wwe.png", MertWager: 0, FertWager: 10, GertWager: 15 },
+      { matchCode: "NOC06", match: "WWE Championship - Triple Threat", night: "Night 1", wrestler: "Gunther", odds: "700", result: "L", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 5, FertWager: 0, GertWager: 0 },
+      { matchCode: "NOC06", match: "WWE Championship - Triple Threat", night: "Night 1", wrestler: "Sami Zayn", odds: "250", result: "W", totalPlayerPoints: 75, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
     ];
 
     const cards = Array.from(document.querySelectorAll(".match-card"));
