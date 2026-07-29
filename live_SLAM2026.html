@@ -14,16 +14,19 @@
       logo: "assets/logos/SLAM2026.png",
       colors: {
         background: "#000000",
-        text: "#FFFFFF",
-        accent: "#C0C0C0",
-        accentLight: "#E5E5E5"
+        text: "#E8E8E8",
+        accent: "#C8C8C8",
+        accentLight: "#D8D8D8"
       }
     };
   </script>
   <style>
     body {
-      background: #101b2f;
-      color: #F7FAFF;
+      background:
+        radial-gradient(circle at 18% 0%, rgba(126, 45, 190, 0.24), transparent 34rem),
+        radial-gradient(circle at 82% 12%, rgba(72, 18, 120, 0.28), transparent 30rem),
+        #000000;
+      color: #F2F2F2;
     }
 
     .container {
@@ -31,9 +34,9 @@
     }
 
     .event-header {
-      background: #0f223d;
-      border: 1px solid #f59e0b;
-      box-shadow: none;
+      background: linear-gradient(180deg, rgba(72, 18, 120, 0.72), rgba(18, 0, 31, 0.94));
+      border: 1px solid #FFD700;
+      box-shadow: 0 0 0 1px rgba(255, 215, 0, 0.18), 0 14px 34px rgba(72, 18, 120, 0.28);
       overflow: hidden;
       padding: 0;
     }
@@ -50,7 +53,7 @@
       display: block;
       margin: 0 auto;
       object-fit: contain;
-      background: #0f223d;
+      background: rgba(18, 0, 31, 0.72);
       padding: 8px 0;
     }
 
@@ -60,13 +63,13 @@
       display: grid;
       gap: 6px;
       text-align: center;
-      border-top: 1px solid #4A4A4A;
-      border-bottom: 1px solid #4A4A4A;
+      border-top: 1px solid #D6A700;
+      border-bottom: 1px solid #D6A700;
       background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.00) 100%);
     }
 
     .event-summary-line {
-      color: #E5E5E5;
+      color: #D8D8D8;
       font-weight: 700;
       font-size: 1.03rem;
       letter-spacing: 0.02em;
@@ -110,30 +113,57 @@
     .odds,
     .player-name,
     .player-stat dd {
-      color: #FFFFFF;
+      color: #E8E8E8;
     }
 
     .summary-panel,
     .match-card,
     .wrestler {
-      background: #172b49;
-      border-color: #f59e0b;
-      box-shadow: none;
+      background: linear-gradient(180deg, rgba(72, 18, 120, 0.54), rgba(27, 0, 47, 0.82));
+      border-color: #FFD700;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.38);
     }
 
     .copy-btn,
     .btn-secondary,
     .btn-primary {
-      background: #b45309;
-      border-color: #d97706;
-      color: #F7FAFF;
+      background: linear-gradient(180deg, #FFE769, #D6A700);
+      border-color: #FFD700;
+      color: #050505;
     }
 
     .copy-btn:hover,
     .btn-primary:hover,
     .btn-secondary:hover {
-      background: #c2410c;
-      border-color: #f59e0b;
+      background: linear-gradient(180deg, #FFF2A6, #FFD700);
+      border-color: #FFF2A6;
+    }
+
+    .summary-title,
+    .summary-row strong,
+    .summary-row span,
+    .player-score,
+    .picks-status.win,
+    .leader-badge {
+      color: #FFD700;
+    }
+
+    .champion-name,
+    .champion-name .wrestler-name {
+      color: #E8E8E8;
+    }
+
+    .copy-btn:focus,
+    .btn-secondary:focus,
+    .btn-primary:focus,
+    .match-toggle:focus,
+    .match-toggle:focus-visible,
+    .wrestler:focus,
+    .wrestler:focus-within {
+      border-color: #D8D8D8;
+      outline: 2px solid #D8D8D8;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 1px rgba(216, 216, 216, 0.35), 0 0 18px rgba(216, 216, 216, 0.12);
     }
 
     .page-nav .copy-btn {
@@ -141,21 +171,26 @@
     }
 
     .match-toggle h2 {
-      color: #FFFFFF;
+      color: #E8E8E8;
     }
 
     .match-status {
-      color: #C0C0C0;
+      color: #C8C8C8;
+    }
+
+    .toggle-icon,
+    .match-toggle[aria-expanded="false"] .toggle-icon {
+      color: #D8D8D8;
     }
 
     .match-toggle:hover {
-      background: #161616;
+      background: rgba(126, 45, 190, 0.42);
     }
 
     .wrestler:hover {
-      background: #141414;
-      border-color: #666666;
-      box-shadow: none;
+      background: rgba(126, 45, 190, 0.68);
+      border-color: #FFD700;
+      box-shadow: 0 0 0 1px rgba(255, 215, 0, 0.34), 0 0 18px rgba(255, 215, 0, 0.12);
     }
 
     .wm-card-header {
@@ -164,7 +199,7 @@
       align-items: center;
       gap: 10px;
       padding-bottom: 10px;
-      border-bottom: 1px solid #4A4A4A;
+      border-bottom: 1px solid #D6A700;
     }
 
     .wm-card-title-wrap {
@@ -178,7 +213,7 @@
     .wm-card-header h2,
     .match-title {
       text-align: center;
-      color: #FFFFFF;
+      color: #E8E8E8;
       font-size: 1.45rem;
       font-weight: 700;
       line-height: 1.2;
@@ -240,7 +275,7 @@
 
     .wm-competitors .odds {
       margin-top: 4px;
-      color: #C0C0C0;
+      color: #C8C8C8;
     }
 
     .wm-competitors.multi {
@@ -250,7 +285,7 @@
     }
 
     .wm-competitors.multi .wrestler {
-      border: 1px solid #3C3C3C;
+      border: 1px solid rgba(255, 215, 0, 0.48);
       border-radius: 10px;
       padding: 8px 10px;
       text-align: left;
@@ -268,7 +303,7 @@
 
     .wm-vs {
       position: relative;
-      color: #C0C0C0;
+      color: #C8C8C8;
       font-size: 1.05rem;
       font-weight: 700;
       text-transform: uppercase;
@@ -283,7 +318,7 @@
       top: 50%;
       width: 1px;
       height: 24px;
-      background: #5A5A5A;
+      background: #D6A700;
       transform: translateY(-50%);
     }
 
@@ -296,13 +331,13 @@
     }
 
     .wm-card-footer {
-      border-top: 1px solid #3C3C3C;
+      border-top: 1px solid rgba(255, 215, 0, 0.48);
       padding-top: 8px;
       margin-top: 6px;
     }
 
     .wm-card-footer .match-status {
-      color: #C0C0C0;
+      color: #C8C8C8;
       font-size: 0.82rem;
       font-weight: 600;
     }
@@ -320,18 +355,18 @@
     }
 
     .wm-night-banner {
-      border: 1px solid #6A6A6A;
-      background: #101010;
+      border: 1px solid #FFD700;
+      background: linear-gradient(180deg, rgba(126, 45, 190, 0.54), rgba(72, 18, 120, 0.62));
       border-radius: 12px;
       padding: 14px 10px;
       text-align: center;
       margin-bottom: 14px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 215, 0, 0.22);
     }
 
     .wm-night-title {
       margin: 0;
-      color: #FFFFFF;
+      color: #FFD700;
       font-size: 1.35rem;
       font-weight: 800;
       letter-spacing: 0.05em;
@@ -340,40 +375,40 @@
 
     .wm-night-subtitle {
       margin: 4px 0 0;
-      color: #C0C0C0;
+      color: #C8C8C8;
       font-size: 0.86rem;
       font-weight: 600;
     }
 
     .scoreboard .player-card {
-      background: #172b49;
-      border-color: #f59e0b;
+      background: linear-gradient(180deg, rgba(72, 18, 120, 0.54), rgba(27, 0, 47, 0.82));
+      border-color: #FFD700;
       box-shadow: none;
     }
 
     .scoreboard .player-card.leader {
-      background: #b45309;
-      border-color: #d97706;
-      box-shadow: none;
+      background: linear-gradient(180deg, rgba(126, 45, 190, 0.72), rgba(72, 18, 120, 0.82));
+      border-color: #FFD700;
+      box-shadow: 0 0 0 1px rgba(255, 215, 0, 0.28), 0 10px 24px rgba(0, 0, 0, 0.36);
     }
 
     .leader-badge {
-      background: #c2410c;
-      border-color: #f59e0b;
-      color: #F7FAFF;
+      background: #050505;
+      border-color: #FFD700;
+      color: #FFD700;
     }
 
     .player-score {
-      color: #E5E5E5;
+      color: #D8D8D8;
     }
 
     .player-stat dt {
-      color: #C0C0C0;
+      color: #C8C8C8;
     }
 
     .picks-grid {
       margin-top: 10px;
-      border-top: 1px solid #3F3F3F;
+      border-top: 1px solid rgba(255, 215, 0, 0.42);
       padding-top: 10px;
       display: grid;
       gap: 8px;
@@ -383,7 +418,7 @@
       display: grid;
       grid-template-columns: 88px 1fr 84px 70px;
       gap: 10px;
-      color: #C0C0C0;
+      color: #C8C8C8;
       font-size: 0.78rem;
       font-weight: 700;
     }
@@ -394,34 +429,34 @@
       gap: 10px;
       align-items: start;
       font-size: 0.86rem;
-      color: #E5E5E5;
-      border-top: 1px solid #303030;
+      color: #D8D8D8;
+      border-top: 1px solid rgba(255, 215, 0, 0.28);
       padding-top: 8px;
     }
 
     .picks-player {
       font-weight: 700;
-      color: #E5E5E5;
+      color: #D8D8D8;
     }
 
     .picks-lines {
       display: grid;
       gap: 3px;
-      color: #FFFFFF;
+      color: #E8E8E8;
     }
 
     .picks-line.winning-pick {
-      color: #E5E5E5;
+      color: #D8D8D8;
       font-weight: 700;
     }
 
     .picks-line.losing-pick {
-      color: #BFBFBF;
+      color: #AFAFAF;
     }
 
     .picks-wager {
       text-align: right;
-      color: #C0C0C0;
+      color: #C8C8C8;
       font-variant-numeric: tabular-nums;
     }
 
@@ -433,41 +468,41 @@
     .picks-status.win,
     .picks-status.loss,
     .picks-status.pending {
-      color: #E5E5E5;
+      color: #D8D8D8;
     }
 
     .picks-net {
       margin-top: 2px;
       font-size: 0.72rem;
       font-weight: 600;
-      color: #C0C0C0;
+      color: #C8C8C8;
       text-align: center;
       font-variant-numeric: tabular-nums;
     }
 
     .player-card.over-limit {
-      border-color: #8A8A8A;
-      background: #171717;
+      border-color: #FFD700;
+      background: rgba(72, 18, 120, 0.46);
     }
 
     .player-warning {
-      color: #C0C0C0;
+      color: #C8C8C8;
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.01em;
     }
 
     .match-status.issue {
-      color: #C0C0C0;
+      color: #C8C8C8;
     }
 
     .match-issue {
       margin-top: 10px;
       padding: 8px 10px;
       border-radius: 8px;
-      border: 1px solid #666666;
-      background: #161616;
-      color: #E5E5E5;
+      border: 1px solid #FFD700;
+      background: rgba(72, 18, 120, 0.58);
+      color: #D8D8D8;
       font-size: 0.84rem;
       line-height: 1.35;
     }
@@ -489,10 +524,10 @@
       <div class="event-summary-block" aria-label="Event summary">
         <div class="event-summary-line">Saturday, August 1st, 2026</div>
         <div class="event-summary-line">Sunday, August 2nd, 2026</div>
-        <div class="event-summary-line">U.S. Bank Stadium, Minneapolis, MN</div>
-        <div class="event-summary-line">6:00pm ET</div>
+        <div class="event-summary-line">U.S. Bank Stadium, Minneapolis, MN, USA</div>
+        <div class="event-summary-line">6:00 PM ET</div>
       </div>
-      <div class="live-status-line visually-hidden"><strong>Status:</strong> Pending | <strong>Matches completed:</strong> 0 / 2</div>
+      <div class="live-status-line visually-hidden"><strong>Status:</strong> Pending | <strong>Matches completed:</strong> 0 / 12</div>
     </header>
 
     <nav class="page-nav" aria-label="Page navigation">
@@ -512,49 +547,195 @@
     </section>
     <section class="matches">
       <section class="wm-night-section" data-night="Night 1">
+        <div class="wm-night-banner">
+          <h3 class="wm-night-title">Night 1</h3>
+          <p class="wm-night-subtitle">Saturday, August 1, 2026</p>
+        </div>
+
       <section class="match-card" data-night="Night 1" data-match-code="SLAM01">
         <button class="match-toggle" type="button" aria-expanded="true">
-          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Night 1 Match TBD</h2></div></div>
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Three-man Tag Match</h2></div></div>
           <span class="toggle-icon" aria-hidden="true">▾</span>
         </button>
         <div class="match-body"><div class="wm-competitors">
-          <div class="wrestler" data-match-code="SLAM01"><div class="wrestler-main"><span class="name wrestler-name">TBD</span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wrestler" data-match-code="SLAM01"><div class="wrestler-main"><span class="name wrestler-name">Usos &amp; Fatu</span></div><div class="odds">Odds: TBD</div></div>
           <div class="wm-vs">vs</div>
-          <div class="wrestler" data-match-code="SLAM01"><div class="wrestler-main"><span class="name wrestler-name">TBD</span></div><div class="odds">Odds: TBD</div></div>
-        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 0 of 0</span></div></div>
+          <div class="wrestler" data-match-code="SLAM01"><div class="wrestler-main"><span class="name wrestler-name">Keys, Knight, Sikoa</span></div><div class="odds">Odds: TBD</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 1 of 2</span></div></div>
       </section>
       <section class="match-card" data-night="Night 1" data-match-code="SLAM02">
         <button class="match-toggle" type="button" aria-expanded="true">
-          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Night 2 Match TBD</h2></div></div>
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Three-woman Tag Match</h2></div></div>
           <span class="toggle-icon" aria-hidden="true">▾</span>
         </button>
         <div class="match-body"><div class="wm-competitors">
-          <div class="wrestler" data-match-code="SLAM02"><div class="wrestler-main"><span class="name wrestler-name">TBD</span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wrestler" data-match-code="SLAM02"><div class="wrestler-main"><span class="name wrestler-name">Fatal Influence</span></div><div class="odds">Odds: TBD</div></div>
           <div class="wm-vs">vs</div>
-          <div class="wrestler" data-match-code="SLAM02"><div class="wrestler-main"><span class="name wrestler-name">TBD</span></div><div class="odds">Odds: TBD</div></div>
-        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 0 of 0</span></div></div>
+          <div class="wrestler" data-match-code="SLAM02"><div class="wrestler-main"><span class="name wrestler-name">Nikki, Brie, Paige</span></div><div class="odds">Odds: TBD</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 1 of 2</span></div></div>
+      </section>
+      <section class="match-card" data-night="Night 1" data-match-code="SLAM03">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Women's World Championship</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler champion" data-match-code="SLAM03"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/womens_world.png?v=slam2026-belts-20260728" alt="Women's World Championship belt"></span><span class="wrestler-name">Liv Morgan</span></span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match-code="SLAM03"><div class="wrestler-main"><span class="name wrestler-name">Iyo Sky</span></div><div class="odds">Odds: TBD</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 1 of 2</span></div></div>
+      </section>
+      <section class="match-card" data-night="Night 1" data-match-code="SLAM04">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Singles Match</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler" data-match-code="SLAM04"><div class="wrestler-main"><span class="name wrestler-name">Gunther</span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match-code="SLAM04"><div class="wrestler-main"><span class="name wrestler-name">Nick Aldis</span></div><div class="odds">Odds: TBD</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 1 of 2</span></div></div>
+      </section>
+      <section class="match-card" data-night="Night 1" data-match-code="SLAM05">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Hell in a Cell</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler" data-match-code="SLAM05"><div class="wrestler-main"><span class="name wrestler-name">Oba Femi</span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match-code="SLAM05"><div class="wrestler-main"><span class="name wrestler-name">Brock Lesnar</span></div><div class="odds">Odds: TBD</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 1 of 2</span></div></div>
+      </section>
+      <section class="match-card" data-night="Night 1" data-match-code="SLAM06">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">WWE Championship</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler champion" data-match-code="SLAM06"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/mens_wwe.png?v=slam2026-belts-20260728" alt="WWE Championship belt"></span><span class="wrestler-name">CM Punk</span></span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match-code="SLAM06"><div class="wrestler-main"><span class="name wrestler-name">Cody Rhodes</span></div><div class="odds">Odds: TBD</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 1 of 2</span></div></div>
       </section>
       </section>
 
-      <!-- TODO: Add future SummerSlam matches below as additional cards. -->
+      <section class="wm-night-section" data-night="Night 2">
+        <div class="wm-night-banner">
+          <h3 class="wm-night-title">Night 2</h3>
+          <p class="wm-night-subtitle">Sunday, August 2, 2026</p>
+        </div>
+
+      <section class="match-card" data-night="Night 2" data-match-code="SLAM07">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">United States Championship</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler champion" data-match-code="SLAM07"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/mens_us.png?v=slam2026-belts-20260728" alt="United States Championship belt"></span><span class="wrestler-name">Trick Williams</span></span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match-code="SLAM07"><div class="wrestler-main"><span class="name wrestler-name">Baron Corbin</span></div><div class="odds">Odds: TBD</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 1 of 2</span></div></div>
+      </section>
+      <section class="match-card" data-night="Night 2" data-match-code="SLAM08">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Intercontinental Championship</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler champion" data-match-code="SLAM08"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/mens_ic.png?v=slam2026-belts-20260728" alt="Intercontinental Championship belt"></span><span class="wrestler-name">Penta</span></span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match-code="SLAM08"><div class="wrestler-main"><span class="name wrestler-name">Chad Gable</span></div><div class="odds">Odds: TBD</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 1 of 2</span></div></div>
+      </section>
+      <section class="match-card" data-night="Night 2" data-match-code="SLAM09">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">#1 Contenders - Singles Match</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler" data-match-code="SLAM09"><div class="wrestler-main"><span class="name wrestler-name">Sami Zayn</span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match-code="SLAM09"><div class="wrestler-main"><span class="name wrestler-name">Finn Balor</span></div><div class="odds">Odds: TBD</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 1 of 2</span></div></div>
+      </section>
+      <section class="match-card" data-night="Night 2" data-match-code="SLAM10">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Human Monies on a Pole Ladder Match</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler" data-match-code="SLAM10"><div class="wrestler-main"><span class="name wrestler-name">Danhausen</span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match-code="SLAM10"><div class="wrestler-main"><span class="name wrestler-name">Dominik Mysterio</span></div><div class="odds">Odds: TBD</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 1 of 2</span></div></div>
+      </section>
+      <section class="match-card" data-night="Night 2" data-match-code="SLAM11">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Interim WWE Women's Championship Ladder Match</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors multi">
+          <div class="wrestler" data-match-code="SLAM11"><div class="wrestler-main"><span class="name wrestler-name">Charlotte Flair</span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wrestler" data-match-code="SLAM11"><div class="wrestler-main"><span class="name wrestler-name">Jade Cargill</span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wrestler" data-match-code="SLAM11"><div class="wrestler-main"><span class="name wrestler-name">Tiffany Stratton</span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wrestler" data-match-code="SLAM11"><div class="wrestler-main"><span class="name wrestler-name">Chelsea Green</span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wrestler" data-match-code="SLAM11"><div class="wrestler-main"><span class="name wrestler-name">TBD</span></div><div class="odds">Odds: TBD</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 2 of 5</span></div></div>
+      </section>
+      <section class="match-card" data-night="Night 2" data-match-code="SLAM12">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">World Heavyweight Championship</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler champion" data-match-code="SLAM12"><div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/world_heavyweight.png?v=slam2026-belts-20260728" alt="World Heavyweight Championship belt"></span><span class="wrestler-name">Roman Reigns</span></span></div><div class="odds">Odds: TBD</div></div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match-code="SLAM12"><div class="wrestler-main"><span class="name wrestler-name">Seth Rollins</span></div><div class="odds">Odds: TBD</div></div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 1 of 2</span></div></div>
+      </section>
+      </section>
     </section>
 
 
     <footer class="site-footer">
-      Last updated: May 9, 2026
+      Last updated: July 28, 2026
     </footer>
   </main>
 
 
   <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const BELT_ASSET_VERSION = "wm42-belts-20260308";
+    const BELT_ASSET_VERSION = "slam2026-belts-20260728";
     const PLAYERS = ["Mert", "Fert", "Gert"];
     const EVENT_ROWS = [
-      { matchCode: "SLAM01", match: "Night 1 Match TBD", night: "Night 1", wrestler: "TBD", odds: "", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
-      { matchCode: "SLAM01", match: "Night 1 Match TBD", night: "Night 1", wrestler: "TBD", odds: "", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
-      { matchCode: "SLAM02", match: "Night 2 Match TBD", night: "Night 1", wrestler: "TBD", odds: "", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
-      { matchCode: "SLAM02", match: "Night 2 Match TBD", night: "Night 1", wrestler: "TBD", odds: "", result: "", totalPlayerPoints: 60, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM01", match: "Three-man Tag Match", night: "Night 1", wrestler: "Usos & Fatu", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM01", match: "Three-man Tag Match", night: "Night 1", wrestler: "Keys, Knight, Sikoa", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM02", match: "Three-woman Tag Match", night: "Night 1", wrestler: "Fatal Influence", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM02", match: "Three-woman Tag Match", night: "Night 1", wrestler: "Nikki, Brie, Paige", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM03", match: "Women's World Championship", night: "Night 1", wrestler: "Liv Morgan", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "womens_world.png", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM03", match: "Women's World Championship", night: "Night 1", wrestler: "Iyo Sky", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM04", match: "Singles Match", night: "Night 1", wrestler: "Gunther", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM04", match: "Singles Match", night: "Night 1", wrestler: "Nick Aldis", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM05", match: "Hell in a Cell", night: "Night 1", wrestler: "Oba Femi", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM05", match: "Hell in a Cell", night: "Night 1", wrestler: "Brock Lesnar", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM06", match: "WWE Championship", night: "Night 1", wrestler: "CM Punk", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "mens_wwe.png", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM06", match: "WWE Championship", night: "Night 1", wrestler: "Cody Rhodes", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM07", match: "United States Championship", night: "Night 2", wrestler: "Trick Williams", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "mens_us.png", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM07", match: "United States Championship", night: "Night 2", wrestler: "Baron Corbin", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM08", match: "Intercontinental Championship", night: "Night 2", wrestler: "Penta", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "mens_ic.png", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM08", match: "Intercontinental Championship", night: "Night 2", wrestler: "Chad Gable", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM09", match: "#1 Contenders - Singles Match", night: "Night 2", wrestler: "Sami Zayn", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM09", match: "#1 Contenders - Singles Match", night: "Night 2", wrestler: "Finn Balor", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM10", match: "Human Monies on a Pole Ladder Match", night: "Night 2", wrestler: "Danhausen", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM10", match: "Human Monies on a Pole Ladder Match", night: "Night 2", wrestler: "Dominik Mysterio", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM11", match: "Interim WWE Women's Championship Ladder Match", night: "Night 2", wrestler: "Charlotte Flair", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM11", match: "Interim WWE Women's Championship Ladder Match", night: "Night 2", wrestler: "Jade Cargill", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM11", match: "Interim WWE Women's Championship Ladder Match", night: "Night 2", wrestler: "Tiffany Stratton", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM11", match: "Interim WWE Women's Championship Ladder Match", night: "Night 2", wrestler: "Chelsea Green", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM11", match: "Interim WWE Women's Championship Ladder Match", night: "Night 2", wrestler: "TBD", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM12", match: "World Heavyweight Championship", night: "Night 2", wrestler: "Roman Reigns", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "world_heavyweight.png", MertWager: 0, FertWager: 0, GertWager: 0 },
+      { matchCode: "SLAM12", match: "World Heavyweight Championship", night: "Night 2", wrestler: "Seth Rollins", odds: "", result: "", totalPlayerPoints: 125, titleBeltImage: "", MertWager: 0, FertWager: 0, GertWager: 0 },
     ];
 
     const cards = Array.from(document.querySelectorAll(".match-card"));
@@ -963,6 +1144,10 @@
     renderLeaderboard(hasAnyWager ? buildScoreboard(groups) : []);
     updatePageStatus(groups);
     updateMatchCards(groups);
+    const interimLadderRules = document.querySelector('[data-match-code="SLAM11"] .match-rules-footer');
+    if (interimLadderRules) {
+      interimLadderRules.textContent = "Status: Max 25 • Pick 2 of 5";
+    }
     renderPicks(groups);
   });
   </script>
