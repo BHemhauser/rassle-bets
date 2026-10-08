@@ -10,6 +10,13 @@
       id: "MITB2026",
       name: "Money in the Bank",
       city: "New Orleans",
+      date: "2026-10-10",
+      startTime: "19:00",
+      timeZone: "America/New_York",
+      night: 1,
+      country: "USA",
+      location: "New Orleans, LA",
+      venue: "Smoothie King Center",
       logo: "assets/logos/MITB2026.png",
       colors: {
         background: "#000000",
@@ -21,7 +28,7 @@
   </script>
   <style>
     body {
-      background: #06260f;
+      background: #241638;
       color: #F7FAFF;
     }
 
@@ -30,8 +37,8 @@
     }
 
     .event-header {
-      background: #0a3217;
-      border: 1px solid #84cc16;
+      background: #352250;
+      border: 1px solid #9B89B5;
       box-shadow: none;
       overflow: hidden;
       padding: 0;
@@ -49,7 +56,7 @@
       display: block;
       margin: 0 auto;
       object-fit: contain;
-      background: #0a3217;
+      background: #352250;
       padding: 8px 0;
     }
 
@@ -59,8 +66,8 @@
       display: grid;
       gap: 6px;
       text-align: center;
-      border-top: 1px solid #365314;
-      border-bottom: 1px solid #365314;
+      border-top: 1px solid #8B77AD;
+      border-bottom: 1px solid #8B77AD;
       background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.00) 100%);
     }
 
@@ -105,31 +112,31 @@
     .match-card,
     .wrestler,
     .bottom-actions {
-      background: #114722;
-      border-color: #84cc16;
+      background: #583890;
+      border-color: #9B89B5;
       box-shadow: none;
     }
 
     .copy-btn,
     .btn-secondary,
     .btn-primary {
-      background: #3f6212;
-      border-color: #65a30d;
+      background: #483090;
+      border-color: #8B77AD;
       color: #F7FAFF;
     }
 
     .copy-btn:hover,
     .btn-primary:hover,
     .btn-secondary:hover {
-      background: #4d7c0f;
-      border-color: #84cc16;
+      background: #6848A0;
+      border-color: #9B89B5;
     }
 
     .search-input,
     .player-input,
     .wager-input {
-      background: #3f6212;
-      border-color: #65a30d;
+      background: #483090;
+      border-color: #8B77AD;
       color: #FFFFFF;
     }
 
@@ -157,13 +164,13 @@
     }
 
     .match-toggle:hover {
-      background: #3f6212;
+      background: #483090;
     }
 
     .wrestler:hover,
     .wrestler.wager-active {
-      background: #1d5d2f;
-      border-color: #65a30d;
+      background: #6848A0;
+      border-color: #8B77AD;
       box-shadow: none;
     }
 
@@ -173,7 +180,7 @@
       align-items: center;
       gap: 10px;
       padding-bottom: 10px;
-      border-bottom: 1px solid #365314;
+      border-bottom: 1px solid #8B77AD;
     }
 
     .wm-card-title-wrap {
@@ -329,8 +336,8 @@
     }
 
     .wm-night-banner {
-      border: 1px solid #84cc16;
-      background: #132948;
+      border: 1px solid #9B89B5;
+      background: #352250;
       border-radius: 12px;
       padding: 14px 10px;
       text-align: center;
@@ -404,19 +411,27 @@
       line-height: 1.1;
     }
 
-    body.points-bar-visible {
-      padding-top: 58px;
-    }
 
     @media (max-width: 768px) {
       .points-bar-inner {
         grid-template-columns: 1fr 1fr;
       }
 
-      body.points-bar-visible {
-        padding-top: 84px;
-      }
     }
+    /* Keep two-participant wager controls within narrow screens. */
+    .wm-night-section { min-width: 0; }
+    @media (max-width: 600px) {
+      .wm-competitors { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+      .wm-competitors.multi { grid-template-columns: minmax(0, 1fr); }
+      .wm-competitors:not(.multi) .wager-row { grid-template-columns: minmax(0, 1fr); }
+    }
+    .toggle-icon { color: #FFFFFF; }
+    .match-toggle:hover,
+    .wrestler:hover,
+    .wrestler.wager-active { background: #6848A0; color: #FFFFFF; }
+    .search-input::placeholder,
+    .player-input::placeholder,
+    .wager-input::placeholder { color: #C0C0C0; opacity: 1; }
   </style>
 </head>
 <body>
@@ -441,11 +456,11 @@
     </div>
   </div>
 
-  <main class="container" data-event-id="MITB2026" data-bankroll="60">
+  <main class="container" data-event-id="MITB2026" data-bankroll="75">
     <header class="event-header" data-event-name="Money in the Bank">
       <img class="event-logo" src="assets/logos/MITB2026.png" alt="Money in the Bank logo">
       <div class="event-summary-block" aria-label="Event summary">
-        <div class="event-summary-line">Sunday, September 6th, 2026</div>
+        <div class="event-summary-line">Saturday, October 10th, 2026</div>
         <div class="event-summary-line">Smoothie King Center, New Orleans, LA</div>
         <div class="event-summary-line">7:00pm ET</div>
       </div>
@@ -471,9 +486,9 @@
       <h3 class="summary-title">Your Picks Summary</h3>
       <div class="summary-grid">
         <div class="summary-col">
-          <div class="summary-row"><strong>Total Points Available:</strong> <span id="total-available">60</span></div>
+          <div class="summary-row"><strong>Total Points Available:</strong> <span id="total-available">75</span></div>
           <div class="summary-row"><strong>Total Wagered:</strong> <span id="total-wagered">0.0</span></div>
-          <div class="summary-row"><strong>Remaining Points:</strong> <span id="remaining-points">60.0</span></div>
+          <div class="summary-row"><strong>Remaining Points:</strong> <span id="remaining-points">75.0</span></div>
           <div class="summary-row"><strong>Matches Not Wagered On:</strong> <span id="matches-not-wagered">0</span></div>
         </div>
         <div class="summary-col">
@@ -483,34 +498,152 @@
         </div>
       </div>
       <div id="validation-message" class="validation-message" hidden></div>
-      <div id="bankroll-warning" class="bankroll-warning" hidden>Over limit: total wager exceeds 60 point bankroll.</div>
+      <div id="bankroll-warning" class="bankroll-warning" hidden>Over limit: total wager exceeds 75 point bankroll.</div>
     </section>
     <section class="matches">
       <section class="wm-night-section" data-night="Night 1">
       <section class="match-card" data-night="Night 1" data-match-code="MITB01">
         <button class="match-toggle" type="button" aria-expanded="true">
-          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Match TBD</h2></div></div>
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Women&#x27;s Money in the Bank Ladder Match</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors multi">
+          <div class="wrestler" data-match="Women&#x27;s Money in the Bank Ladder Match" data-match-code="MITB01" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">Tiffany Stratton</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+          <div class="wrestler" data-match="Women&#x27;s Money in the Bank Ladder Match" data-match-code="MITB01" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">Roxanne Perez</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+          <div class="wrestler" data-match="Women&#x27;s Money in the Bank Ladder Match" data-match-code="MITB01" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">Sol Ruca</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+          <div class="wrestler" data-match="Women&#x27;s Money in the Bank Ladder Match" data-match-code="MITB01" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">Lash Legend</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+          <div class="wrestler" data-match="Women&#x27;s Money in the Bank Ladder Match" data-match-code="MITB01" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">Lola Vice</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+          <div class="wrestler" data-match="Women&#x27;s Money in the Bank Ladder Match" data-match-code="MITB01" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">Jacy Jayne</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 3 of 6</span></div></div>
+      </section>
+      <section class="match-card" data-night="Night 1" data-match-code="MITB02">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Men&#x27;s Money in the Bank Ladder Match</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors multi">
+          <div class="wrestler" data-match="Men&#x27;s Money in the Bank Ladder Match" data-match-code="MITB02" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">CM Punk</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+          <div class="wrestler" data-match="Men&#x27;s Money in the Bank Ladder Match" data-match-code="MITB02" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">Trick Williams</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+          <div class="wrestler" data-match="Men&#x27;s Money in the Bank Ladder Match" data-match-code="MITB02" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">Kevin Owens</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+          <div class="wrestler" data-match="Men&#x27;s Money in the Bank Ladder Match" data-match-code="MITB02" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">Bron Breakker</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+          <div class="wrestler" data-match="Men&#x27;s Money in the Bank Ladder Match" data-match-code="MITB02" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">Penta</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+          <div class="wrestler" data-match="Men&#x27;s Money in the Bank Ladder Match" data-match-code="MITB02" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">Je’Von Evans</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 3 of 6</span></div></div>
+      </section>
+      <section class="match-card" data-night="Night 1" data-match-code="MITB03">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Singles Match</h2></div></div>
           <span class="toggle-icon" aria-hidden="true">▾</span>
         </button>
         <div class="match-body"><div class="wm-competitors">
-          <div class="wrestler" data-match="Match TBD" data-match-code="MITB01" data-odds="" data-result="">
-              <div class="wrestler-main"><span class="name wrestler-name">TBD</span></div>
-              <div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
-            </div>
+          <div class="wrestler" data-match="Singles Match" data-match-code="MITB03" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">Oba Femi</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
           <div class="wm-vs">vs</div>
-          <div class="wrestler" data-match="Match TBD" data-match-code="MITB01" data-odds="" data-result="">
-              <div class="wrestler-main"><span class="name wrestler-name">TBD</span></div>
-              <div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
-            </div>
-        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 0 of 0</span></div></div>
+          <div class="wrestler" data-match="Singles Match" data-match-code="MITB03" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">Bronson Reed</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 1 of 2</span></div></div>
+      </section>
+      <section class="match-card" data-night="Night 1" data-match-code="MITB04">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Women&#x27;s World Championship</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors multi">
+          <div class="wrestler" data-match="Women&#x27;s World Championship" data-match-code="MITB04" data-odds="" data-result="" data-current-champ="Y">
+            <div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/womens_world.png" alt="Women&#x27;s World Championship belt — current champion"></span><span class="wrestler-name">Stephanie Vaquer</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+          <div class="wrestler" data-match="Women&#x27;s World Championship" data-match-code="MITB04" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">Liv Morgan</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+          <div class="wrestler" data-match="Women&#x27;s World Championship" data-match-code="MITB04" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">Becky Lynch</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 1 of 3</span></div></div>
+      </section>
+      <section class="match-card" data-night="Night 1" data-match-code="MITB05">
+        <button class="match-toggle" type="button" aria-expanded="true">
+          <div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">World Heavyweight Championship</h2></div></div>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="match-body"><div class="wm-competitors">
+          <div class="wrestler" data-match="World Heavyweight Championship" data-match-code="MITB05" data-odds="" data-result="" data-current-champ="Y">
+            <div class="wrestler-main"><span class="name champion-name"><span class="belt-slot"><img class="belt-icon" src="assets/belts/world_heavyweight.png" alt="World Heavyweight Championship belt — current champion"></span><span class="wrestler-name">Roman Reigns</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+          <div class="wm-vs">vs</div>
+          <div class="wrestler" data-match="World Heavyweight Championship" data-match-code="MITB05" data-odds="" data-result="" data-current-champ="N">
+            <div class="wrestler-main"><span class="name"><span class="wrestler-name">LA Knight</span></span></div>
+            <div class="odds">Odds: TBD</div>
+            <div class="wager-row"><label class="wager-label">Wager (pts)</label><input class="wager-input" type="number" min="0" step="1" value="" placeholder="0"></div>
+          </div>
+        </div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Max 25 • Pick 1 of 2</span></div></div>
       </section>
       </section>
-
-      <!-- TODO: Add future Money in the Bank matches below as additional cards. -->
     </section>
 
     <section class="bottom-actions" aria-label="Submission actions">
-      <div class="commit-meta">Total Wagered: <strong><span id="commit-total-wagered">0.0</span> / <span id="commit-bankroll">60</span></strong></div>
+      <div class="commit-meta">Total Wagered: <strong><span id="commit-total-wagered">0.0</span> / <span id="commit-bankroll">75</span></strong></div>
       <button id="submit-picks" class="copy-btn btn-primary" type="button">Submit Picks</button>
       <button id="download-picks" class="copy-btn btn-secondary" type="button" hidden>Download Picks</button>
       <button id="copy-picks-summary" class="copy-btn btn-secondary" type="button" hidden>Copy Picks Summary</button>
@@ -519,7 +652,7 @@
 
 
     <footer class="site-footer">
-      Last updated: May 9, 2026
+      Last updated: October 7, 2026
     </footer>
   </main>
 
@@ -559,11 +692,12 @@
         return Math.max(150, bottomAbsolute - 24);
       }
 
+      // Overlay the bar without moving the summary or changing its scroll threshold.
       function togglePointsBar() {
         if (!bar) return;
         const shouldShow = window.scrollY > getShowThreshold();
         bar.classList.toggle("is-visible", shouldShow);
-        document.body.classList.toggle("points-bar-visible", shouldShow);
+
       }
 
       const observer = new MutationObserver(syncPointsBar);
@@ -576,7 +710,15 @@
 
       syncPointsBar();
       togglePointsBar();
-      window.addEventListener("scroll", togglePointsBar, { passive: true });
+      let scrollFramePending = false;
+      window.addEventListener("scroll", function () {
+        if (scrollFramePending) return;
+        scrollFramePending = true;
+        window.requestAnimationFrame(function () {
+          scrollFramePending = false;
+          togglePointsBar();
+        });
+      }, { passive: true });
       window.addEventListener("resize", togglePointsBar);
     });
   </script>
