@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crown Jewel (CRJL2026)</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="live.css">
+  <script>
+    const EVENT = {
+      id: "CRJL2026",
+      name: "Crown Jewel",
+      city: "Riyadh",
+      date: "2026-11-07",
+      startTime: "12:00",
+      timeZone: "America/New_York",
+      night: 1,
+      country: "Saudi Arabia",
+      location: "Riyadh",
+      venue: "Riyadh Season Stadium",
+      logo: "assets/logos/CRJL2026.png",
+      colors: {
+        background: "#101A12",
+        text: "#FFFBE9",
+        accent: "#D8C472",
+        accentLight: "#F4EE9C"
+      }
+    };
+  </script>
+  <style>
+    body {
+      background: #101A12;
+      color: #FFFBE9;
+    }
+
+    .container {
+      max-width: 1080px;
+    }
+
+    .event-header {
+      background: #1E261B;
+      border: 1px solid #D8C472;
+      box-shadow: none;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .event-header::before {
+      display: none;
+    }
+
+    .event-logo {
+      width: min(100%, 920px);
+      max-width: 100%;
+      max-height: 260px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      object-fit: contain;
+      background: #1E261B;
+      padding: 8px 0;
+    }
+
+    .event-summary-block {
+      margin-top: 14px;
+      padding: 12px 14px;
+      display: grid;
+      gap: 6px;
+      text-align: center;
+      border-top: 1px solid #849443;
+      border-bottom: 1px solid #849443;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.00) 100%);
+    }
+
+    .event-summary-line {
+      color: #F4EE9C;
+      font-weight: 700;
+      font-size: 1.03rem;
+      letter-spacing: 0.02em;
+      line-height: 1.35;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.75), 0 0 8px rgba(229,229,229,0.10);
+    }
+
+    @media (max-width: 700px) {
+      .event-summary-block {
+        margin-top: 10px;
+        padding: 10px 10px;
+        gap: 5px;
+      }
+
+      .event-summary-line {
+        font-size: 0.97rem;
+      }
+    }
+
+    .event-time,
+    .event-meta,
+    .event-meta strong,
+    .summary-title,
+    .summary-row,
+    .summary-row span,
+    .commit-meta,
+    .site-footer,
+    .wager-label,
+    .odds,
+    .name,
+    .validation-message,
+    .bankroll-warning {
+      color: #FFFBE9;
+    }
+
+    .summary-panel,
+    .match-card,
+    .wrestler,
+    .bottom-actions {
+      background: #583890;
+      border-color: #D8C472;
+      box-shadow: none;
+    }
+
+    .copy-btn,
+    .btn-secondary,
+    .btn-primary {
+      background: #4E2B48;
+      border-color: #849443;
+      color: #FFFBE9;
+    }
+
+    .copy-btn:hover,
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      background: #235F0F;
+      border-color: #D8C472;
+    }
+
+    .search-input,
+    .player-input,
+    .wager-input {
+      background: #4E2B48;
+      border-color: #849443;
+      color: #FFFBE9;
+    }
+
+    .wager-input[type="number"]::-webkit-outer-spin-button,
+    .wager-input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .wager-input[type="number"] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    .page-nav .copy-btn {
+      text-decoration: none;
+    }
+
+    .match-toggle h2 {
+      color: #FFFBE9;
+    }
+
+    .match-status {
+      color: #D8C472;
+    }
+
+    .match-toggle:hover {
+      background: #4E2B48;
+    }
+
+    .wrestler:hover,
+    .wrestler.wager-active {
+      background: #235F0F;
+      border-color: #849443;
+      box-shadow: none;
+    }
+
+    .wm-card-header {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #849443;
+    }
+
+    .wm-card-title-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+      grid-column: 2;
+    }
+
+    .wm-card-header h2,
+    .match-title {
+      text-align: center;
+      color: #FFFBE9;
+      font-size: 1.45rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .wm-competitors {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 0 10px;
+    }
+
+    .wm-competitors .wrestler {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      box-shadow: none;
+      text-align: center;
+    }
+
+    .wm-competitors .wrestler-main {
+      justify-content: center;
+    }
+
+    .wm-competitors .name,
+    .wrestler-name {
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .wm-competitors .champion-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .wm-competitors .belt-slot {
+      width: 38px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 38px;
+    }
+
+    .wm-competitors .belt-icon {
+      max-height: 18px;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .wm-competitors .odds {
+      margin-top: 4px;
+      color: #D8C472;
+    }
+
+    .wm-competitors.multi {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding-top: 10px;
+    }
+
+    .wm-competitors.multi .wrestler {
+      border: 1px solid #3C3C3C;
+      border-radius: 10px;
+      padding: 8px 10px;
+      text-align: left;
+    }
+
+    .wm-competitors.multi .wrestler-main {
+      justify-content: flex-start;
+    }
+
+    .wm-competitors.multi .name,
+    .wm-competitors.multi .wrestler-name {
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .wm-vs {
+      position: relative;
+      color: #D8C472;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0 10px;
+    }
+
+    .wm-vs::before,
+    .wm-vs::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 1px;
+      height: 24px;
+      background: #5A5A5A;
+      transform: translateY(-50%);
+    }
+
+    .wm-vs::before {
+      left: 0;
+    }
+
+    .wm-vs::after {
+      right: 0;
+    }
+
+    .wm-card-footer {
+      border-top: 1px solid #3C3C3C;
+      padding-top: 8px;
+      margin-top: 6px;
+    }
+
+    .wm-card-footer .match-status {
+      color: #D8C472;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    
+    .matches .match-card {
+      margin-bottom: 14px;
+    }
+
+    .matches .match-card:last-child {
+      margin-bottom: 0;
+    }
+    .wm-night-section {
+      margin: 18px 0 24px;
+    }
+
+    .wm-night-banner {
+      border: 1px solid #D8C472;
+      background: #1E261B;
+      border-radius: 12px;
+      padding: 14px 10px;
+      text-align: center;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    }
+
+    .wm-night-title {
+      margin: 0;
+      color: #FFFBE9;
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .wm-night-subtitle {
+      margin: 4px 0 0;
+      color: #D8C472;
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .points-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      transform: translateY(-110%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 140ms ease, opacity 140ms ease;
+    }
+
+    .points-bar.is-visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .points-bar-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 8px 14px;
+      background: rgba(10, 10, 10, 0.95);
+      border: 1px solid #5A5A5A;
+      border-top: 0;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px 12px;
+    }
+
+    .points-bar-metric {
+      display: grid;
+      gap: 2px;
+    }
+
+    .points-bar-label {
+      color: #D8C472;
+      font-size: 0.74rem;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .points-bar-value {
+      color: #FFFBE9;
+      font-size: 0.94rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+
+    @media (max-width: 768px) {
+      .points-bar-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+
+    }
+    /* Keep two-participant wager controls within narrow screens. */
+    .wm-night-section { min-width: 0; }
+    @media (max-width: 600px) {
+      .wm-competitors { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+      .wm-competitors.multi { grid-template-columns: minmax(0, 1fr); }
+      .wm-competitors:not(.multi) .wager-row { grid-template-columns: minmax(0, 1fr); }
+    }
+    .toggle-icon { color: #FFFBE9; }
+    .match-toggle:hover,
+    .wrestler:hover,
+    .wrestler.wager-active { background: #235F0F; color: #FFFBE9; }
+    .search-input::placeholder,
+    .player-input::placeholder,
+    .wager-input::placeholder { color: #D8C472; opacity: 1; }
+    .scoreboard .player-card {
+      background: #583890;
+      border-color: #D8C472;
+      box-shadow: none;
+    }
+
+    .scoreboard .player-card.leader {
+      background: #4E2B48;
+      border-color: #849443;
+      box-shadow: none;
+    }
+
+    .leader-badge {
+      background: #235F0F;
+      border-color: #D8C472;
+      color: #FFFBE9;
+    }
+
+    .player-score {
+      color: #F4EE9C;
+    }
+
+    .player-stat dt {
+      color: #D8C472;
+    }
+
+    .picks-grid {
+      margin-top: 10px;
+      border-top: 1px solid #3F3F3F;
+      padding-top: 10px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .picks-grid-header {
+      display: grid;
+      grid-template-columns: 88px 1fr 84px 70px;
+      gap: 10px;
+      color: #D8C472;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .picks-grid-row {
+      display: grid;
+      grid-template-columns: 88px 1fr 84px 70px;
+      gap: 10px;
+      align-items: start;
+      font-size: 0.86rem;
+      color: #F4EE9C;
+      border-top: 1px solid #303030;
+      padding-top: 8px;
+    }
+
+    .picks-player {
+      font-weight: 700;
+      color: #F4EE9C;
+    }
+
+    .picks-lines {
+      display: grid;
+      gap: 3px;
+      color: #FFFBE9;
+    }
+
+    .picks-line.winning-pick {
+      color: #F4EE9C;
+      font-weight: 700;
+    }
+
+    .picks-line.losing-pick {
+      color: #BFBFBF;
+    }
+
+    .picks-wager {
+      text-align: right;
+      color: #D8C472;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .picks-status {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .picks-status.win,
+    .picks-status.loss,
+    .picks-status.pending {
+      color: #F4EE9C;
+    }
+
+    .picks-net {
+      margin-top: 2px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #D8C472;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .player-card.over-limit {
+      border-color: #D8C472;
+      background: #1E261B;
+    }
+
+    .player-warning {
+      color: #D8C472;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .match-status.issue {
+      color: #D8C472;
+    }
+
+    .match-issue {
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #849443;
+      background: #1E261B;
+      color: #F4EE9C;
+      font-size: 0.84rem;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 700px) {
+      .picks-grid-header,
+      .picks-grid-row {
+        grid-template-columns: 72px 1fr 70px 64px;
+        gap: 8px;
+        font-size: 0.8rem;
+      }
+    }
+    .toggle-icon { color: #FFFBE9; }
+    .match-toggle:hover,
+    .wrestler:hover,
+    .wrestler.wager-active { background: #235F0F; color: #FFFBE9; }
+    .search-input::placeholder,
+    .player-input::placeholder,
+    .wager-input::placeholder { color: #D8C472; opacity: 1; }
+    .completed-wagers { grid-template-columns: repeat(3, minmax(0, 1fr)); color: #F4EE9C; font-size: 0.82rem; }
+    .wm-competitors:not(.multi) .completed-wagers { grid-template-columns: minmax(0, 1fr); }
+    .live-status-line { color: #F4EE9C; text-align: center; padding: 8px; }
+    .player-name, .player-stat dd { color: #F4EE9C; }
+  /* Crown Jewel: emerald enamel, gold edging, purple championship accents. */
+    .event-header {background:radial-gradient(ellipse at top,#235F0F,#101A12 75%);border:1px solid #D8C472;border-top:4px solid #D8C472; border-radius:18px;}
+    .event-header .event-logo {width:min(82%,483px);max-height:230px;margin:24px auto 12px;object-fit:contain;}
+    .match-card {border:1px solid #849443;border-top:3px solid #D8C472;background:#1E261B;box-shadow:0 8px 24px #0003;}
+    .wm-card-header {background:#4E2B48;}
+    .match-title {text-align:center;color:#FFFBE9;}
+    .summary-panel,.player-card {background:#1E261B;border-color:#849443;}
+    .player-card.leader {border-color:#D8C472;background:linear-gradient(145deg,#235F0F,#1E261B);}
+    .leader-badge,.btn-primary {background:#D8C472;color:#101A12;}
+    .page-nav a,.match-controls button {border:1px solid #D8C472;}
+    .site-footer {color:#FFFBE9;background:#1E261B;border-top:2px solid #D8C472;padding:20px;line-height:1.6;}
+    .site-footer h3 {color:#F4EE9C;}
+    button:focus-visible,a:focus-visible {outline:3px solid #F4EE9C;outline-offset:3px;}
+    @media(max-width:480px){.picks-grid-header,.picks-grid-row {grid-template-columns:45px minmax(0,1fr) 48px 66px;gap:5px;font-size:.74rem;}.container{padding-left:10px;padding-right:10px;}.wrestler-name{overflow-wrap:anywhere;}}
+  
+    :root {--text:#FFFBE9;--muted:#E9DA8A;--card:#1E261B;--accent:#D8C472;--accent-strong:#F4EE9C;}
+    .summary-row,.wager-label,.commit-meta {color:#E9DA8A;}
+    .summary-row span,.summary-title,.commit-meta strong {color:#FFFBE9;}
+    .player-input,.search-input,.wager-input {background:#101A12;color:#FFFBE9;border-color:#849443;}
+    .bottom-actions {background:#1E261B;border-color:#849443;}
+    .copy-btn:disabled {opacity:.5;cursor:not-allowed;}
+    .match-rule-message {background:#4E2B48;border-color:#D8C472;color:#FFFBE9;}
+    .match-card.rule-invalid {border-color:#F4EE9C;}
+    .validation-message,.submit-feedback,.bankroll-warning {color:#F4EE9C !important;}
+    .wrestler.wager-active {border-color:#D8C472;box-shadow:inset 3px 0 #D8C472;}
+    .wm-card-title-wrap,.match-toggle-meta {width:100%;text-align:center;}
+    .btn-primary:hover {background:#F4EE9C;color:#101A12;}
+      .match-toggle .wm-card-header {flex:1;min-width:0;}
+  </style>
+</head>
+<body>
+  <main class="container" data-event-id="CRJL2026" data-bankroll="50">
+    <header class="event-header" data-event-name="Crown Jewel">
+      <img class="event-logo" src="assets/logos/CRJL2026.png" alt="Crown Jewel logo">
+      <div class="event-summary-block" aria-label="Event summary">
+        <div class="event-summary-line">Saturday, November 7th, 2026</div>
+        <div class="event-summary-line">Riyadh Season Stadium, Riyadh</div>
+        <div class="event-summary-line">12:00 (source time; timezone unspecified)</div>
+      </div>
+      <div class="live-status-line"><strong>Status:</strong> Pending | <strong>Matches completed:</strong> 0 / 4</div>
+    </header>
+
+    <nav class="page-nav" aria-label="Page navigation">
+      <a class="copy-btn btn-secondary" href="index.html">Home</a>
+      <a class="copy-btn btn-primary" href="event_CRJL2026.html">Make Picks</a>
+      <a class="copy-btn btn-secondary" href="live_CRJL2026.html">Live Tracker</a>
+    </nav>
+
+
+    <section class="controls" aria-label="Event tools">
+      <input id="player-name" class="player-input" type="text" placeholder="Player Name: Mert, Fert, or Gert" list="players" aria-label="Player Name" autocomplete="name">
+      <input id="wrestler-search" class="search-input" type="search" placeholder="Search wrestlers..." autocomplete="off">
+    <datalist id="players"><option value="Mert"><option value="Fert"><option value="Gert"></datalist></section>
+
+    <section class="match-controls" aria-label="Match controls">
+      <button id="expand-all" class="copy-btn btn-secondary" type="button">Expand all</button>
+      <button id="collapse-all" class="copy-btn btn-secondary" type="button">Collapse all</button>
+    </section>
+
+    <section class="summary-panel" aria-live="polite">
+      <h3 class="summary-title">Your Picks Summary</h3>
+      <div class="summary-grid">
+        <div class="summary-col">
+          <div class="summary-row"><strong>Total Points Available:</strong> <span id="total-available">50</span></div>
+          <div class="summary-row"><strong>Total Wagered:</strong> <span id="total-wagered">0.0</span></div>
+          <div class="summary-row"><strong>Remaining Points:</strong> <span id="remaining-points">50.0</span></div>
+          <div class="summary-row"><strong>Matches Not Wagered On:</strong> <span id="matches-not-wagered">0</span></div>
+        </div>
+        <div class="summary-col">
+          <div class="summary-row"><strong>Avg Wager Remaining:</strong> <span id="avg-wager-remaining">N/A</span></div>
+          <div class="summary-row"><strong>Total Potential Profit:</strong> <span id="total-profit">0.0</span></div>
+          <div class="summary-row"><strong>Total Potential Return:</strong> <span id="total-return">0.0</span></div>
+        </div>
+      </div>
+      <div id="validation-message" class="validation-message" hidden></div>
+      <div id="bankroll-warning" class="bankroll-warning" hidden>Over limit: total wager exceeds 50 point bankroll.</div>
+    </section>
+    <section class="matches"><section class="match-card" data-night="Night 1" data-match-code="CRJL01"><button class="match-toggle" type="button" aria-expanded="true"><div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Women&#x27;s Crown Jewel Championship</h2></div></div><span class="toggle-icon" aria-hidden="true">▾</span></button><div class="match-body"><div class="wm-competitors"><div class="wrestler" data-match="Women&#x27;s Crown Jewel Championship" data-match-code="CRJL01" data-odds="" data-result="" data-current-champ="Y"><div class="wrestler-main"><span class="name"><span class="wrestler-name">Chelsea Green</span><span class="belt-slot"><img class="belt-icon" src="assets/belts/Womens_WWE.png" alt="Current champion belt"></span></span></div><div class="odds">Odds: Not yet available</div><div class="wager-row"><label class="wager-label" for="wager-1">Wager (pts)</label><input id="wager-1" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for Chelsea Green"></div></div><div class="wm-vs">vs</div><div class="wrestler" data-match="Women&#x27;s Crown Jewel Championship" data-match-code="CRJL01" data-odds="" data-result="" data-current-champ="Y"><div class="wrestler-main"><span class="name"><span class="wrestler-name">Liv Morgan</span><span class="belt-slot"><img class="belt-icon" src="assets/belts/Womens_World.png" alt="Current champion belt"></span></span></div><div class="odds">Odds: Not yet available</div><div class="wager-row"><label class="wager-label" for="wager-2">Wager (pts)</label><input id="wager-2" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for Liv Morgan"></div></div></div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Pending • Max 25 • Pick 1 of 2</span></div></div></section><section class="match-card" data-night="Night 1" data-match-code="CRJL02"><button class="match-toggle" type="button" aria-expanded="true"><div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">World Tag Team Championship</h2></div></div><span class="toggle-icon" aria-hidden="true">▾</span></button><div class="match-body"><div class="wm-competitors"><div class="wrestler" data-match="World Tag Team Championship" data-match-code="CRJL02" data-odds="" data-result="" data-current-champ="Y"><div class="wrestler-main"><span class="name"><span class="wrestler-name">The Vision</span><span class="belt-slot"><img class="belt-icon" src="assets/belts/Mens_World_Tag.png" alt="Current champion belt"></span></span></div><div class="odds">Odds: Not yet available</div><div class="wager-row"><label class="wager-label" for="wager-3">Wager (pts)</label><input id="wager-3" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for The Vision"></div></div><div class="wm-vs">vs</div><div class="wrestler" data-match="World Tag Team Championship" data-match-code="CRJL02" data-odds="" data-result="" data-current-champ="N"><div class="wrestler-main"><span class="name"><span class="wrestler-name">Je’Von Evans &amp; Penta</span></span></div><div class="odds">Odds: Not yet available</div><div class="wager-row"><label class="wager-label" for="wager-4">Wager (pts)</label><input id="wager-4" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for Je’Von Evans &amp; Penta"></div></div></div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Pending • Max 25 • Pick 1 of 2</span></div></div></section><section class="match-card" data-night="Night 1" data-match-code="CRJL03"><button class="match-toggle" type="button" aria-expanded="true"><div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Last Man Standing</h2></div></div><span class="toggle-icon" aria-hidden="true">▾</span></button><div class="match-body"><div class="wm-competitors"><div class="wrestler" data-match="Last Man Standing" data-match-code="CRJL03" data-odds="" data-result="" data-current-champ="N"><div class="wrestler-main"><span class="name"><span class="wrestler-name">Cody Rhodes</span></span></div><div class="odds">Odds: Not yet available</div><div class="wager-row"><label class="wager-label" for="wager-5">Wager (pts)</label><input id="wager-5" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for Cody Rhodes"></div></div><div class="wm-vs">vs</div><div class="wrestler" data-match="Last Man Standing" data-match-code="CRJL03" data-odds="" data-result="" data-current-champ="N"><div class="wrestler-main"><span class="name"><span class="wrestler-name">Randy Orton</span></span></div><div class="odds">Odds: Not yet available</div><div class="wager-row"><label class="wager-label" for="wager-6">Wager (pts)</label><input id="wager-6" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for Randy Orton"></div></div></div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Pending • Max 25 • Pick 1 of 2</span></div></div></section><section class="match-card" data-night="Night 1" data-match-code="CRJL04"><button class="match-toggle" type="button" aria-expanded="true"><div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Men&#x27;s Crown Jewel Championship</h2></div></div><span class="toggle-icon" aria-hidden="true">▾</span></button><div class="match-body"><div class="wm-competitors"><div class="wrestler" data-match="Men&#x27;s Crown Jewel Championship" data-match-code="CRJL04" data-odds="" data-result="" data-current-champ="Y"><div class="wrestler-main"><span class="name"><span class="wrestler-name">Roman Reigns</span><span class="belt-slot"><img class="belt-icon" src="assets/belts/Mens_World.png" alt="Current champion belt"></span></span></div><div class="odds">Odds: Not yet available</div><div class="wager-row"><label class="wager-label" for="wager-7">Wager (pts)</label><input id="wager-7" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for Roman Reigns"></div></div><div class="wm-vs">vs</div><div class="wrestler" data-match="Men&#x27;s Crown Jewel Championship" data-match-code="CRJL04" data-odds="" data-result="" data-current-champ="Y"><div class="wrestler-main"><span class="name"><span class="wrestler-name">Sami Zayn</span><span class="belt-slot"><img class="belt-icon" src="assets/belts/Mens_WWE.png" alt="Current champion belt"></span></span></div><div class="odds">Odds: Not yet available</div><div class="wager-row"><label class="wager-label" for="wager-8">Wager (pts)</label><input id="wager-8" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for Sami Zayn"></div></div></div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Pending • Max 25 • Pick 1 of 2</span></div></div></section></section>
+
+    <section class="bottom-actions" aria-label="Submission actions">
+      <div class="commit-meta">Total Wagered: <strong><span id="commit-total-wagered">0.0</span> / <span id="commit-bankroll">50</span></strong></div>
+      <button id="submit-picks" class="copy-btn btn-primary" type="button">Submit Picks</button>
+      <button id="download-picks" class="copy-btn btn-secondary" type="button" hidden>Download Picks</button>
+      <button id="copy-picks-summary" class="copy-btn btn-secondary" type="button" hidden>Copy Picks Summary</button>
+      <div id="submit-feedback" class="submit-feedback" hidden></div>
+    </section>
+
+
+    <footer class="site-footer"><h3>50-point bank per player</h3><p>Enter a wager to select a wrestler or team; clear it or enter 0 to remove the selection. Choose Mert, Fert, or Gert in Player Name before submitting. Finalize the prefilled Google Form, or download/copy your picks using the existing submission controls.</p><p>Allocate exactly 50 points. Minimum 5 per selected wrestler or team. Maximum 25 per match. Select no more than 50% of participants, rounded down. Only one winning outcome per match.</p><p>Winning payout includes the original wager plus profit. Positive odds: wager × odds / 100. Negative odds: wager × 100 / absolute odds. Losing payout: 0. The live tracker displays payouts to two decimal places; pick summaries use the established one-decimal rounding.</p><p>Odds and submitted wagers have not yet been supplied. Potential profit/return estimates are provisional until odds are available. Blank wagers are unsubmitted, not completed allocations. Source snapshot: November 6, 2026. Reloading uses this prepared snapshot; source changes require a page update.</p></footer>
+  </main>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
