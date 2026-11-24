@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survivor Series (SURV2026)</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="live.css">
+  <script>
+    const EVENT = {
+      id: "SURV2026",
+      name: "Survivor Series",
+      city: "Houston, TX",
+      date: "2026-11-28",
+      startTime: "18:00",
+      timeZone: "America/New_York",
+      night: 1,
+      country: "USA",
+      location: "Houston, TX",
+      venue: "Daikin Park",
+      logo: "assets/logos/SURV2026.png",
+      colors: {
+        background: "#001431",
+        text: "#FFFFFF",
+        accent: "#F36F21",
+        accentLight: "#FFD345"
+      }
+    };
+  </script>
+  <style>
+    body {
+      background: #001431;
+      color: #FFFFFF;
+    }
+
+    .container {
+      max-width: 1080px;
+    }
+
+    .event-header {
+      background: #102947;
+      border: 1px solid #F36F21;
+      box-shadow: none;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .event-header::before {
+      display: none;
+    }
+
+    .event-logo {
+      width: min(100%, 920px);
+      max-width: 100%;
+      max-height: 260px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      object-fit: contain;
+      background: #102947;
+      padding: 8px 0;
+    }
+
+    .event-summary-block {
+      margin-top: 14px;
+      padding: 12px 14px;
+      display: grid;
+      gap: 6px;
+      text-align: center;
+      border-top: 1px solid #A7A9AC;
+      border-bottom: 1px solid #A7A9AC;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.00) 100%);
+    }
+
+    .event-summary-line {
+      color: #FFD345;
+      font-weight: 700;
+      font-size: 1.03rem;
+      letter-spacing: 0.02em;
+      line-height: 1.35;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.75), 0 0 8px rgba(229,229,229,0.10);
+    }
+
+    @media (max-width: 700px) {
+      .event-summary-block {
+        margin-top: 10px;
+        padding: 10px 10px;
+        gap: 5px;
+      }
+
+      .event-summary-line {
+        font-size: 0.97rem;
+      }
+    }
+
+    .event-time,
+    .event-meta,
+    .event-meta strong,
+    .summary-title,
+    .summary-row,
+    .summary-row span,
+    .commit-meta,
+    .site-footer,
+    .wager-label,
+    .odds,
+    .name,
+    .validation-message,
+    .bankroll-warning {
+      color: #FFFFFF;
+    }
+
+    .summary-panel,
+    .match-card,
+    .wrestler,
+    .bottom-actions {
+      background: #102947;
+      border-color: #F36F21;
+      box-shadow: none;
+    }
+
+    .copy-btn,
+    .btn-secondary,
+    .btn-primary {
+      background: #213B59;
+      border-color: #A7A9AC;
+      color: #FFFFFF;
+    }
+
+    .copy-btn:hover,
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      background: #8D280F;
+      border-color: #F36F21;
+    }
+
+    .search-input,
+    .player-input,
+    .wager-input {
+      background: #213B59;
+      border-color: #A7A9AC;
+      color: #FFFFFF;
+    }
+
+    .wager-input[type="number"]::-webkit-outer-spin-button,
+    .wager-input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .wager-input[type="number"] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    .page-nav .copy-btn {
+      text-decoration: none;
+    }
+
+    .match-toggle h2 {
+      color: #FFFFFF;
+    }
+
+    .match-status {
+      color: #F36F21;
+    }
+
+    .match-toggle:hover {
+      background: #213B59;
+    }
+
+    .wrestler:hover,
+    .wrestler.wager-active {
+      background: #8D280F;
+      border-color: #A7A9AC;
+      box-shadow: none;
+    }
+
+    .wm-card-header {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #A7A9AC;
+    }
+
+    .wm-card-title-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+      grid-column: 2;
+    }
+
+    .wm-card-header h2,
+    .match-title {
+      text-align: center;
+      color: #FFFFFF;
+      font-size: 1.45rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .wm-competitors {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 0 10px;
+    }
+
+    .wm-competitors .wrestler {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      box-shadow: none;
+      text-align: center;
+    }
+
+    .wm-competitors .wrestler-main {
+      justify-content: center;
+    }
+
+    .wm-competitors .name,
+    .wrestler-name {
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .wm-competitors .champion-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .wm-competitors .belt-slot {
+      width: 38px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 38px;
+    }
+
+    .wm-competitors .belt-icon {
+      max-height: 18px;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .wm-competitors .odds {
+      margin-top: 4px;
+      color: #F36F21;
+    }
+
+    .wm-competitors.multi {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding-top: 10px;
+    }
+
+    .wm-competitors.multi .wrestler {
+      border: 1px solid #3C3C3C;
+      border-radius: 10px;
+      padding: 8px 10px;
+      text-align: left;
+    }
+
+    .wm-competitors.multi .wrestler-main {
+      justify-content: flex-start;
+    }
+
+    .wm-competitors.multi .name,
+    .wm-competitors.multi .wrestler-name {
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .wm-vs {
+      position: relative;
+      color: #F36F21;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0 10px;
+    }
+
+    .wm-vs::before,
+    .wm-vs::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 1px;
+      height: 24px;
+      background: #5A5A5A;
+      transform: translateY(-50%);
+    }
+
+    .wm-vs::before {
+      left: 0;
+    }
+
+    .wm-vs::after {
+      right: 0;
+    }
+
+    .wm-card-footer {
+      border-top: 1px solid #3C3C3C;
+      padding-top: 8px;
+      margin-top: 6px;
+    }
+
+    .wm-card-footer .match-status {
+      color: #F36F21;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    
+    .matches .match-card {
+      margin-bottom: 14px;
+    }
+
+    .matches .match-card:last-child {
+      margin-bottom: 0;
+    }
+    .wm-night-section {
+      margin: 18px 0 24px;
+    }
+
+    .wm-night-banner {
+      border: 1px solid #F36F21;
+      background: #102947;
+      border-radius: 12px;
+      padding: 14px 10px;
+      text-align: center;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    }
+
+    .wm-night-title {
+      margin: 0;
+      color: #FFFFFF;
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .wm-night-subtitle {
+      margin: 4px 0 0;
+      color: #F36F21;
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .points-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      transform: translateY(-110%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 140ms ease, opacity 140ms ease;
+    }
+
+    .points-bar.is-visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .points-bar-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 8px 14px;
+      background: rgba(10, 10, 10, 0.95);
+      border: 1px solid #5A5A5A;
+      border-top: 0;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px 12px;
+    }
+
+    .points-bar-metric {
+      display: grid;
+      gap: 2px;
+    }
+
+    .points-bar-label {
+      color: #F36F21;
+      font-size: 0.74rem;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .points-bar-value {
+      color: #FFFFFF;
+      font-size: 0.94rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+
+    @media (max-width: 768px) {
+      .points-bar-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+
+    }
+    /* Keep two-participant wager controls within narrow screens. */
+    .wm-night-section { min-width: 0; }
+    @media (max-width: 600px) {
+      .wm-competitors { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+      .wm-competitors.multi { grid-template-columns: minmax(0, 1fr); }
+      .wm-competitors:not(.multi) .wager-row { grid-template-columns: minmax(0, 1fr); }
+    }
+    .toggle-icon { color: #FFFFFF; }
+    .match-toggle:hover,
+    .wrestler:hover,
+    .wrestler.wager-active { background: #8D280F; color: #FFFFFF; }
+    .search-input::placeholder,
+    .player-input::placeholder,
+    .wager-input::placeholder { color: #F36F21; opacity: 1; }
+    .scoreboard .player-card {
+      background: #102947;
+      border-color: #F36F21;
+      box-shadow: none;
+    }
+
+    .scoreboard .player-card.leader {
+      background: #213B59;
+      border-color: #A7A9AC;
+      box-shadow: none;
+    }
+
+    .leader-badge {
+      background: #8D280F;
+      border-color: #F36F21;
+      color: #FFFFFF;
+    }
+
+    .player-score {
+      color: #FFD345;
+    }
+
+    .player-stat dt {
+      color: #F36F21;
+    }
+
+    .picks-grid {
+      margin-top: 10px;
+      border-top: 1px solid #3F3F3F;
+      padding-top: 10px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .picks-grid-header {
+      display: grid;
+      grid-template-columns: 88px 1fr 84px 70px;
+      gap: 10px;
+      color: #F36F21;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .picks-grid-row {
+      display: grid;
+      grid-template-columns: 88px 1fr 84px 70px;
+      gap: 10px;
+      align-items: start;
+      font-size: 0.86rem;
+      color: #FFD345;
+      border-top: 1px solid #303030;
+      padding-top: 8px;
+    }
+
+    .picks-player {
+      font-weight: 700;
+      color: #FFD345;
+    }
+
+    .picks-lines {
+      display: grid;
+      gap: 3px;
+      color: #FFFFFF;
+    }
+
+    .picks-line.winning-pick {
+      color: #FFD345;
+      font-weight: 700;
+    }
+
+    .picks-line.losing-pick {
+      color: #BFBFBF;
+    }
+
+    .picks-wager {
+      text-align: right;
+      color: #F36F21;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .picks-status {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .picks-status.win,
+    .picks-status.loss,
+    .picks-status.pending {
+      color: #FFD345;
+    }
+
+    .picks-net {
+      margin-top: 2px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #F36F21;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .player-card.over-limit {
+      border-color: #F36F21;
+      background: #102947;
+    }
+
+    .player-warning {
+      color: #F36F21;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .match-status.issue {
+      color: #F36F21;
+    }
+
+    .match-issue {
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #A7A9AC;
+      background: #102947;
+      color: #FFD345;
+      font-size: 0.84rem;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 700px) {
+      .picks-grid-header,
+      .picks-grid-row {
+        grid-template-columns: 72px 1fr 70px 64px;
+        gap: 8px;
+        font-size: 0.8rem;
+      }
+    }
+    .toggle-icon { color: #FFFFFF; }
+    .match-toggle:hover,
+    .wrestler:hover,
+    .wrestler.wager-active { background: #8D280F; color: #FFFFFF; }
+    .search-input::placeholder,
+    .player-input::placeholder,
+    .wager-input::placeholder { color: #F36F21; opacity: 1; }
+    .completed-wagers { grid-template-columns: repeat(3, minmax(0, 1fr)); color: #FFD345; font-size: 0.82rem; }
+    .wm-competitors:not(.multi) .completed-wagers { grid-template-columns: minmax(0, 1fr); }
+    .live-status-line { color: #FFD345; text-align: center; padding: 8px; }
+    .player-name, .player-stat dd { color: #FFD345; }
+  /* Survivor Series: emerald enamel, gold edging, purple championship accents. */
+    .event-header {background:radial-gradient(ellipse at top,#8D280F,#001431 75%);border:1px solid #F36F21;border-top:4px solid #F36F21; border-radius:18px;}
+    .event-header .event-logo {width:min(82%,483px);max-height:230px;margin:24px auto 12px;object-fit:contain;}
+    .match-card {border:1px solid #A7A9AC;border-top:3px solid #F36F21;background:#102947;box-shadow:0 8px 24px #0003;}
+    .wm-card-header {background:transparent;}
+    .match-title {text-align:center;color:#FFFFFF;}
+    .summary-panel,.player-card {background:#102947;border-color:#A7A9AC;}
+    .player-card.leader {border-color:#F36F21;background:linear-gradient(145deg,#8D280F,#102947);}
+    .leader-badge,.btn-primary {background:#F36F21;color:#001431;}
+    .page-nav a,.match-controls button {border:1px solid #F36F21;}
+    .site-footer {color:#FFFFFF;background:#102947;border-top:2px solid #F36F21;padding:20px;line-height:1.6;}
+    .site-footer h3 {color:#FFD345;}
+    button:focus-visible,a:focus-visible {outline:3px solid #FFD345;outline-offset:3px;}
+    @media(max-width:480px){.picks-grid-header,.picks-grid-row {grid-template-columns:45px minmax(0,1fr) 48px 66px;gap:5px;font-size:.74rem;}.container{padding-left:10px;padding-right:10px;}.wrestler-name{overflow-wrap:anywhere;}}
+  
+    :root {--text:#FFFFFF;--muted:#E4E9F0;--card:#102947;--accent:#F36F21;--accent-strong:#FFD345;}
+    .summary-row,.wager-label,.commit-meta {color:#E4E9F0;}
+    .summary-row span,.summary-title,.commit-meta strong {color:#FFFFFF;}
+    .player-input,.search-input,.wager-input {background:#001431;color:#FFFFFF;border-color:#A7A9AC;}
+    .bottom-actions {background:#102947;border-color:#A7A9AC;}
+    .copy-btn:disabled {opacity:.5;cursor:not-allowed;}
+    .match-rule-message {background:#213B59;border-color:#F36F21;color:#FFFFFF;}
+    .match-card.rule-invalid {border-color:#FFD345;}
+    .validation-message,.submit-feedback,.bankroll-warning {color:#FFD345 !important;}
+    .wrestler.wager-active {border-color:#F36F21;box-shadow:inset 3px 0 #F36F21;}
+    .wm-card-title-wrap,.match-toggle-meta {width:100%;text-align:center;}
+    .btn-primary:hover {background:#FFD345;color:#001431;}
+      .match-toggle .wm-card-header {flex:1;min-width:0;}
+  </style>
+</head>
+<body>
+  <main class="container" data-event-id="SURV2026" data-bankroll="50">
+    <header class="event-header" data-event-name="Survivor Series">
+      <img class="event-logo" src="assets/logos/SURV2026.png" alt="Survivor Series logo">
+      <div class="event-summary-block" aria-label="Event summary">
+        <div class="event-summary-line">Saturday, November 28th, 2026</div>
+        <div class="event-summary-line">Daikin Park, Houston, TX, USA</div>
+        <div class="event-summary-line">18:00 ET</div>
+      </div>
+      <div class="live-status-line"><strong>Status:</strong> Pending | <strong>Matches completed:</strong> 0 / 4</div>
+    </header>
+
+    <nav class="page-nav" aria-label="Page navigation">
+      <a class="copy-btn btn-secondary" href="index.html">Home</a>
+      <a class="copy-btn btn-primary" href="event_SURV2026.html">Make Picks</a>
+      <a class="copy-btn btn-secondary" href="live_SURV2026.html">Live Tracker</a>
+    </nav>
+
+
+    <section class="controls" aria-label="Event tools">
+      <input id="player-name" class="player-input" type="text" placeholder="Player Name: Mert, Fert, or Gert" list="players" aria-label="Player Name" autocomplete="name">
+      <input id="wrestler-search" class="search-input" type="search" placeholder="Search wrestlers..." autocomplete="off">
+    <datalist id="players"><option value="Mert"><option value="Fert"><option value="Gert"></datalist></section>
+
+    <section class="match-controls" aria-label="Match controls">
+      <button id="expand-all" class="copy-btn btn-secondary" type="button">Expand all</button>
+      <button id="collapse-all" class="copy-btn btn-secondary" type="button">Collapse all</button>
+    </section>
+
+    <section class="summary-panel" aria-live="polite">
+      <h3 class="summary-title">Your Picks Summary</h3>
+      <div class="summary-grid">
+        <div class="summary-col">
+          <div class="summary-row"><strong>Total Points Available:</strong> <span id="total-available">50</span></div>
+          <div class="summary-row"><strong>Total Wagered:</strong> <span id="total-wagered">0.0</span></div>
+          <div class="summary-row"><strong>Remaining Points:</strong> <span id="remaining-points">50.0</span></div>
+          <div class="summary-row"><strong>Matches Not Wagered On:</strong> <span id="matches-not-wagered">0</span></div>
+        </div>
+        <div class="summary-col">
+          <div class="summary-row"><strong>Avg Wager Remaining:</strong> <span id="avg-wager-remaining">N/A</span></div>
+          <div class="summary-row"><strong>Total Potential Profit:</strong> <span id="total-profit">0.0</span></div>
+          <div class="summary-row"><strong>Total Potential Return:</strong> <span id="total-return">0.0</span></div>
+        </div>
+      </div>
+      <div id="validation-message" class="validation-message" hidden></div>
+      <div id="bankroll-warning" class="bankroll-warning" hidden>Over limit: total wager exceeds 50 point bankroll.</div>
+    </section>
+    <section class="summary-panel"><h3 class="summary-title">Wagering Rules</h3><p>Allocate all 50 points. Wager at least 5 points per selection, no more than 25 points per match, and on no more than half of each match’s participants (rounded down). Each match has one winning outcome.</p><p>Odds and potential returns are pending.</p></section>
+    <section class="matches"><section class="match-card" data-night="Night 1" data-match-code="SURV01"><button class="match-toggle" type="button" aria-expanded="true"><div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Women&#x27;s War Games</h2></div></div><span class="toggle-icon" aria-hidden="true">▾</span></button><div class="match-body"><div class="wm-competitors"><div class="wrestler" data-match="Women&#x27;s War Games" data-match-code="SURV01" data-odds="" data-result="" data-current-champ="N"><div class="wrestler-main"><span class="name"><span class="wrestler-name">Team Charlotte</span></span></div><div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label" for="wager-1">Wager (pts)</label><input id="wager-1" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for Team Charlotte"></div></div><div class="wm-vs">vs</div><div class="wrestler" data-match="Women&#x27;s War Games" data-match-code="SURV01" data-odds="" data-result="" data-current-champ="N"><div class="wrestler-main"><span class="name"><span class="wrestler-name">Team Jade</span></span></div><div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label" for="wager-2">Wager (pts)</label><input id="wager-2" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for Team Jade"></div></div></div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Pending • Max 25 • Pick 1 of 2</span></div></div></section><section class="match-card" data-night="Night 1" data-match-code="SURV02"><button class="match-toggle" type="button" aria-expanded="true"><div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Women&#x27;s World Championship</h2></div></div><span class="toggle-icon" aria-hidden="true">▾</span></button><div class="match-body"><div class="wm-competitors"><div class="wrestler" data-match="Women&#x27;s World Championship" data-match-code="SURV02" data-odds="" data-result="" data-current-champ="Y"><div class="wrestler-main"><span class="name"><span class="wrestler-name">Liv Morgan</span><span class="belt-slot"><img class="belt-icon" src="assets/belts/Womens_World.png" alt="Current champion belt"></span></span></div><div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label" for="wager-3">Wager (pts)</label><input id="wager-3" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for Liv Morgan"></div></div><div class="wm-vs">vs</div><div class="wrestler" data-match="Women&#x27;s World Championship" data-match-code="SURV02" data-odds="" data-result="" data-current-champ="N"><div class="wrestler-main"><span class="name"><span class="wrestler-name">Becky Lynch</span></span></div><div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label" for="wager-4">Wager (pts)</label><input id="wager-4" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for Becky Lynch"></div></div></div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Pending • Max 25 • Pick 1 of 2</span></div></div></section><section class="match-card" data-night="Night 1" data-match-code="SURV03"><button class="match-toggle" type="button" aria-expanded="true"><div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Survivor Series</h2></div></div><span class="toggle-icon" aria-hidden="true">▾</span></button><div class="match-body"><div class="wm-competitors"><div class="wrestler" data-match="Survivor Series" data-match-code="SURV03" data-odds="" data-result="" data-current-champ="N"><div class="wrestler-main"><span class="name"><span class="wrestler-name">Team USA</span></span><span aria-hidden="true" style="margin-left: 0.35em">🇺🇸</span></div><div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label" for="wager-5">Wager (pts)</label><input id="wager-5" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for Team USA"></div></div><div class="wm-vs">vs</div><div class="wrestler" data-match="Survivor Series" data-match-code="SURV03" data-odds="" data-result="" data-current-champ="N"><div class="wrestler-main"><span class="name"><span class="wrestler-name">Team Mexico</span></span><span aria-hidden="true" style="margin-left: 0.35em">🇲🇽</span></div><div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label" for="wager-6">Wager (pts)</label><input id="wager-6" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for Team Mexico"></div></div></div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Pending • Max 25 • Pick 1 of 2</span></div></div></section><section class="match-card" data-night="Night 1" data-match-code="SURV04"><button class="match-toggle" type="button" aria-expanded="true"><div class="wm-card-header"><div class="wm-card-title-wrap"><h2 class="match-title">Men&#x27;s War Games</h2></div></div><span class="toggle-icon" aria-hidden="true">▾</span></button><div class="match-body"><div class="wm-competitors"><div class="wrestler" data-match="Men&#x27;s War Games" data-match-code="SURV04" data-odds="" data-result="" data-current-champ="N"><div class="wrestler-main"><span class="name"><span class="wrestler-name">The Bloodline</span></span></div><div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label" for="wager-7">Wager (pts)</label><input id="wager-7" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for The Bloodline"></div></div><div class="wm-vs">vs</div><div class="wrestler" data-match="Men&#x27;s War Games" data-match-code="SURV04" data-odds="" data-result="" data-current-champ="N"><div class="wrestler-main"><span class="name"><span class="wrestler-name">946</span></span></div><div class="odds">Odds: TBD</div><div class="wager-row"><label class="wager-label" for="wager-8">Wager (pts)</label><input id="wager-8" class="wager-input" type="number" min="0" max="25" step="0.5" value="" placeholder="0" aria-label="Wager for 946"></div></div></div><div class="wm-card-footer"><span class="match-status match-rules-footer">Status: Pending • Max 25 • Pick 1 of 2</span></div></div></section></section>
+<section class="bottom-actions" aria-label="Submission actions">
+      <div class="commit-meta">Total Wagered: <strong><span id="commit-total-wagered">0.0</span> / <span id="commit-bankroll">50</span></strong></div>
+      <button id="submit-picks" class="copy-btn btn-primary" type="button">Submit Picks</button>
+      <button id="download-picks" class="copy-btn btn-secondary" type="button" hidden>Download Picks</button>
+      <button id="copy-picks-summary" class="copy-btn btn-secondary" type="button" hidden>Copy Picks Summary</button>
+      <div id="submit-feedback" class="submit-feedback" hidden></div>
+    </section>
+
+
+  </main>
+
+  <script src="app.js" defer></script>
+  <script>document.addEventListener('DOMContentLoaded', function () {
+    function updateUnknownReturns() {
+      const unknown = Array.from(document.querySelectorAll('.wager-input')).some(function (input) { return Number(input.value) > 0 && !input.closest('.wrestler').getAttribute('data-odds'); });
+      if (unknown) { document.getElementById('total-profit').textContent = 'TBD'; document.getElementById('total-return').textContent = 'TBD'; }
+    }
+    document.querySelectorAll('.wager-input').forEach(function (input) { input.addEventListener('input', function () { queueMicrotask(updateUnknownReturns); }); input.addEventListener('change', function () { queueMicrotask(updateUnknownReturns); }); });
+  });</script>
+</body>
+</html>
